@@ -1,3 +1,4 @@
+```html
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -27,6 +28,8 @@
     --message: #252936;
     --input: #171a22;
     --danger: #ff5f6d;
+    --success: #55d88a;
+
     --shadow:
         0 20px 50px rgba(0,0,0,.35),
         inset 0 1px 0 rgba(255,255,255,.025);
@@ -44,6 +47,7 @@ body.light {
     --muted: #707488;
     --message: #e9eaf1;
     --input: #f1f2f7;
+
     --shadow:
         0 20px 50px rgba(31,35,55,.12),
         inset 0 1px 0 rgba(255,255,255,.7);
@@ -59,9 +63,18 @@ body {
 body {
     font-family: "Montserrat", sans-serif;
     background:
-        radial-gradient(circle at 15% 10%, rgba(124,92,255,.12), transparent 30%),
-        radial-gradient(circle at 85% 90%, rgba(124,92,255,.08), transparent 30%),
+        radial-gradient(
+            circle at 15% 10%,
+            rgba(124,92,255,.12),
+            transparent 30%
+        ),
+        radial-gradient(
+            circle at 85% 90%,
+            rgba(124,92,255,.08),
+            transparent 30%
+        ),
         var(--bg);
+
     color: var(--text);
     overflow: hidden;
 }
@@ -75,9 +88,9 @@ button {
     cursor: pointer;
 }
 
-/* =========================
+/* =========================================================
    AUTH
-========================= */
+========================================================= */
 
 #authScreen {
     width: 100%;
@@ -91,8 +104,10 @@ button {
 .auth-card {
     width: min(430px, 100%);
     padding: 35px;
+
     border: 1px solid var(--border);
     border-radius: 28px;
+
     background:
         linear-gradient(
             145deg,
@@ -100,21 +115,33 @@ button {
             rgba(255,255,255,.01)
         ),
         var(--panel);
+
     box-shadow: var(--shadow);
 }
 
 .logo {
     width: 64px;
     height: 64px;
+
     margin: 0 auto 18px;
+
     display: flex;
     align-items: center;
     justify-content: center;
+
     border-radius: 20px;
+
     font-size: 30px;
     font-weight: 700;
     color: white;
-    background: linear-gradient(145deg, var(--accent2), var(--accent));
+
+    background:
+        linear-gradient(
+            145deg,
+            var(--accent2),
+            var(--accent)
+        );
+
     box-shadow:
         0 12px 30px rgba(124,92,255,.3),
         inset 0 2px 2px rgba(255,255,255,.25);
@@ -147,31 +174,47 @@ button {
 .field input {
     width: 100%;
     height: 48px;
+
     padding: 0 15px;
+
     border: 1px solid var(--border);
     outline: none;
     border-radius: 14px;
+
     color: var(--text);
     background: var(--input);
+
     transition: .2s;
 }
 
 .field input:focus {
     border-color: var(--accent);
-    box-shadow: 0 0 0 3px rgba(124,92,255,.12);
+
+    box-shadow:
+        0 0 0 3px rgba(124,92,255,.12);
 }
 
 .primary-btn {
     width: 100%;
     height: 49px;
+
     border: 0;
     border-radius: 14px;
+
     color: white;
     font-weight: 700;
-    background: linear-gradient(145deg, var(--accent2), var(--accent));
+
+    background:
+        linear-gradient(
+            145deg,
+            var(--accent2),
+            var(--accent)
+        );
+
     box-shadow:
         0 10px 25px rgba(124,92,255,.25),
         inset 0 1px 1px rgba(255,255,255,.25);
+
     transition: .2s;
 }
 
@@ -182,9 +225,12 @@ button {
 .secondary-btn {
     width: 100%;
     height: 45px;
+
     margin-top: 10px;
+
     border: 1px solid var(--border);
     border-radius: 13px;
+
     background: var(--panel2);
     color: var(--text);
 }
@@ -192,6 +238,7 @@ button {
 .auth-switch {
     text-align: center;
     margin-top: 18px;
+
     color: var(--muted);
     font-size: 12px;
 }
@@ -210,9 +257,9 @@ button {
     margin: 5px 0 10px;
 }
 
-/* =========================
+/* =========================================================
    APP
-========================= */
+========================================================= */
 
 #app {
     width: 100%;
@@ -223,31 +270,40 @@ button {
 .app-shell {
     width: min(1500px, 100%);
     height: 100%;
+
     margin: auto;
+
     display: flex;
+
     padding: 16px;
     gap: 16px;
 }
 
-/* =========================
+/* =========================================================
    SIDEBAR
-========================= */
+========================================================= */
 
 .sidebar {
     width: 340px;
     min-width: 340px;
     height: 100%;
+
     display: flex;
     flex-direction: column;
+
     border: 1px solid var(--border);
     border-radius: 25px;
+
     background: var(--panel);
+
     box-shadow: var(--shadow);
+
     overflow: hidden;
 }
 
 .sidebar-top {
     padding: 20px;
+
     border-bottom: 1px solid var(--border);
 }
 
@@ -266,13 +322,23 @@ button {
 .brand-icon {
     width: 39px;
     height: 39px;
+
     display: flex;
     align-items: center;
     justify-content: center;
+
     border-radius: 12px;
+
     color: white;
     font-weight: 700;
-    background: linear-gradient(145deg, var(--accent2), var(--accent));
+
+    background:
+        linear-gradient(
+            145deg,
+            var(--accent2),
+            var(--accent)
+        );
+
     box-shadow:
         inset 0 1px 1px rgba(255,255,255,.2),
         0 7px 15px rgba(124,92,255,.2);
@@ -291,10 +357,13 @@ button {
 .icon-btn {
     width: 38px;
     height: 38px;
+
     border: 1px solid var(--border);
     border-radius: 12px;
+
     background: var(--panel2);
     color: var(--text);
+
     transition: .2s;
 }
 
@@ -305,7 +374,9 @@ button {
 
 .current-user {
     margin-top: 13px;
+
     color: var(--accent2);
+
     font-size: 12px;
     font-weight: 600;
 }
@@ -318,33 +389,44 @@ button {
 .search-box input {
     width: 100%;
     height: 46px;
+
     padding: 0 14px 0 42px;
+
     border: 1px solid var(--border);
     border-radius: 14px;
+
     outline: none;
+
     color: var(--text);
     background: var(--input);
 }
 
 .search-box span {
     position: absolute;
+
     left: 15px;
     top: 13px;
+
     color: var(--muted);
 }
 
 .list-title {
     padding: 16px 20px 8px;
+
     color: var(--muted);
+
     font-size: 11px;
     font-weight: 700;
+
     text-transform: uppercase;
     letter-spacing: .8px;
 }
 
 .chat-list {
     flex: 1;
+
     overflow-y: auto;
+
     padding: 5px 10px 15px;
 }
 
@@ -361,16 +443,23 @@ button {
 
 .chat-item {
     width: 100%;
+
     padding: 12px;
     margin-bottom: 5px;
+
     display: flex;
     align-items: center;
+
     gap: 12px;
+
     border: 1px solid transparent;
     border-radius: 16px;
+
     background: transparent;
     color: var(--text);
+
     text-align: left;
+
     transition: .2s;
 }
 
@@ -380,25 +469,39 @@ button {
 }
 
 .chat-item.active {
-    background: linear-gradient(
-        145deg,
-        rgba(124,92,255,.16),
-        rgba(124,92,255,.05)
-    );
-    border-color: rgba(124,92,255,.35);
+    background:
+        linear-gradient(
+            145deg,
+            rgba(124,92,255,.16),
+            rgba(124,92,255,.05)
+        );
+
+    border-color:
+        rgba(124,92,255,.35);
 }
 
 .avatar {
     width: 43px;
     height: 43px;
+
     flex-shrink: 0;
+
     display: flex;
     align-items: center;
     justify-content: center;
+
     border-radius: 14px;
+
     color: white;
     font-weight: 700;
-    background: linear-gradient(145deg, var(--accent2), var(--accent));
+
+    background:
+        linear-gradient(
+            145deg,
+            var(--accent2),
+            var(--accent)
+        );
+
     box-shadow:
         inset 0 1px 2px rgba(255,255,255,.25),
         0 6px 15px rgba(0,0,0,.2);
@@ -412,6 +515,7 @@ button {
 .chat-name {
     font-size: 13px;
     font-weight: 700;
+
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
@@ -419,8 +523,11 @@ button {
 
 .chat-preview {
     margin-top: 4px;
+
     color: var(--muted);
+
     font-size: 11px;
+
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
@@ -428,48 +535,67 @@ button {
 
 .chat-time {
     align-self: flex-start;
+
     color: var(--muted);
+
     font-size: 9px;
+
     white-space: nowrap;
 }
 
 .empty-list {
     padding: 35px 20px;
+
     text-align: center;
+
     color: var(--muted);
+
     font-size: 12px;
 }
 
-/* =========================
+/* =========================================================
    CHAT
-========================= */
+========================================================= */
 
 .chat-panel {
     min-width: 0;
+
     flex: 1;
     height: 100%;
+
     display: flex;
     flex-direction: column;
+
     border: 1px solid var(--border);
     border-radius: 25px;
+
     background: var(--panel);
+
     box-shadow: var(--shadow);
+
     overflow: hidden;
 }
 
 .chat-header {
     height: 78px;
+
     flex-shrink: 0;
+
     padding: 0 22px;
+
     display: flex;
     align-items: center;
+
     gap: 13px;
+
     border-bottom: 1px solid var(--border);
-    background: linear-gradient(
-        180deg,
-        rgba(255,255,255,.025),
-        transparent
-    );
+
+    background:
+        linear-gradient(
+            180deg,
+            rgba(255,255,255,.025),
+            transparent
+        );
 }
 
 .header-info {
@@ -489,35 +615,56 @@ button {
 
 .messages {
     flex: 1;
+
     overflow-y: auto;
+
     padding: 24px;
+
     display: flex;
     flex-direction: column;
+
     gap: 8px;
 }
 
 .empty-chat {
     height: 100%;
+
     display: flex;
     align-items: center;
     justify-content: center;
+
     flex-direction: column;
+
     color: var(--muted);
+
     text-align: center;
 }
 
 .empty-chat-icon {
     width: 70px;
     height: 70px;
+
     display: flex;
     align-items: center;
     justify-content: center;
+
     margin-bottom: 15px;
+
     border-radius: 22px;
+
     color: white;
+
     font-size: 28px;
-    background: linear-gradient(145deg, var(--accent2), var(--accent));
-    box-shadow: 0 15px 35px rgba(124,92,255,.22);
+
+    background:
+        linear-gradient(
+            145deg,
+            var(--accent2),
+            var(--accent)
+        );
+
+    box-shadow:
+        0 15px 35px rgba(124,92,255,.22);
 }
 
 .empty-chat strong {
@@ -540,51 +687,69 @@ button {
 
 .message {
     max-width: min(70%, 650px);
+
     padding: 10px 13px 8px;
+
     border: 1px solid var(--border);
     border-radius: 17px;
+
     background: var(--message);
-    box-shadow: 0 5px 15px rgba(0,0,0,.08);
+
+    box-shadow:
+        0 5px 15px rgba(0,0,0,.08);
 }
 
 .message-row.mine .message {
-    border-color: rgba(124,92,255,.25);
-    background: linear-gradient(
-        145deg,
-        rgba(124,92,255,.28),
-        rgba(124,92,255,.15)
-    );
+    border-color:
+        rgba(124,92,255,.25);
+
+    background:
+        linear-gradient(
+            145deg,
+            rgba(124,92,255,.28),
+            rgba(124,92,255,.15)
+        );
 }
 
 .message-text {
     font-size: 13px;
     line-height: 1.45;
+
     white-space: pre-wrap;
     overflow-wrap: anywhere;
 }
 
 .message-time {
     margin-top: 4px;
+
     text-align: right;
+
     color: var(--muted);
+
     font-size: 8px;
 }
 
 .composer {
     padding: 15px;
+
     display: flex;
     gap: 9px;
+
     border-top: 1px solid var(--border);
 }
 
 .composer input {
     min-width: 0;
     flex: 1;
+
     height: 48px;
+
     padding: 0 16px;
+
     border: 1px solid var(--border);
     outline: none;
     border-radius: 15px;
+
     color: var(--text);
     background: var(--input);
 }
@@ -596,43 +761,77 @@ button {
 .send-btn {
     width: 50px;
     height: 48px;
+
     border: 0;
     border-radius: 15px;
+
     color: white;
+
     font-size: 18px;
-    background: linear-gradient(145deg, var(--accent2), var(--accent));
-    box-shadow: 0 8px 20px rgba(124,92,255,.25);
+
+    background:
+        linear-gradient(
+            145deg,
+            var(--accent2),
+            var(--accent)
+        );
+
+    box-shadow:
+        0 8px 20px rgba(124,92,255,.25);
 }
 
-/* =========================
+.send-btn:disabled,
+.composer input:disabled {
+    opacity: .45;
+    cursor: not-allowed;
+}
+
+/* =========================================================
    SETTINGS
-========================= */
+========================================================= */
 
 .overlay {
     position: fixed;
+
     inset: 0;
+
     z-index: 100;
+
     display: none;
+
     align-items: center;
     justify-content: center;
+
     padding: 20px;
+
     background: rgba(0,0,0,.58);
+
     backdrop-filter: blur(10px);
 }
 
 .settings-card {
     width: min(460px, 100%);
+
+    max-height: 90vh;
+
+    overflow-y: auto;
+
     padding: 25px;
+
     border: 1px solid var(--border);
     border-radius: 25px;
+
     background: var(--panel);
-    box-shadow: 0 30px 80px rgba(0,0,0,.45);
+
+    box-shadow:
+        0 30px 80px rgba(0,0,0,.45);
 }
 
 .settings-head {
     display: flex;
     align-items: center;
     justify-content: space-between;
+
     margin-bottom: 24px;
 }
 
@@ -644,8 +843,10 @@ button {
 .close-btn {
     width: 36px;
     height: 36px;
+
     border: 1px solid var(--border);
     border-radius: 11px;
+
     background: var(--panel2);
     color: var(--text);
 }
@@ -656,6 +857,7 @@ button {
 
 .setting-title {
     margin-bottom: 10px;
+
     font-size: 12px;
     font-weight: 700;
 }
@@ -667,51 +869,139 @@ button {
 
 .theme-btn {
     flex: 1;
+
     height: 45px;
+
     border: 1px solid var(--border);
     border-radius: 13px;
+
     background: var(--panel2);
     color: var(--text);
 }
 
 .theme-btn.active {
     border-color: var(--accent);
-    background: rgba(124,92,255,.13);
+
+    background:
+        rgba(124,92,255,.13);
 }
 
 .settings-input {
     width: 100%;
     height: 45px;
+
     padding: 0 13px;
+
     border: 1px solid var(--border);
     outline: none;
     border-radius: 13px;
+
     color: var(--text);
     background: var(--input);
 }
 
 .settings-message {
     min-height: 18px;
+
     margin-top: 7px;
+
     color: var(--muted);
+
     font-size: 10px;
 }
 
 .danger-btn {
     width: 100%;
     height: 44px;
+
     border: 1px solid rgba(255,95,109,.3);
     border-radius: 13px;
-    background: rgba(255,95,109,.08);
+
+    background:
+        rgba(255,95,109,.08);
+
     color: var(--danger);
+
     font-weight: 600;
 }
 
-/* =========================
+/* =========================================================
+   NOTIFICATIONS
+========================================================= */
+
+.notification-status {
+    display: flex;
+    align-items: center;
+    gap: 9px;
+
+    margin-bottom: 10px;
+
+    padding: 11px 12px;
+
+    border: 1px solid var(--border);
+    border-radius: 13px;
+
+    background: var(--panel2);
+
+    font-size: 11px;
+}
+
+.notification-dot {
+    width: 9px;
+    height: 9px;
+
+    flex-shrink: 0;
+
+    border-radius: 50%;
+
+    background: var(--muted);
+}
+
+.notification-dot.enabled {
+    background: var(--success);
+
+    box-shadow:
+        0 0 10px rgba(85,216,138,.5);
+}
+
+.notification-dot.blocked {
+    background: var(--danger);
+}
+
+.notification-btn {
+    width: 100%;
+    height: 45px;
+
+    border: 1px solid var(--border);
+    border-radius: 13px;
+
+    background: var(--panel2);
+    color: var(--text);
+
+    font-weight: 600;
+
+    transition: .2s;
+}
+
+.notification-btn:hover {
+    border-color: var(--accent);
+
+    transform: translateY(-1px);
+}
+
+.notification-btn.enabled {
+    border-color:
+        rgba(85,216,138,.35);
+
+    color: var(--success);
+}
+
+/* =========================================================
    MOBILE
-========================= */
+========================================================= */
 
 @media (max-width: 800px) {
+
     body {
         overflow: auto;
     }
@@ -725,13 +1015,16 @@ button {
     .sidebar {
         width: 100%;
         min-width: 0;
+
         border-radius: 0;
         border: 0;
     }
 
     .chat-panel {
         display: none;
+
         width: 100%;
+
         border-radius: 0;
         border: 0;
     }
@@ -757,26 +1050,38 @@ button {
     display: none;
 }
 
-/* =========================
+/* =========================================================
    TOAST
-========================= */
+========================================================= */
 
 .toast {
     position: fixed;
+
     z-index: 300;
+
     right: 20px;
     bottom: 20px;
+
     max-width: 320px;
+
     padding: 13px 16px;
+
     border: 1px solid var(--border);
     border-radius: 14px;
+
     color: var(--text);
     background: var(--panel);
+
     box-shadow: var(--shadow);
+
     font-size: 12px;
+
     transform: translateY(20px);
+
     opacity: 0;
+
     pointer-events: none;
+
     transition: .25s;
 }
 
@@ -789,9 +1094,9 @@ button {
 
 <body>
 
-<!-- =========================
-     LOGIN / SIGNUP
-========================= -->
+<!-- =====================================================
+     AUTH
+===================================================== -->
 
 <div id="authScreen">
 
@@ -807,26 +1112,53 @@ button {
 
         <div class="field">
             <label>Email</label>
-            <input id="emailInput" type="email" placeholder="you@example.com">
+
+            <input
+                id="emailInput"
+                type="email"
+                placeholder="you@example.com"
+            >
         </div>
 
         <div class="field">
             <label>Password</label>
-            <input id="passwordInput" type="password" placeholder="Password">
+
+            <input
+                id="passwordInput"
+                type="password"
+                placeholder="Password"
+            >
         </div>
 
-        <div class="field" id="signupUsernameField">
+        <div
+            class="field"
+            id="signupUsernameField"
+        >
             <label>Username</label>
-            <input id="usernameInput" type="text" placeholder="your_username">
+
+            <input
+                id="usernameInput"
+                type="text"
+                placeholder="your_username"
+            >
         </div>
 
-        <div class="error" id="authError"></div>
+        <div
+            class="error"
+            id="authError"
+        ></div>
 
-        <button class="primary-btn" id="authButton">
+        <button
+            class="primary-btn"
+            id="authButton"
+        >
             Create Account
         </button>
 
-        <button class="secondary-btn" id="authModeButton">
+        <button
+            class="secondary-btn"
+            id="authModeButton"
+        >
             I already have an account
         </button>
 
@@ -839,15 +1171,19 @@ button {
 </div>
 
 
-<!-- =========================
+<!-- =====================================================
      APP
-========================= -->
+===================================================== -->
 
 <div id="app">
 
-    <div class="app-shell" id="appShell">
+    <div
+        class="app-shell"
+        id="appShell"
+    >
 
         <!-- SIDEBAR -->
+
         <aside class="sidebar">
 
             <div class="sidebar-top">
@@ -872,19 +1208,26 @@ button {
                             class="icon-btn"
                             id="settingsButton"
                             title="Settings"
-                        >⚙</button>
+                        >
+                            ⚙
+                        </button>
 
                         <button
                             class="icon-btn"
                             id="logoutButton"
                             title="Log out"
-                        >↪</button>
+                        >
+                            ↪
+                        </button>
 
                     </div>
 
                 </div>
 
-                <div class="current-user" id="currentUsername">
+                <div
+                    class="current-user"
+                    id="currentUsername"
+                >
                     @loading
                 </div>
 
@@ -903,22 +1246,27 @@ button {
 
             </div>
 
-            <div class="list-title" id="listTitle">
+            <div
+                class="list-title"
+                id="listTitle"
+            >
                 Recent chats
             </div>
 
-            <div class="chat-list" id="chatList">
-
+            <div
+                class="chat-list"
+                id="chatList"
+            >
                 <div class="empty-list">
                     No conversations yet.
                 </div>
-
             </div>
 
         </aside>
 
 
-        <!-- CHAT PANEL -->
+        <!-- CHAT -->
+
         <main class="chat-panel">
 
             <header class="chat-header">
@@ -926,19 +1274,30 @@ button {
                 <button
                     class="icon-btn mobile-back"
                     id="backButton"
-                >←</button>
+                >
+                    ←
+                </button>
 
-                <div class="avatar" id="headerAvatar">
+                <div
+                    class="avatar"
+                    id="headerAvatar"
+                >
                     ?
                 </div>
 
                 <div class="header-info">
 
-                    <div class="header-name" id="headerName">
+                    <div
+                        class="header-name"
+                        id="headerName"
+                    >
                         Select a chat
                     </div>
 
-                    <div class="header-username" id="headerUsername">
+                    <div
+                        class="header-username"
+                        id="headerUsername"
+                    >
                         Search for someone by username
                     </div>
 
@@ -947,7 +1306,10 @@ button {
             </header>
 
 
-            <section class="messages" id="messages">
+            <section
+                class="messages"
+                id="messages"
+            >
 
                 <div class="empty-chat">
 
@@ -995,11 +1357,14 @@ button {
 </div>
 
 
-<!-- =========================
+<!-- =====================================================
      SETTINGS
-========================= -->
+===================================================== -->
 
-<div class="overlay" id="settingsOverlay">
+<div
+    class="overlay"
+    id="settingsOverlay"
+>
 
     <div class="settings-card">
 
@@ -1016,6 +1381,8 @@ button {
 
         </div>
 
+
+        <!-- APPEARANCE -->
 
         <div class="setting">
 
@@ -1043,6 +1410,39 @@ button {
 
         </div>
 
+
+        <!-- NOTIFICATIONS -->
+
+        <div class="setting">
+
+            <div class="setting-title">
+                Notifications
+            </div>
+
+            <div class="notification-status">
+
+                <div
+                    class="notification-dot"
+                    id="notificationDot"
+                ></div>
+
+                <span id="notificationStatus">
+                    Notifications are disabled.
+                </span>
+
+            </div>
+
+            <button
+                class="notification-btn"
+                id="notificationButton"
+            >
+                🔔 Enable Notifications
+            </button>
+
+        </div>
+
+
+        <!-- USERNAME -->
 
         <div class="setting">
 
@@ -1085,10 +1485,14 @@ button {
 </div>
 
 
-<div class="toast" id="toast"></div>
+<div
+    class="toast"
+    id="toast"
+></div>
 
 
 <script>
+
 /* =========================================================
    SUPABASE
 ========================================================= */
@@ -1111,43 +1515,60 @@ const supabaseClient =
 ========================================================= */
 
 let currentUser = null;
+
 let currentProfile = null;
+
 let currentChatUser = null;
+
 let realtimeChannel = null;
+
 let authMode = "signup";
+
+let searchTimeout = null;
+
+let toastTimer = null;
 
 
 /* =========================================================
-   ELEMENT HELPER
-   Prevents "Cannot set properties of null"
+   SAFE ELEMENT HELPERS
 ========================================================= */
 
 function $(id) {
     return document.getElementById(id);
 }
 
+
 function on(id, event, callback) {
+
     const element = $(id);
 
     if (!element) {
+
         console.warn(
             "AstroChat: Element not found:",
             id
         );
+
         return;
     }
 
-    element.addEventListener(event, callback);
+    element.addEventListener(
+        event,
+        callback
+    );
 }
 
 
 /* =========================================================
-   HTML ESCAPING
+   ESCAPE HTML
 ========================================================= */
 
 function escapeHTML(value) {
 
-    if (value === null || value === undefined) {
+    if (
+        value === null ||
+        value === undefined
+    ) {
         return "";
     }
 
@@ -1164,22 +1585,27 @@ function escapeHTML(value) {
    TOAST
 ========================================================= */
 
-let toastTimer = null;
-
 function showToast(message) {
 
     const toast = $("toast");
 
     if (!toast) return;
 
-    toast.textContent = message;
+    toast.textContent =
+        message;
+
     toast.classList.add("show");
 
     clearTimeout(toastTimer);
 
-    toastTimer = setTimeout(() => {
-        toast.classList.remove("show");
-    }, 3000);
+    toastTimer =
+        setTimeout(() => {
+
+            toast.classList.remove(
+                "show"
+            );
+
+        }, 3000);
 }
 
 
@@ -1189,18 +1615,26 @@ function showToast(message) {
 
 function updateAuthMode() {
 
-    const usernameField = $("signupUsernameField");
-    const authButton = $("authButton");
-    const modeButton = $("authModeButton");
+    const usernameField =
+        $("signupUsernameField");
+
+    const authButton =
+        $("authButton");
+
+    const modeButton =
+        $("authModeButton");
+
 
     if (authMode === "signup") {
 
         if (usernameField) {
-            usernameField.style.display = "block";
+            usernameField.style.display =
+                "block";
         }
 
         if (authButton) {
-            authButton.textContent = "Create Account";
+            authButton.textContent =
+                "Create Account";
         }
 
         if (modeButton) {
@@ -1211,11 +1645,13 @@ function updateAuthMode() {
     } else {
 
         if (usernameField) {
-            usernameField.style.display = "none";
+            usernameField.style.display =
+                "none";
         }
 
         if (authButton) {
-            authButton.textContent = "Sign In";
+            authButton.textContent =
+                "Sign In";
         }
 
         if (modeButton) {
@@ -1232,14 +1668,23 @@ function updateAuthMode() {
 
 async function handleAuth() {
 
-    const email = $("emailInput")?.value.trim();
-    const password = $("passwordInput")?.value;
-    const username = $("usernameInput")?.value.trim();
-    const error = $("authError");
+    const email =
+        $("emailInput")?.value.trim();
+
+    const password =
+        $("passwordInput")?.value;
+
+    const username =
+        $("usernameInput")?.value.trim();
+
+    const error =
+        $("authError");
+
 
     if (error) {
         error.textContent = "";
     }
+
 
     if (!email || !password) {
 
@@ -1265,7 +1710,11 @@ async function handleAuth() {
         }
 
 
-        if (!/^[a-zA-Z0-9_]+$/.test(username)) {
+        if (
+            !/^[a-zA-Z0-9_]+$/.test(
+                username
+            )
+        ) {
 
             if (error) {
                 error.textContent =
@@ -1287,11 +1736,16 @@ async function handleAuth() {
         }
 
 
-        const { data: existingProfile } =
+        const {
+            data: existingProfile
+        } =
             await supabaseClient
                 .from("profiles")
                 .select("id")
-                .eq("username", username)
+                .eq(
+                    "username",
+                    username
+                )
                 .maybeSingle();
 
 
@@ -1306,7 +1760,10 @@ async function handleAuth() {
         }
 
 
-        const { data, error: signUpError } =
+        const {
+            data,
+            error: signUpError
+        } =
             await supabaseClient.auth.signUp({
                 email,
                 password
@@ -1335,24 +1792,34 @@ async function handleAuth() {
         }
 
 
-        currentUser = data.user;
+        currentUser =
+            data.user;
 
 
         if (data.session) {
 
-            const { error: profileError } =
+            const {
+                error: profileError
+            } =
                 await supabaseClient
                     .from("profiles")
                     .insert({
-                        id: data.user.id,
-                        username: username,
-                        display_name: username
+                        id:
+                            data.user.id,
+
+                        username:
+                            username,
+
+                        display_name:
+                            username
                     });
 
 
             if (profileError) {
 
-                console.error(profileError);
+                console.error(
+                    profileError
+                );
 
                 if (error) {
                     error.textContent =
@@ -1374,14 +1841,17 @@ async function handleAuth() {
             }
         }
 
-
     } else {
 
-        const { data, error: signInError } =
-            await supabaseClient.auth.signInWithPassword({
-                email,
-                password
-            });
+        const {
+            data,
+            error: signInError
+        } =
+            await supabaseClient.auth
+                .signInWithPassword({
+                    email,
+                    password
+                });
 
 
         if (signInError) {
@@ -1395,7 +1865,8 @@ async function handleAuth() {
         }
 
 
-        currentUser = data.user;
+        currentUser =
+            data.user;
 
         await startApp();
     }
@@ -1412,10 +1883,13 @@ async function startApp() {
 
         const {
             data: sessionData
-        } = await supabaseClient.auth.getSession();
+        } =
+            await supabaseClient.auth
+                .getSession();
 
         currentUser =
-            sessionData?.session?.user || null;
+            sessionData?.session?.user ||
+            null;
     }
 
 
@@ -1427,22 +1901,31 @@ async function startApp() {
     }
 
 
-    const authScreen = $("authScreen");
-    const app = $("app");
+    const authScreen =
+        $("authScreen");
+
+    const app =
+        $("app");
+
 
     if (authScreen) {
-        authScreen.style.display = "none";
+        authScreen.style.display =
+            "none";
     }
 
     if (app) {
-        app.style.display = "block";
+        app.style.display =
+            "block";
     }
 
 
     await loadUserProfile();
+
     await loadRecentChats();
 
     subscribeToMessages();
+
+    updateNotificationUI();
 }
 
 
@@ -1458,11 +1941,15 @@ async function loadUserProfile() {
     const {
         data: profile,
         error
-    } = await supabaseClient
-        .from("profiles")
-        .select("*")
-        .eq("id", currentUser.id)
-        .maybeSingle();
+    } =
+        await supabaseClient
+            .from("profiles")
+            .select("*")
+            .eq(
+                "id",
+                currentUser.id
+            )
+            .maybeSingle();
 
 
     if (error) {
@@ -1472,7 +1959,9 @@ async function loadUserProfile() {
             error
         );
 
-        setCurrentUsername("unknown");
+        setCurrentUsername(
+            "unknown"
+        );
 
         return;
     }
@@ -1480,13 +1969,17 @@ async function loadUserProfile() {
 
     if (!profile) {
 
-        setCurrentUsername("unknown");
+        setCurrentUsername(
+            "unknown"
+        );
 
         return;
     }
 
 
-    currentProfile = profile;
+    currentProfile =
+        profile;
+
 
     setCurrentUsername(
         profile.username
@@ -1494,15 +1987,22 @@ async function loadUserProfile() {
 }
 
 
-function setCurrentUsername(username) {
+function setCurrentUsername(
+    username
+) {
 
     const element =
         $("currentUsername");
 
+
     if (element) {
 
         element.textContent =
-            "@" + (username || "unknown");
+            "@" +
+            (
+                username ||
+                "unknown"
+            );
     }
 }
 
@@ -1519,18 +2019,19 @@ async function loadRecentChats() {
     const {
         data: messages,
         error
-    } = await supabaseClient
-        .from("messages")
-        .select("*")
-        .or(
-            `sender_id.eq.${currentUser.id},receiver_id.eq.${currentUser.id}`
-        )
-        .order(
-            "created_at",
-            {
-                ascending: false
-            }
-        );
+    } =
+        await supabaseClient
+            .from("messages")
+            .select("*")
+            .or(
+                `sender_id.eq.${currentUser.id},receiver_id.eq.${currentUser.id}`
+            )
+            .order(
+                "created_at",
+                {
+                    ascending: false
+                }
+            );
 
 
     if (error) {
@@ -1549,28 +2050,42 @@ async function loadRecentChats() {
 
 
     const uniqueUserIds = [];
+
     const latestMessages = {};
 
 
-    for (const message of messages || []) {
+    for (
+        const message
+        of messages || []
+    ) {
 
         const otherId =
-            message.sender_id === currentUser.id
+            message.sender_id ===
+            currentUser.id
                 ? message.receiver_id
                 : message.sender_id;
 
 
-        if (!latestMessages[otherId]) {
+        if (
+            !latestMessages[
+                otherId
+            ]
+        ) {
 
-            latestMessages[otherId] =
-                message;
+            latestMessages[
+                otherId
+            ] = message;
 
-            uniqueUserIds.push(otherId);
+            uniqueUserIds.push(
+                otherId
+            );
         }
     }
 
 
-    if (uniqueUserIds.length === 0) {
+    if (
+        uniqueUserIds.length === 0
+    ) {
 
         renderEmptyChats(
             "No conversations yet."
@@ -1583,15 +2098,21 @@ async function loadRecentChats() {
     const {
         data: profiles,
         error: profileError
-    } = await supabaseClient
-        .from("profiles")
-        .select("*")
-        .in("id", uniqueUserIds);
+    } =
+        await supabaseClient
+            .from("profiles")
+            .select("*")
+            .in(
+                "id",
+                uniqueUserIds
+            );
 
 
     if (profileError) {
 
-        console.error(profileError);
+        console.error(
+            profileError
+        );
 
         renderEmptyChats(
             "Could not load conversations."
@@ -1603,27 +2124,43 @@ async function loadRecentChats() {
 
     const profileMap = {};
 
-    for (const profile of profiles || []) {
-        profileMap[profile.id] = profile;
+
+    for (
+        const profile
+        of profiles || []
+    ) {
+
+        profileMap[
+            profile.id
+        ] = profile;
     }
 
 
-    const chatList = $("chatList");
+    const chatList =
+        $("chatList");
+
 
     if (!chatList) return;
+
 
     chatList.innerHTML = "";
 
 
-    for (const id of uniqueUserIds) {
+    for (
+        const id
+        of uniqueUserIds
+    ) {
 
         const profile =
             profileMap[id];
 
+
         if (!profile) continue;
+
 
         const latest =
             latestMessages[id];
+
 
         createChatItem(
             profile,
@@ -1634,14 +2171,23 @@ async function loadRecentChats() {
 }
 
 
-function renderEmptyChats(message) {
+function renderEmptyChats(
+    message
+) {
 
-    const chatList = $("chatList");
+    const chatList =
+        $("chatList");
+
 
     if (!chatList) return;
 
+
     chatList.innerHTML =
-        `<div class="empty-list">${escapeHTML(message)}</div>`;
+        `
+        <div class="empty-list">
+            ${escapeHTML(message)}
+        </div>
+        `;
 }
 
 
@@ -1649,17 +2195,22 @@ function renderEmptyChats(message) {
    SEARCH
 ========================================================= */
 
-let searchTimeout = null;
+on(
+    "searchInput",
+    "input",
+    () => {
 
-on("searchInput", "input", () => {
+        clearTimeout(
+            searchTimeout
+        );
 
-    clearTimeout(searchTimeout);
-
-    searchTimeout = setTimeout(
-        performSearch,
-        250
-    );
-});
+        searchTimeout =
+            setTimeout(
+                performSearch,
+                250
+            );
+    }
+);
 
 
 async function performSearch() {
@@ -1667,7 +2218,9 @@ async function performSearch() {
     const input =
         $("searchInput");
 
+
     if (!input) return;
+
 
     const username =
         input.value.trim();
@@ -1678,10 +2231,12 @@ async function performSearch() {
         const title =
             $("listTitle");
 
+
         if (title) {
             title.textContent =
                 "Recent chats";
         }
+
 
         await loadRecentChats();
 
@@ -1692,6 +2247,7 @@ async function performSearch() {
     const title =
         $("listTitle");
 
+
     if (title) {
         title.textContent =
             "Search results";
@@ -1701,44 +2257,70 @@ async function performSearch() {
     const chatList =
         $("chatList");
 
+
     if (!chatList) return;
 
+
     chatList.innerHTML =
-        `<div class="empty-list">Searching...</div>`;
+        `
+        <div class="empty-list">
+            Searching...
+        </div>
+        `;
 
 
     const {
         data,
         error
-    } = await supabaseClient
-        .from("profiles")
-        .select("*")
-        .eq("username", username)
-        .neq("id", currentUser.id)
-        .limit(1);
+    } =
+        await supabaseClient
+            .from("profiles")
+            .select("*")
+            .eq(
+                "username",
+                username
+            )
+            .neq(
+                "id",
+                currentUser.id
+            )
+            .limit(1);
 
 
     if (error) {
 
         console.error(error);
 
+
         chatList.innerHTML =
-            `<div class="empty-list">Search failed.</div>`;
+            `
+            <div class="empty-list">
+                Search failed.
+            </div>
+            `;
 
         return;
     }
 
 
-    if (!data || data.length === 0) {
+    if (
+        !data ||
+        data.length === 0
+    ) {
 
         chatList.innerHTML =
-            `<div class="empty-list">No exact username found.</div>`;
+            `
+            <div class="empty-list">
+                No exact username found.
+            </div>
+            `;
 
         return;
     }
 
 
     chatList.innerHTML = "";
+
 
     createChatItem(
         data[0],
@@ -1761,11 +2343,15 @@ function createChatItem(
     const chatList =
         $("chatList");
 
+
     if (!chatList) return;
 
 
     const button =
-        document.createElement("button");
+        document.createElement(
+            "button"
+        );
+
 
     button.className =
         "chat-item";
@@ -1773,10 +2359,13 @@ function createChatItem(
 
     if (
         currentChatUser &&
-        currentChatUser.id === profile.id
+        currentChatUser.id ===
+            profile.id
     ) {
 
-        button.classList.add("active");
+        button.classList.add(
+            "active"
+        );
     }
 
 
@@ -1792,10 +2381,13 @@ function createChatItem(
 
     let preview = "";
 
+
     if (latestMessage) {
 
         preview =
-            latestMessage.content || "";
+            latestMessage.content ||
+            "";
+
     } else if (searchResult) {
 
         preview =
@@ -1805,11 +2397,14 @@ function createChatItem(
 
     const time =
         latestMessage
-            ? formatTime(latestMessage.created_at)
+            ? formatTime(
+                latestMessage.created_at
+            )
             : "";
 
 
-    button.innerHTML = `
+    button.innerHTML =
+        `
         <div class="avatar">
             ${escapeHTML(firstLetter)}
         </div>
@@ -1832,16 +2427,21 @@ function createChatItem(
         <div class="chat-time">
             ${escapeHTML(time)}
         </div>
-    `;
+        `;
 
 
     button.addEventListener(
         "click",
-        () => openChat(profile)
+        () => {
+
+            openChat(profile);
+        }
     );
 
 
-    chatList.appendChild(button);
+    chatList.appendChild(
+        button
+    );
 }
 
 
@@ -1849,15 +2449,20 @@ function createChatItem(
    OPEN CHAT
 ========================================================= */
 
-async function openChat(profile) {
+async function openChat(
+    profile
+) {
 
-    currentChatUser = profile;
+    currentChatUser =
+        profile;
 
 
     const appShell =
         $("appShell");
 
+
     if (appShell) {
+
         appShell.classList.add(
             "chat-open"
         );
@@ -1891,7 +2496,8 @@ async function openChat(profile) {
     if (headerUsername) {
 
         headerUsername.textContent =
-            "@" + profile.username;
+            "@" +
+            profile.username;
     }
 
 
@@ -1909,11 +2515,14 @@ async function openChat(profile) {
 
 
     if (messageInput) {
-        messageInput.disabled = false;
+        messageInput.disabled =
+            false;
     }
 
+
     if (sendButton) {
-        sendButton.disabled = false;
+        sendButton.disabled =
+            false;
     }
 
 
@@ -1938,24 +2547,27 @@ async function loadMessages() {
     if (
         !currentUser ||
         !currentChatUser
-    ) return;
+    ) {
+        return;
+    }
 
 
     const {
         data,
         error
-    } = await supabaseClient
-        .from("messages")
-        .select("*")
-        .or(
-            `and(sender_id.eq.${currentUser.id},receiver_id.eq.${currentChatUser.id}),and(sender_id.eq.${currentChatUser.id},receiver_id.eq.${currentUser.id})`
-        )
-        .order(
-            "created_at",
-            {
-                ascending: true
-            }
-        );
+    } =
+        await supabaseClient
+            .from("messages")
+            .select("*")
+            .or(
+                `and(sender_id.eq.${currentUser.id},receiver_id.eq.${currentChatUser.id}),and(sender_id.eq.${currentChatUser.id},receiver_id.eq.${currentUser.id})`
+            )
+            .order(
+                "created_at",
+                {
+                    ascending: true
+                }
+            );
 
 
     if (error) {
@@ -1985,17 +2597,21 @@ async function loadMessages() {
    RENDER MESSAGES
 ========================================================= */
 
-function renderMessages(messages) {
+function renderMessages(
+    messages
+) {
 
     const container =
         $("messages");
+
 
     if (!container) return;
 
 
     if (!messages.length) {
 
-        container.innerHTML = `
+        container.innerHTML =
+            `
             <div class="empty-chat">
 
                 <div class="empty-chat-icon">
@@ -2007,13 +2623,15 @@ function renderMessages(messages) {
                 </strong>
 
                 <span>
-                    Send a message to @${escapeHTML(
-                        currentChatUser?.username || ""
+                    Send a message to
+                    @${escapeHTML(
+                        currentChatUser?.username ||
+                        ""
                     )}
                 </span>
 
             </div>
-        `;
+            `;
 
         return;
     }
@@ -2022,7 +2640,10 @@ function renderMessages(messages) {
     container.innerHTML = "";
 
 
-    for (const message of messages) {
+    for (
+        const message
+        of messages
+    ) {
 
         appendMessage(
             message,
@@ -2047,6 +2668,7 @@ function appendMessage(
     const container =
         $("messages");
 
+
     if (!container) return;
 
 
@@ -2055,45 +2677,69 @@ function appendMessage(
             ".empty-chat"
         );
 
+
     if (empty) {
         empty.remove();
     }
 
 
     const row =
-        document.createElement("div");
+        document.createElement(
+            "div"
+        );
+
+
+    row.dataset.messageId =
+        String(message.id);
+
 
     const mine =
-        message.sender_id === currentUser.id;
+        message.sender_id ===
+        currentUser.id;
 
 
     row.className =
         "message-row" +
-        (mine ? " mine" : "");
+        (
+            mine
+                ? " mine"
+                : ""
+        );
 
 
     const bubble =
-        document.createElement("div");
+        document.createElement(
+            "div"
+        );
+
 
     bubble.className =
         "message";
 
 
     const text =
-        document.createElement("div");
+        document.createElement(
+            "div"
+        );
+
 
     text.className =
         "message-text";
+
 
     text.textContent =
         message.content;
 
 
     const time =
-        document.createElement("div");
+        document.createElement(
+            "div"
+        );
+
 
     time.className =
         "message-time";
+
 
     time.textContent =
         formatTime(
@@ -2102,6 +2748,7 @@ function appendMessage(
 
 
     bubble.appendChild(text);
+
     bubble.appendChild(time);
 
     row.appendChild(bubble);
@@ -2115,18 +2762,26 @@ function appendMessage(
 }
 
 
+/* =========================================================
+   SCROLL
+========================================================= */
+
 function scrollMessages() {
 
     const container =
         $("messages");
 
+
     if (!container) return;
 
-    requestAnimationFrame(() => {
 
-        container.scrollTop =
-            container.scrollHeight;
-    });
+    requestAnimationFrame(
+        () => {
+
+            container.scrollTop =
+                container.scrollHeight;
+        }
+    );
 }
 
 
@@ -2139,11 +2794,14 @@ async function sendMessage() {
     if (
         !currentUser ||
         !currentChatUser
-    ) return;
+    ) {
+        return;
+    }
 
 
     const input =
         $("messageInput");
+
 
     if (!input) return;
 
@@ -2160,18 +2818,19 @@ async function sendMessage() {
 
     const {
         error
-    } = await supabaseClient
-        .from("messages")
-        .insert({
-            sender_id:
-                currentUser.id,
+    } =
+        await supabaseClient
+            .from("messages")
+            .insert({
+                sender_id:
+                    currentUser.id,
 
-            receiver_id:
-                currentChatUser.id,
+                receiver_id:
+                    currentChatUser.id,
 
-            content:
-                content
-        });
+                content:
+                    content
+            });
 
 
     if (error) {
@@ -2181,18 +2840,490 @@ async function sendMessage() {
             error
         );
 
+
         input.value =
             content;
+
 
         showToast(
             "Message could not be sent."
         );
+
 
         return;
     }
 
 
     await loadRecentChats();
+}
+
+
+/* =========================================================
+   NOTIFICATION SYSTEM
+========================================================= */
+
+function notificationsSupported() {
+
+    return (
+        "Notification" in window
+    );
+}
+
+
+function notificationsEnabled() {
+
+    return (
+        notificationsSupported() &&
+        Notification.permission ===
+            "granted"
+    );
+}
+
+
+function notificationPreference() {
+
+    return (
+        localStorage.getItem(
+            "astrochat-notifications"
+        ) === "enabled"
+    );
+}
+
+
+function setNotificationPreference(
+    enabled
+) {
+
+    localStorage.setItem(
+        "astrochat-notifications",
+        enabled
+            ? "enabled"
+            : "disabled"
+    );
+}
+
+
+/* =========================================================
+   UPDATE NOTIFICATION UI
+========================================================= */
+
+function updateNotificationUI() {
+
+    const button =
+        $("notificationButton");
+
+    const status =
+        $("notificationStatus");
+
+    const dot =
+        $("notificationDot");
+
+
+    if (
+        !button ||
+        !status ||
+        !dot
+    ) {
+        return;
+    }
+
+
+    if (!notificationsSupported()) {
+
+        status.textContent =
+            "Notifications are not supported by this browser.";
+
+        dot.className =
+            "notification-dot blocked";
+
+        button.textContent =
+            "Notifications unavailable";
+
+        button.disabled =
+            true;
+
+        return;
+    }
+
+
+    const permission =
+        Notification.permission;
+
+
+    if (
+        permission ===
+        "granted"
+    ) {
+
+        dot.className =
+            "notification-dot enabled";
+
+
+        status.textContent =
+            "Desktop notifications are enabled.";
+
+
+        button.textContent =
+            "✓ Notifications Enabled";
+
+
+        button.classList.add(
+            "enabled"
+        );
+
+
+        button.disabled =
+            false;
+
+
+        return;
+    }
+
+
+    if (
+        permission ===
+        "denied"
+    ) {
+
+        dot.className =
+            "notification-dot blocked";
+
+
+        status.textContent =
+            "Notifications are blocked. Allow them in your browser settings.";
+
+
+        button.textContent =
+            "Notifications Blocked";
+
+
+        button.classList.remove(
+            "enabled"
+        );
+
+
+        button.disabled =
+            true;
+
+
+        return;
+    }
+
+
+    dot.className =
+        "notification-dot";
+
+
+    status.textContent =
+        "Notifications are disabled.";
+
+
+    button.textContent =
+        "🔔 Enable Notifications";
+
+
+    button.classList.remove(
+        "enabled"
+    );
+
+
+    button.disabled =
+        false;
+}
+
+
+/* =========================================================
+   ENABLE NOTIFICATIONS
+========================================================= */
+
+async function enableNotifications() {
+
+    if (!notificationsSupported()) {
+
+        showToast(
+            "Your browser does not support notifications."
+        );
+
+        return;
+    }
+
+
+    if (
+        Notification.permission ===
+        "granted"
+    ) {
+
+        setNotificationPreference(
+            true
+        );
+
+        updateNotificationUI();
+
+        showToast(
+            "Notifications are already enabled."
+        );
+
+        return;
+    }
+
+
+    if (
+        Notification.permission ===
+        "denied"
+    ) {
+
+        showToast(
+            "Notifications are blocked. Check your browser settings."
+        );
+
+        updateNotificationUI();
+
+        return;
+    }
+
+
+    try {
+
+        const permission =
+            await Notification.requestPermission();
+
+
+        if (
+            permission ===
+            "granted"
+        ) {
+
+            setNotificationPreference(
+                true
+            );
+
+
+            updateNotificationUI();
+
+
+            /*
+                Send a small test notification
+                so the user knows it works.
+            */
+
+            new Notification(
+                "AstroChat",
+                {
+                    body:
+                        "Desktop notifications are now enabled!",
+                    tag:
+                        "astrochat-test"
+                }
+            );
+
+
+            showToast(
+                "Notifications enabled!"
+            );
+
+        } else {
+
+            setNotificationPreference(
+                false
+            );
+
+            updateNotificationUI();
+
+            showToast(
+                "Notification permission was not granted."
+            );
+        }
+
+    } catch (error) {
+
+        console.error(
+            "Notification error:",
+            error
+        );
+
+        showToast(
+            "Could not enable notifications."
+        );
+    }
+}
+
+
+/* =========================================================
+   SHOW MESSAGE NOTIFICATION
+========================================================= */
+
+function showMessageNotification(
+    message
+) {
+
+    if (!currentUser) {
+        return;
+    }
+
+
+    /*
+       Never notify for your own messages.
+    */
+
+    if (
+        message.sender_id ===
+        currentUser.id
+    ) {
+        return;
+    }
+
+
+    /*
+       Don't notify if notifications aren't enabled.
+    */
+
+    if (
+        !notificationsSupported() ||
+        Notification.permission !==
+            "granted"
+    ) {
+        return;
+    }
+
+
+    /*
+       Don't notify if the user is already
+       looking at this exact conversation.
+    */
+
+    if (
+        currentChatUser &&
+        currentChatUser.id ===
+            message.sender_id
+    ) {
+        return;
+    }
+
+
+    /*
+       Try to find the sender's profile.
+    */
+
+    getSenderProfile(
+        message.sender_id
+    )
+    .then(profile => {
+
+        const senderName =
+            profile?.display_name ||
+            profile?.username ||
+            "Someone";
+
+
+        let body =
+            message.content ||
+            "You received a new message.";
+
+
+        /*
+           Keep notification previews short.
+        */
+
+        if (
+            body.length > 100
+        ) {
+
+            body =
+                body.substring(
+                    0,
+                    100
+                ) +
+                "…";
+        }
+
+
+        try {
+
+            const notification =
+                new Notification(
+                    senderName,
+                    {
+                        body:
+                            body,
+
+                        icon:
+                            "",
+
+                        tag:
+                            "astrochat-" +
+                            message.sender_id,
+
+                        renotify:
+                            true
+                    }
+                );
+
+
+            notification.onclick =
+                () => {
+
+                    window.focus();
+
+                    openChat(
+                        profile
+                    );
+
+                    notification.close();
+                };
+
+
+        } catch (error) {
+
+            console.error(
+                "Could not create notification:",
+                error
+            );
+        }
+
+    })
+    .catch(error => {
+
+        console.error(
+            "Could not get sender profile:",
+            error
+        );
+    });
+}
+
+
+/* =========================================================
+   GET SENDER PROFILE
+========================================================= */
+
+async function getSenderProfile(
+    userId
+) {
+
+    const {
+        data,
+        error
+    } =
+        await supabaseClient
+            .from("profiles")
+            .select("*")
+            .eq(
+                "id",
+                userId
+            )
+            .maybeSingle();
+
+
+    if (error) {
+
+        console.error(
+            error
+        );
+
+        return null;
+    }
+
+
+    return data;
 }
 
 
@@ -2219,10 +3350,16 @@ function subscribeToMessages() {
             .on(
                 "postgres_changes",
                 {
-                    event: "INSERT",
-                    schema: "public",
-                    table: "messages"
+                    event:
+                        "INSERT",
+
+                    schema:
+                        "public",
+
+                    table:
+                        "messages"
                 },
+
                 async payload => {
 
                     const message =
@@ -2237,16 +3374,45 @@ function subscribeToMessages() {
                     }
 
 
+                    /*
+                       🔔 NEW:
+                       Send desktop notification
+                       for incoming messages.
+                    */
+
+                    if (
+                        message.sender_id !==
+                        currentUser.id
+                    ) {
+
+                        showMessageNotification(
+                            message
+                        );
+                    }
+
+
+                    /*
+                       Check if this belongs
+                       to the currently open chat.
+                    */
+
                     const isCurrentChat =
                         currentChatUser &&
                         (
                             (
-                                message.sender_id === currentUser.id &&
-                                message.receiver_id === currentChatUser.id
-                            ) ||
+                                message.sender_id ===
+                                    currentUser.id &&
+
+                                message.receiver_id ===
+                                    currentChatUser.id
+                            )
+                            ||
                             (
-                                message.sender_id === currentChatUser.id &&
-                                message.receiver_id === currentUser.id
+                                message.sender_id ===
+                                    currentChatUser.id &&
+
+                                message.receiver_id ===
+                                    currentUser.id
                             )
                         );
 
@@ -2255,117 +3421,17 @@ function subscribeToMessages() {
 
                         const existing =
                             $("messages")
-                                ?.querySelectorAll(
-                                    ".message-row"
+                                ?.querySelector(
+                                    `[data-message-id="${message.id}"]`
                                 );
 
 
-                        let alreadyShown =
-                            false;
+                        if (!existing) {
 
-
-                        if (existing) {
-
-                            for (const row of existing) {
-
-                                if (
-                                    row.dataset.messageId ===
-                                    String(message.id)
-                                ) {
-
-                                    alreadyShown =
-                                        true;
-
-                                    break;
-                                }
-                            }
-                        }
-
-
-                        if (!alreadyShown) {
-
-                            const container =
-                                $("messages");
-
-                            if (container) {
-
-                                const empty =
-                                    container.querySelector(
-                                        ".empty-chat"
-                                    );
-
-                                if (empty) {
-                                    empty.remove();
-                                }
-
-
-                                const row =
-                                    document.createElement(
-                                        "div"
-                                    );
-
-                                row.dataset.messageId =
-                                    String(message.id);
-
-
-                                const mine =
-                                    message.sender_id ===
-                                    currentUser.id;
-
-
-                                row.className =
-                                    "message-row" +
-                                    (
-                                        mine
-                                            ? " mine"
-                                            : ""
-                                    );
-
-
-                                const bubble =
-                                    document.createElement(
-                                        "div"
-                                    );
-
-                                bubble.className =
-                                    "message";
-
-
-                                const text =
-                                    document.createElement(
-                                        "div"
-                                    );
-
-                                text.className =
-                                    "message-text";
-
-                                text.textContent =
-                                    message.content;
-
-
-                                const time =
-                                    document.createElement(
-                                        "div"
-                                    );
-
-                                time.className =
-                                    "message-time";
-
-                                time.textContent =
-                                    formatTime(
-                                        message.created_at
-                                    );
-
-
-                                bubble.appendChild(text);
-                                bubble.appendChild(time);
-
-                                row.appendChild(bubble);
-
-                                container.appendChild(row);
-
-                                scrollMessages();
-                            }
+                            appendMessage(
+                                message,
+                                true
+                            );
                         }
                     }
 
@@ -2413,9 +3479,14 @@ async function changeUsername() {
     }
 
 
-    if (!/^[a-zA-Z0-9_]+$/.test(username)) {
+    if (
+        !/^[a-zA-Z0-9_]+$/.test(
+            username
+        )
+    ) {
 
         if (message) {
+
             message.textContent =
                 "Only letters, numbers, and _ are allowed.";
         }
@@ -2427,6 +3498,7 @@ async function changeUsername() {
     if (username.length < 3) {
 
         if (message) {
+
             message.textContent =
                 "Username must be at least 3 characters.";
         }
@@ -2437,17 +3509,25 @@ async function changeUsername() {
 
     const {
         data: existing
-    } = await supabaseClient
-        .from("profiles")
-        .select("id")
-        .eq("username", username)
-        .neq("id", currentUser.id)
-        .maybeSingle();
+    } =
+        await supabaseClient
+            .from("profiles")
+            .select("id")
+            .eq(
+                "username",
+                username
+            )
+            .neq(
+                "id",
+                currentUser.id
+            )
+            .maybeSingle();
 
 
     if (existing) {
 
         if (message) {
+
             message.textContent =
                 "That username is already taken.";
         }
@@ -2458,23 +3538,31 @@ async function changeUsername() {
 
     const {
         error
-    } = await supabaseClient
-        .from("profiles")
-        .update({
-            username: username,
-            display_name: username
-        })
-        .eq(
-            "id",
-            currentUser.id
-        );
+    } =
+        await supabaseClient
+            .from("profiles")
+            .update({
+                username:
+                    username,
+
+                display_name:
+                    username
+            })
+            .eq(
+                "id",
+                currentUser.id
+            );
 
 
     if (error) {
 
-        console.error(error);
+        console.error(
+            error
+        );
+
 
         if (message) {
+
             message.textContent =
                 error.message;
         }
@@ -2485,8 +3573,12 @@ async function changeUsername() {
 
     currentProfile = {
         ...(currentProfile || {}),
-        username,
-        display_name: username
+
+        username:
+            username,
+
+        display_name:
+            username
     };
 
 
@@ -2504,6 +3596,7 @@ async function changeUsername() {
 
     input.value = "";
 
+
     showToast(
         "Username updated."
     );
@@ -2514,9 +3607,14 @@ async function changeUsername() {
    THEME
 ========================================================= */
 
-function setTheme(theme) {
+function setTheme(
+    theme
+) {
 
-    if (theme === "light") {
+    if (
+        theme ===
+        "light"
+    ) {
 
         document.body.classList.add(
             "light"
@@ -2528,7 +3626,8 @@ function setTheme(theme) {
             "light"
         );
 
-        theme = "dark";
+        theme =
+            "dark";
     }
 
 
@@ -2558,6 +3657,7 @@ function updateThemeButtons() {
 
 
     if (dark) {
+
         dark.classList.toggle(
             "active",
             !isLight
@@ -2566,6 +3666,7 @@ function updateThemeButtons() {
 
 
     if (light) {
+
         light.classList.toggle(
             "active",
             isLight
@@ -2579,9 +3680,13 @@ function loadTheme() {
     const theme =
         localStorage.getItem(
             "astrochat-theme"
-        ) || "dark";
+        ) ||
+        "dark";
 
-    setTheme(theme);
+
+    setTheme(
+        theme
+    );
 }
 
 
@@ -2594,12 +3699,17 @@ function openSettings() {
     const overlay =
         $("settingsOverlay");
 
+
     if (overlay) {
+
         overlay.style.display =
             "flex";
     }
 
+
     updateThemeButtons();
+
+    updateNotificationUI();
 }
 
 
@@ -2608,7 +3718,9 @@ function closeSettings() {
     const overlay =
         $("settingsOverlay");
 
+
     if (overlay) {
+
         overlay.style.display =
             "none";
     }
@@ -2633,18 +3745,27 @@ async function logout() {
     }
 
 
-    await supabaseClient.auth.signOut();
+    await supabaseClient
+        .auth
+        .signOut();
 
 
-    currentUser = null;
-    currentProfile = null;
-    currentChatUser = null;
+    currentUser =
+        null;
+
+    currentProfile =
+        null;
+
+    currentChatUser =
+        null;
 
 
     const appShell =
         $("appShell");
 
+
     if (appShell) {
+
         appShell.classList.remove(
             "chat-open"
         );
@@ -2665,12 +3786,14 @@ function showAuth() {
 
 
     if (authScreen) {
+
         authScreen.style.display =
             "flex";
     }
 
 
     if (app) {
+
         app.style.display =
             "none";
     }
@@ -2678,7 +3801,7 @@ function showAuth() {
 
 
 /* =========================================================
-   HIGHLIGHT CHAT
+   HIGHLIGHT ACTIVE CHAT
 ========================================================= */
 
 function highlightActiveChat() {
@@ -2689,21 +3812,14 @@ function highlightActiveChat() {
         );
 
 
-    items.forEach(item => {
+    items.forEach(
+        item => {
 
-        item.classList.remove(
-            "active"
-        );
-    });
-
-
-    if (!currentChatUser) return;
-
-
-    /*
-       We don't rely on onclick IDs here.
-       This prevents the null onclick error.
-    */
+            item.classList.remove(
+                "active"
+            );
+        }
+    );
 }
 
 
@@ -2716,6 +3832,7 @@ function goBackToSidebar() {
     const appShell =
         $("appShell");
 
+
     if (appShell) {
 
         appShell.classList.remove(
@@ -2724,7 +3841,8 @@ function goBackToSidebar() {
     }
 
 
-    currentChatUser = null;
+    currentChatUser =
+        null;
 
 
     const input =
@@ -2735,13 +3853,19 @@ function goBackToSidebar() {
 
 
     if (input) {
-        input.disabled = true;
-        input.value = "";
+
+        input.disabled =
+            true;
+
+        input.value =
+            "";
     }
 
 
     if (send) {
-        send.disabled = true;
+
+        send.disabled =
+            true;
     }
 }
 
@@ -2750,7 +3874,9 @@ function goBackToSidebar() {
    FORMAT TIME
 ========================================================= */
 
-function formatTime(dateString) {
+function formatTime(
+    dateString
+) {
 
     if (!dateString) {
         return "";
@@ -2758,12 +3884,16 @@ function formatTime(dateString) {
 
 
     const date =
-        new Date(dateString);
+        new Date(
+            dateString
+        );
 
 
-    if (Number.isNaN(
-        date.getTime()
-    )) {
+    if (
+        Number.isNaN(
+            date.getTime()
+        )
+    ) {
         return "";
     }
 
@@ -2782,8 +3912,11 @@ function formatTime(dateString) {
         return date.toLocaleTimeString(
             [],
             {
-                hour: "numeric",
-                minute: "2-digit"
+                hour:
+                    "numeric",
+
+                minute:
+                    "2-digit"
             }
         );
     }
@@ -2792,8 +3925,11 @@ function formatTime(dateString) {
     return date.toLocaleDateString(
         [],
         {
-            month: "short",
-            day: "numeric"
+            month:
+                "short",
+
+            day:
+                "numeric"
         }
     );
 }
@@ -2802,12 +3938,6 @@ function formatTime(dateString) {
 /* =========================================================
    EVENT LISTENERS
 ========================================================= */
-
-/*
-   IMPORTANT:
-   Every listener uses the safe `on()` function.
-   If an element is missing, AstroChat doesn't crash.
-*/
 
 on(
     "authButton",
@@ -2822,17 +3952,23 @@ on(
     () => {
 
         authMode =
-            authMode === "signup"
+            authMode ===
+                "signup"
                 ? "login"
                 : "signup";
 
+
         updateAuthMode();
+
 
         const error =
             $("authError");
 
+
         if (error) {
-            error.textContent = "";
+
+            error.textContent =
+                "";
         }
     }
 );
@@ -2844,7 +3980,8 @@ on(
     event => {
 
         if (
-            event.key === "Enter"
+            event.key ===
+            "Enter"
         ) {
 
             handleAuth();
@@ -2886,14 +4023,35 @@ on(
 on(
     "darkThemeButton",
     "click",
-    () => setTheme("dark")
+    () => {
+
+        setTheme(
+            "dark"
+        );
+    }
 );
 
 
 on(
     "lightThemeButton",
     "click",
-    () => setTheme("light")
+    () => {
+
+        setTheme(
+            "light"
+        );
+    }
+);
+
+
+/*
+   🔔 Notification button
+*/
+
+on(
+    "notificationButton",
+    "click",
+    enableNotifications
 );
 
 
@@ -2910,7 +4068,8 @@ on(
     event => {
 
         if (
-            event.key === "Enter"
+            event.key ===
+            "Enter"
         ) {
 
             changeUsername();
@@ -2953,7 +4112,8 @@ on(
     event => {
 
         if (
-            event.key === "Enter" &&
+            event.key ===
+                "Enter" &&
             !event.shiftKey
         ) {
 
@@ -2970,10 +4130,14 @@ on(
 ========================================================= */
 
 supabaseClient.auth.onAuthStateChange(
-    async (event, session) => {
+    async (
+        event,
+        session
+    ) => {
 
         if (
-            event === "SIGNED_IN" &&
+            event ===
+                "SIGNED_IN" &&
             session?.user
         ) {
 
@@ -2985,7 +4149,8 @@ supabaseClient.auth.onAuthStateChange(
 
 
         if (
-            event === "SIGNED_OUT"
+            event ===
+            "SIGNED_OUT"
         ) {
 
             currentUser =
@@ -3010,15 +4175,19 @@ async function initialize() {
 
     const {
         data
-    } = await supabaseClient
-        .auth
-        .getSession();
+    } =
+        await supabaseClient
+            .auth
+            .getSession();
 
 
-    if (data?.session?.user) {
+    if (
+        data?.session?.user
+    ) {
 
         currentUser =
             data.session.user;
+
 
         await startApp();
 
