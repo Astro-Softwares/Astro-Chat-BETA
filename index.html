@@ -150,8 +150,14 @@ button {
   flex-direction: column;
 }
 
+/* TOP USER AREA */
+
 .sidebar-header {
-  padding: 20px;
+  padding: 18px 20px 14px;
+  border-bottom: 1px solid var(--border);
+}
+
+.top-row {
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -166,6 +172,16 @@ button {
   color: var(--accent2);
 }
 
+.my-username {
+  color: var(--muted);
+  font-size: 12px;
+  margin-top: 5px;
+}
+
+.my-username span {
+  color: var(--accent2);
+}
+
 .logout {
   background: transparent;
   border: 0;
@@ -177,8 +193,10 @@ button {
   color: #fff;
 }
 
+/* SEARCH */
+
 .search {
-  margin: 0 15px 15px;
+  margin: 15px;
   padding: 12px 14px;
   background: var(--panel2);
   border: 1px solid var(--border);
@@ -369,6 +387,7 @@ button {
 /* MOBILE */
 
 @media (max-width: 700px) {
+
   .sidebar {
     width: 100%;
   }
@@ -388,6 +407,7 @@ button {
   .message {
     max-width: 85%;
   }
+
 }
 </style>
 </head>
@@ -458,17 +478,34 @@ button {
 
   <aside class="sidebar">
 
+    <!-- YOUR USERNAME -->
+
     <div class="sidebar-header">
 
-      <div class="brand">
-        Astro<span>Chat</span>
+      <div class="top-row">
+
+        <div>
+
+          <div class="brand">
+            Astro<span>Chat</span>
+          </div>
+
+          <div class="my-username">
+            <span>@</span><span id="myUsername">loading...</span>
+          </div>
+
+        </div>
+
+        <button class="logout" id="logout">
+          Log out
+        </button>
+
       </div>
 
-      <button class="logout" id="logout">
-        Log out
-      </button>
-
     </div>
+
+
+    <!-- SEARCH -->
 
     <input
       class="search"
@@ -476,6 +513,7 @@ button {
       placeholder="Search username..."
       autocomplete="off"
     >
+
 
     <div class="chat-list" id="chatList"></div>
 
@@ -628,6 +666,9 @@ const sendButton =
 const logoutButton =
   document.getElementById("logout");
 
+const myUsername =
+  document.getElementById("myUsername");
+
 
 /* ============================= */
 /* LOGIN / SIGNUP SWITCH */
@@ -708,8 +749,6 @@ authButton.onclick = async () => {
     }
 
 
-    /* CHECK USERNAME */
-
     const {
       data: existingUser,
       error: usernameError
@@ -739,8 +778,6 @@ authButton.onclick = async () => {
     }
 
 
-    /* CREATE ACCOUNT */
-
     const {
       data,
       error
@@ -769,8 +806,6 @@ authButton.onclick = async () => {
     }
 
 
-    /* CREATE PROFILE */
-
     const {
       error: profileError
     } =
@@ -797,7 +832,6 @@ authButton.onclick = async () => {
 
     authMessage.textContent =
       "Account created! You can now sign in.";
-
 
     signupMode = false;
 
@@ -913,6 +947,13 @@ async function loadUser(user) {
 
   currentProfile = data;
 
+
+  /* SHOW YOUR USERNAME */
+
+  myUsername.textContent =
+    currentProfile.username;
+
+
   loginScreen.style.display =
     "none";
 
@@ -975,8 +1016,6 @@ async function loadUsers(search = "") {
   chatList.innerHTML = "";
 
 
-  /* DON'T SHOW USERS UNTIL SEARCHED */
-
   if (!search.trim()) {
 
     chatList.innerHTML = `
@@ -996,8 +1035,6 @@ async function loadUsers(search = "") {
     return;
   }
 
-
-  /* EXACT USERNAME SEARCH */
 
   const {
     data,
@@ -1121,27 +1158,21 @@ async function selectUser(user) {
 
   selectedUser = user;
 
-
   headerName.textContent =
     user.display_name;
 
-
   headerStatus.textContent =
     "@" + user.username;
-
 
   headerAvatar.textContent =
     user.display_name
       .charAt(0)
       .toUpperCase();
 
-
   messageInput.disabled = false;
   sendButton.disabled = false;
 
-
   messageInput.focus();
-
 
   await loadMessages();
 
@@ -1358,7 +1389,7 @@ messageInput.addEventListener(
 
 
 /* ============================= */
-/* REALTIME MESSAGES */
+/* REALTIME */
 /* ============================= */
 
 function subscribeToMessages() {
