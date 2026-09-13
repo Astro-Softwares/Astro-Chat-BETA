@@ -1,18 +1,19 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
 <title>AstroChat</title>
 
-<meta name="description" content="Astro Chat lets you chat with anyone you have username">
+<link rel="icon" type="image/png" href="./icon.png?v=2">
+<link rel="shortcut icon" type="image/png" href="./icon.png?v=2">
 
-<link rel="icon" href="./icon.png?v=2" type="image/png">
-<link rel="shortcut icon" href="./icon.png?v=2" type="image/png">
-   
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
 <style>
+
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap');
 
 * {
@@ -30,7 +31,6 @@
     --accent: #7c5cff;
     --accent2: #9b84ff;
     --danger: #ff5c70;
-    --message: #7c5cff;
 }
 
 body.light {
@@ -41,7 +41,6 @@ body.light {
     --border: #d8dae2;
     --text: #16171c;
     --muted: #70737d;
-    --message: #7c5cff;
 }
 
 html,
@@ -52,7 +51,7 @@ body {
 }
 
 body {
-    font-family: "Montserrat", sans-serif;
+    font-family: Montserrat, sans-serif;
     background: var(--bg);
     color: var(--text);
     overflow: hidden;
@@ -71,37 +70,50 @@ button {
     display: none !important;
 }
 
-/* AUTH */
+
+/* =========================
+   AUTH
+========================= */
 
 #authScreen {
     width: 100%;
     height: 100%;
     display: flex;
-    align-items: center;
     justify-content: center;
+    align-items: center;
+
     background:
-        radial-gradient(circle at 20% 20%, rgba(124,92,255,.18), transparent 35%),
-        radial-gradient(circle at 80% 80%, rgba(155,132,255,.10), transparent 35%),
+        radial-gradient(
+            circle at 20% 20%,
+            rgba(124,92,255,.18),
+            transparent 35%
+        ),
+        radial-gradient(
+            circle at 80% 80%,
+            rgba(155,132,255,.10),
+            transparent 35%
+        ),
         var(--bg);
 }
 
 .authBox {
-    width: min(420px, calc(100% - 32px));
-    background: rgba(16,18,24,.92);
-    border: 1px solid var(--border);
-    border-radius: 24px;
-    padding: 32px;
-    box-shadow: 0 25px 80px rgba(0,0,0,.35);
-}
+    width: min(420px, calc(100% - 30px));
 
-body.light .authBox {
-    background: rgba(255,255,255,.95);
+    background: var(--panel);
+
+    border: 1px solid var(--border);
+
+    border-radius: 24px;
+
+    padding: 32px;
+
+    box-shadow:
+        0 25px 80px rgba(0,0,0,.35);
 }
 
 .logo {
     font-size: 30px;
     font-weight: 700;
-    margin-bottom: 8px;
 }
 
 .logo span {
@@ -110,19 +122,26 @@ body.light .authBox {
 
 .authSubtitle {
     color: var(--muted);
-    margin-bottom: 28px;
     font-size: 14px;
+    margin: 8px 0 28px;
 }
 
 .authInput {
     width: 100%;
-    border: 1px solid var(--border);
-    background: var(--input);
-    color: var(--text);
-    padding: 14px 15px;
-    border-radius: 12px;
-    outline: none;
+
+    padding: 14px;
+
     margin-bottom: 12px;
+
+    background: var(--input);
+
+    border: 1px solid var(--border);
+
+    border-radius: 12px;
+
+    color: var(--text);
+
+    outline: none;
 }
 
 .authInput:focus {
@@ -131,61 +150,77 @@ body.light .authBox {
 
 .primaryBtn {
     width: 100%;
-    border: 0;
-    background: var(--accent);
-    color: white;
-    padding: 14px;
-    border-radius: 12px;
-    font-weight: 600;
-    margin-top: 4px;
-}
 
-.primaryBtn:hover {
-    background: var(--accent2);
+    border: none;
+
+    padding: 14px;
+
+    border-radius: 12px;
+
+    background: var(--accent);
+
+    color: white;
+
+    font-weight: 600;
 }
 
 .authSwitch {
-    text-align: center;
-    color: var(--muted);
-    font-size: 13px;
     margin-top: 18px;
+
+    text-align: center;
+
+    color: var(--muted);
+
+    font-size: 13px;
 }
 
 .linkBtn {
-    border: 0;
-    background: transparent;
+    border: none;
+    background: none;
     color: var(--accent2);
     font-weight: 600;
 }
 
-/* APP */
+
+/* =========================
+   APP
+========================= */
 
 #app {
     width: 100%;
     height: 100%;
+
     display: flex;
 }
 
 .sidebar {
     width: 330px;
     min-width: 330px;
+
     height: 100%;
+
     background: var(--panel);
+
     border-right: 1px solid var(--border);
+
     display: flex;
     flex-direction: column;
 }
 
 .sidebarHeader {
-    padding: 22px;
+    padding: 20px;
+
     border-bottom: 1px solid var(--border);
 }
 
 .sidebarTop {
     display: flex;
+
     justify-content: space-between;
+
     align-items: center;
-    margin-bottom: 18px;
+
+    margin-bottom: 16px;
 }
 
 .appName {
@@ -198,18 +233,23 @@ body.light .authBox {
 }
 
 .usernameLabel {
-    font-size: 12px;
     color: var(--muted);
+    font-size: 11px;
     margin-top: 4px;
 }
 
 .iconBtn {
     width: 38px;
     height: 38px;
+
     border: 1px solid var(--border);
+
     background: var(--panel2);
+
     color: var(--text);
+
     border-radius: 11px;
+
     font-size: 17px;
 }
 
@@ -219,44 +259,92 @@ body.light .authBox {
 
 .searchBox {
     width: 100%;
-    background: var(--input);
-    border: 1px solid var(--border);
-    color: var(--text);
-    border-radius: 12px;
+
     padding: 12px 14px;
+
+    border-radius: 12px;
+
+    border: 1px solid var(--border);
+
+    background: var(--input);
+
+    color: var(--text);
+
     outline: none;
 }
 
-.searchBox:focus {
+.sidebarButtons {
+    display: flex;
+
+    gap: 8px;
+
+    margin-top: 10px;
+}
+
+.sidebarAction {
+    flex: 1;
+
+    padding: 10px;
+
+    border-radius: 10px;
+
+    border: 1px solid var(--border);
+
+    background: var(--panel2);
+
+    color: var(--text);
+
+    font-size: 12px;
+
+    font-weight: 600;
+}
+
+.sidebarAction:hover {
     border-color: var(--accent);
 }
 
 .sidebarContent {
     flex: 1;
+
     overflow-y: auto;
+
     padding: 10px;
 }
 
 .sectionTitle {
     color: var(--muted);
-    font-size: 11px;
+
+    font-size: 10px;
+
     font-weight: 700;
+
     text-transform: uppercase;
+
     letter-spacing: .08em;
-    padding: 10px 10px 7px;
+
+    padding: 10px;
 }
 
 .userResult,
 .recentChat {
-    display: flex;
-    align-items: center;
-    gap: 12px;
     width: 100%;
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 12px;
+
     padding: 12px;
+
+    border: none;
+
     border-radius: 13px;
-    border: 0;
+
     background: transparent;
+
     color: var(--text);
+
     text-align: left;
 }
 
@@ -265,22 +353,34 @@ body.light .authBox {
     background: var(--panel2);
 }
 
-.userResult.active,
-.recentChat.active {
-    background: rgba(124,92,255,.15);
-}
-
 .avatar {
     width: 42px;
     height: 42px;
-    border-radius: 50%;
-    background: linear-gradient(135deg, var(--accent), var(--accent2));
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: white;
-    font-weight: 700;
+
     flex-shrink: 0;
+
+    border-radius: 50%;
+
+    background:
+        linear-gradient(
+            135deg,
+            var(--accent),
+            var(--accent2)
+        );
+
+    display: flex;
+
+    justify-content: center;
+
+    align-items: center;
+
+    color: white;
+
+    font-weight: 700;
+}
+
+.groupAvatar {
+    border-radius: 13px;
 }
 
 .userInfo {
@@ -289,64 +389,85 @@ body.light .authBox {
 }
 
 .userName {
-    font-size: 14px;
+    font-size: 13px;
     font-weight: 600;
 }
 
 .userHandle {
-    font-size: 12px;
     color: var(--muted);
+    font-size: 11px;
     margin-top: 3px;
 }
 
 .chatPreview {
     display: flex;
+
     justify-content: space-between;
+
     gap: 10px;
 }
 
 .previewText {
     color: var(--muted);
-    font-size: 12px;
-    white-space: nowrap;
+
+    font-size: 11px;
+
     overflow: hidden;
+
+    white-space: nowrap;
+
     text-overflow: ellipsis;
 }
 
 .previewTime {
     color: var(--muted);
-    font-size: 10px;
-    white-space: nowrap;
+
+    font-size: 9px;
 }
 
 .emptySide {
     text-align: center;
+
     color: var(--muted);
+
+    font-size: 12px;
+
     padding: 30px 15px;
-    font-size: 13px;
 }
 
-/* CHAT */
+
+/* =========================
+   CHAT
+========================= */
 
 .chatArea {
     flex: 1;
+
     min-width: 0;
+
     height: 100%;
+
     display: flex;
+
     flex-direction: column;
-    background:
-        radial-gradient(circle at 80% 10%, rgba(124,92,255,.05), transparent 35%),
-        var(--bg);
+
+    background: var(--bg);
 }
 
 .chatHeader {
     height: 76px;
-    border-bottom: 1px solid var(--border);
-    background: var(--panel);
-    display: flex;
-    align-items: center;
-    gap: 12px;
+
     padding: 14px 20px;
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 12px;
+
+    background: var(--panel);
+
+    border-bottom: 1px solid var(--border);
 }
 
 .mobileBack {
@@ -370,178 +491,357 @@ body.light .authBox {
 
 .messages {
     flex: 1;
+
     overflow-y: auto;
+
     padding: 24px;
+
     display: flex;
+
     flex-direction: column;
+
     gap: 9px;
 }
 
 .emptyChat {
     flex: 1;
+
     display: flex;
+
     align-items: center;
+
     justify-content: center;
+
     text-align: center;
+
     color: var(--muted);
-    padding: 30px;
 }
 
 .emptyChat strong {
     display: block;
+
     color: var(--text);
+
     margin-bottom: 7px;
 }
 
 .message {
     max-width: min(70%, 600px);
+
     padding: 10px 14px;
+
     border-radius: 17px;
+
     font-size: 13px;
+
     line-height: 1.45;
+
     word-wrap: break-word;
 }
 
 .message.sent {
     align-self: flex-end;
-    background: var(--message);
+
+    background: var(--accent);
+
     color: white;
+
     border-bottom-right-radius: 5px;
 }
 
 .message.received {
     align-self: flex-start;
+
     background: var(--panel2);
+
     border: 1px solid var(--border);
+
     border-bottom-left-radius: 5px;
+}
+
+.messageSender {
+    font-size: 10px;
+
+    font-weight: 700;
+
+    color: var(--accent2);
+
+    margin-bottom: 4px;
 }
 
 .messageTime {
     display: block;
-    opacity: .65;
+
+    opacity: .6;
+
     font-size: 9px;
+
     margin-top: 5px;
 }
 
 .messageInputArea {
-    padding: 15px 20px;
-    border-top: 1px solid var(--border);
-    background: var(--panel);
     display: flex;
+
     gap: 10px;
+
+    padding: 15px 20px;
+
+    background: var(--panel);
+
+    border-top: 1px solid var(--border);
 }
 
 .messageInput {
     flex: 1;
-    min-width: 0;
-    border: 1px solid var(--border);
-    background: var(--input);
-    color: var(--text);
-    padding: 13px 15px;
-    border-radius: 14px;
-    outline: none;
-}
 
-.messageInput:focus {
-    border-color: var(--accent);
+    min-width: 0;
+
+    padding: 13px 15px;
+
+    border-radius: 14px;
+
+    border: 1px solid var(--border);
+
+    background: var(--input);
+
+    color: var(--text);
+
+    outline: none;
 }
 
 .sendBtn {
     width: 48px;
-    border: 0;
+
+    border: none;
+
     border-radius: 13px;
+
     background: var(--accent);
+
     color: white;
+
     font-size: 18px;
 }
 
-.sendBtn:hover {
-    background: var(--accent2);
-}
 
-/* SETTINGS */
+/* =========================
+   OVERLAY
+========================= */
 
 .overlay {
     position: fixed;
+
     inset: 0;
-    background: rgba(0,0,0,.55);
-    backdrop-filter: blur(7px);
+
     z-index: 100;
+
     display: flex;
+
     align-items: center;
+
     justify-content: center;
+
     padding: 20px;
+
+    background: rgba(0,0,0,.6);
+
+    backdrop-filter: blur(7px);
 }
 
-.settings {
-    width: min(520px, 100%);
+.modal {
+    width: min(500px, 100%);
+
     max-height: 90vh;
+
     overflow-y: auto;
+
     background: var(--panel);
+
     border: 1px solid var(--border);
+
     border-radius: 20px;
+
     box-shadow: 0 30px 100px rgba(0,0,0,.45);
 }
 
-.settingsHeader {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+.modalHeader {
     padding: 20px;
+
+    display: flex;
+
+    justify-content: space-between;
+
+    align-items: center;
+
     border-bottom: 1px solid var(--border);
 }
 
-.settingsHeader h2 {
+.modalHeader h2 {
     margin: 0;
+
     font-size: 19px;
 }
 
-.settingsBody {
+.modalBody {
     padding: 20px;
 }
 
+.modalInput {
+    width: 100%;
+
+    padding: 13px;
+
+    border-radius: 11px;
+
+    border: 1px solid var(--border);
+
+    background: var(--input);
+
+    color: var(--text);
+
+    outline: none;
+
+    margin-bottom: 12px;
+}
+
+.modalButton {
+    width: 100%;
+
+    padding: 13px;
+
+    border: none;
+
+    border-radius: 11px;
+
+    background: var(--accent);
+
+    color: white;
+
+    font-weight: 600;
+}
+
+.memberSearch {
+    margin-top: 10px;
+}
+
+.memberResults {
+    max-height: 180px;
+
+    overflow-y: auto;
+
+    border: 1px solid var(--border);
+
+    border-radius: 12px;
+}
+
+.memberItem {
+    display: flex;
+
+    align-items: center;
+
+    gap: 10px;
+
+    padding: 10px;
+
+    cursor: pointer;
+}
+
+.memberItem:hover {
+    background: var(--panel2);
+}
+
+.memberItem.selected {
+    background: rgba(124,92,255,.18);
+}
+
+.selectedMembers {
+    display: flex;
+
+    flex-wrap: wrap;
+
+    gap: 7px;
+
+    margin: 12px 0;
+}
+
+.memberChip {
+    padding: 7px 10px;
+
+    border-radius: 9px;
+
+    background: var(--panel2);
+
+    border: 1px solid var(--border);
+
+    font-size: 11px;
+}
+
+.removeMember {
+    border: none;
+
+    background: none;
+
+    color: var(--danger);
+
+    margin-left: 5px;
+}
+
+
+/* SETTINGS */
+
 .setting {
     padding: 17px 0;
+
     border-bottom: 1px solid var(--border);
 }
 
 .setting:last-child {
-    border-bottom: 0;
+    border-bottom: none;
 }
 
 .settingTitle {
     font-size: 14px;
+
     font-weight: 600;
 }
 
 .settingDescription {
     color: var(--muted);
+
     font-size: 11px;
+
     line-height: 1.5;
-    margin-top: 5px;
-    margin-bottom: 12px;
+
+    margin: 5px 0 12px;
 }
 
 .settingInput {
     width: 100%;
-    border: 1px solid var(--border);
-    background: var(--input);
-    color: var(--text);
-    border-radius: 10px;
+
     padding: 11px;
+
+    border-radius: 10px;
+
+    border: 1px solid var(--border);
+
+    background: var(--input);
+
+    color: var(--text);
+
     outline: none;
 }
 
-.settingInput:focus {
-    border-color: var(--accent);
-}
-
 .settingBtn {
-    border: 1px solid var(--border);
-    background: var(--panel2);
-    color: var(--text);
     padding: 10px 14px;
+
     border-radius: 10px;
+
+    border: 1px solid var(--border);
+
+    background: var(--panel2);
+
+    color: var(--text);
+
     font-weight: 600;
 }
 
@@ -549,14 +849,12 @@ body.light .authBox {
     border-color: var(--accent);
 }
 
-.settingBtn.danger {
-    color: var(--danger);
-}
-
 .notificationStatus {
-    font-size: 11px;
-    margin-top: 9px;
     color: var(--muted);
+
+    font-size: 11px;
+
+    margin-top: 8px;
 }
 
 .notificationStatus.enabled {
@@ -569,6 +867,7 @@ body.light .authBox {
 
 .themeButtons {
     display: flex;
+
     gap: 8px;
 }
 
@@ -576,38 +875,58 @@ body.light .authBox {
     flex: 1;
 }
 
-.themeButtons button.active {
+.themeButtons .active {
     background: var(--accent);
-    color: white;
+
     border-color: var(--accent);
+
+    color: white;
 }
+
+
+/* TOAST */
 
 .toast {
     position: fixed;
-    left: 50%;
-    bottom: 25px;
-    transform: translateX(-50%) translateY(20px);
-    background: var(--panel2);
-    border: 1px solid var(--border);
-    color: var(--text);
-    padding: 12px 17px;
-    border-radius: 12px;
-    opacity: 0;
-    pointer-events: none;
-    transition: .25s;
+
     z-index: 300;
+
+    left: 50%;
+
+    bottom: 25px;
+
+    transform: translate(-50%,20px);
+
+    opacity: 0;
+
+    pointer-events: none;
+
+    padding: 12px 17px;
+
+    border-radius: 12px;
+
+    background: var(--panel2);
+
+    border: 1px solid var(--border);
+
+    color: var(--text);
+
     font-size: 12px;
-    box-shadow: 0 15px 40px rgba(0,0,0,.3);
+
+    transition: .25s;
 }
 
 .toast.show {
     opacity: 1;
-    transform: translateX(-50%) translateY(0);
+
+    transform: translate(-50%,0);
 }
+
 
 /* MOBILE */
 
-@media (max-width: 700px) {
+@media(max-width:700px) {
+
     .sidebar {
         width: 100%;
         min-width: 100%;
@@ -636,61 +955,154 @@ body.light .authBox {
     .message {
         max-width: 84%;
     }
+
 }
+
 </style>
 </head>
 
+
 <body>
 
-<!-- AUTH -->
+
+<!-- =========================
+     AUTH
+========================= -->
+
 <div id="authScreen">
+
     <div class="authBox">
-        <div class="logo">Astro<span>Chat</span></div>
-        <div class="authSubtitle">Private messaging, powered by the web.</div>
+
+        <div class="logo">
+            Astro<span>Chat</span>
+        </div>
+
+        <div class="authSubtitle">
+            Private messaging, powered by the web.
+        </div>
+
 
         <div id="loginForm">
-            <input id="loginEmail" class="authInput" type="email" placeholder="Email">
-            <input id="loginPassword" class="authInput" type="password" placeholder="Password">
-            <button class="primaryBtn" onclick="login()">Log In</button>
+
+            <input
+                id="loginEmail"
+                class="authInput"
+                type="email"
+                placeholder="Email"
+            >
+
+            <input
+                id="loginPassword"
+                class="authInput"
+                type="password"
+                placeholder="Password"
+            >
+
+            <button
+                class="primaryBtn"
+                onclick="login()"
+            >
+                Log In
+            </button>
 
             <div class="authSwitch">
                 Don't have an account?
-                <button class="linkBtn" onclick="showSignup()">Sign up</button>
+
+                <button
+                    class="linkBtn"
+                    onclick="showSignup()"
+                >
+                    Sign up
+                </button>
             </div>
+
         </div>
 
-        <div id="signupForm" class="hidden">
-            <input id="signupUsername" class="authInput" placeholder="Username">
-            <input id="signupEmail" class="authInput" type="email" placeholder="Email">
-            <input id="signupPassword" class="authInput" type="password" placeholder="Password">
 
-            <button class="primaryBtn" onclick="signup()">Create Account</button>
+        <div id="signupForm" class="hidden">
+
+            <input
+                id="signupUsername"
+                class="authInput"
+                placeholder="Username"
+            >
+
+            <input
+                id="signupEmail"
+                class="authInput"
+                type="email"
+                placeholder="Email"
+            >
+
+            <input
+                id="signupPassword"
+                class="authInput"
+                type="password"
+                placeholder="Password"
+            >
+
+            <button
+                class="primaryBtn"
+                onclick="signup()"
+            >
+                Create Account
+            </button>
 
             <div class="authSwitch">
                 Already have an account?
-                <button class="linkBtn" onclick="showLogin()">Log in</button>
+
+                <button
+                    class="linkBtn"
+                    onclick="showLogin()"
+                >
+                    Log in
+                </button>
             </div>
+
         </div>
+
     </div>
+
 </div>
 
-<!-- APP -->
+
+<!-- =========================
+     APP
+========================= -->
+
 <div id="app" class="hidden">
+
+
+    <!-- SIDEBAR -->
 
     <aside class="sidebar">
 
         <div class="sidebarHeader">
 
             <div class="sidebarTop">
+
                 <div>
-                    <div class="appName">Astro<span>Chat</span></div>
-                    <div id="currentUsername" class="usernameLabel"></div>
+
+                    <div class="appName">
+                        Astro<span>Chat</span>
+                    </div>
+
+                    <div
+                        id="currentUsername"
+                        class="usernameLabel"
+                    ></div>
+
                 </div>
 
-                <button class="iconBtn" onclick="openSettings()" title="Settings">
+                <button
+                    class="iconBtn"
+                    onclick="openSettings()"
+                >
                     ⚙
                 </button>
+
             </div>
+
 
             <input
                 id="searchInput"
@@ -700,44 +1112,92 @@ body.light .authBox {
                 oninput="searchUsers()"
             >
 
+
+            <div class="sidebarButtons">
+
+                <button
+                    class="sidebarAction"
+                    onclick="openCreateGroup()"
+                >
+                    ＋ Group
+                </button>
+
+            </div>
+
         </div>
 
-        <div id="sidebarContent" class="sidebarContent"></div>
+
+        <div
+            id="sidebarContent"
+            class="sidebarContent"
+        ></div>
 
     </aside>
+
+
+    <!-- CHAT -->
 
     <main class="chatArea">
 
         <div class="chatHeader">
 
-            <button class="iconBtn mobileBack" onclick="closeMobileChat()">
+            <button
+                class="iconBtn mobileBack"
+                onclick="closeMobileChat()"
+            >
                 ←
             </button>
 
-            <div id="chatAvatar" class="avatar">?</div>
+            <div
+                id="chatAvatar"
+                class="avatar"
+            >
+                ?
+            </div>
 
             <div class="chatTitle">
-                <div id="chatTitleName" class="chatTitleName">
+
+                <div
+                    id="chatTitleName"
+                    class="chatTitleName"
+                >
                     AstroChat
                 </div>
 
-                <div id="chatTitleHandle" class="chatTitleHandle">
-                    Select a user to start chatting
+                <div
+                    id="chatTitleHandle"
+                    class="chatTitleHandle"
+                >
+                    Select a user or group
                 </div>
+
             </div>
 
         </div>
 
-        <div id="messages" class="messages">
+
+        <div
+            id="messages"
+            class="messages"
+        >
 
             <div class="emptyChat">
+
                 <div>
-                    <strong>Welcome to AstroChat</strong>
-                    Search for a username to start a conversation.
+
+                    <strong>
+                        Welcome to AstroChat
+                    </strong>
+
+                    Search for a username or create
+                    a group to start chatting.
+
                 </div>
+
             </div>
 
         </div>
+
 
         <div class="messageInputArea">
 
@@ -765,27 +1225,118 @@ body.light .authBox {
 
 </div>
 
-<!-- SETTINGS -->
-<div id="settingsOverlay" class="overlay hidden">
 
-    <div class="settings">
+<!-- =========================
+     CREATE GROUP
+========================= -->
 
-        <div class="settingsHeader">
-            <h2>Settings</h2>
+<div
+    id="groupOverlay"
+    class="overlay hidden"
+>
 
-            <button class="iconBtn" onclick="closeSettings()">
+    <div class="modal">
+
+        <div class="modalHeader">
+
+            <h2>
+                Create Group
+            </h2>
+
+            <button
+                class="iconBtn"
+                onclick="closeCreateGroup()"
+            >
                 ×
             </button>
+
         </div>
 
-        <div class="settingsBody">
+
+        <div class="modalBody">
+
+            <input
+                id="groupName"
+                class="modalInput"
+                placeholder="Group name"
+                maxlength="50"
+            >
+
+
+            <input
+                id="memberSearch"
+                class="modalInput memberSearch"
+                placeholder="Search users to add..."
+                oninput="searchGroupMembers()"
+            >
+
+
+            <div
+                id="selectedMembers"
+                class="selectedMembers"
+            ></div>
+
+
+            <div
+                id="memberResults"
+                class="memberResults"
+            ></div>
+
+
+            <button
+                class="modalButton"
+                style="margin-top:12px"
+                onclick="createGroup()"
+            >
+                Create Group
+            </button>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<!-- =========================
+     SETTINGS
+========================= -->
+
+<div
+    id="settingsOverlay"
+    class="overlay hidden"
+>
+
+    <div class="modal">
+
+        <div class="modalHeader">
+
+            <h2>
+                Settings
+            </h2>
+
+            <button
+                class="iconBtn"
+                onclick="closeSettings()"
+            >
+                ×
+            </button>
+
+        </div>
+
+
+        <div class="modalBody">
+
 
             <div class="setting">
 
-                <div class="settingTitle">Username</div>
+                <div class="settingTitle">
+                    Username
+                </div>
 
                 <div class="settingDescription">
-                    Change the username people use to find you.
+                    Change the username people use to
+                    find you.
                 </div>
 
                 <input
@@ -794,18 +1345,26 @@ body.light .authBox {
                     placeholder="New username"
                 >
 
-                <button class="settingBtn" style="margin-top:10px" onclick="changeUsername()">
+                <button
+                    class="settingBtn"
+                    style="margin-top:10px"
+                    onclick="changeUsername()"
+                >
                     Change Username
                 </button>
 
             </div>
 
+
             <div class="setting">
 
-                <div class="settingTitle">Notifications</div>
+                <div class="settingTitle">
+                    Notifications
+                </div>
 
                 <div class="settingDescription">
-                    Receive desktop notifications when someone sends you a message.
+                    Receive desktop notifications when
+                    someone sends you a message.
                 </div>
 
                 <button
@@ -818,21 +1377,26 @@ body.light .authBox {
 
                 <button
                     class="settingBtn"
-                    style="margin-left:6px"
                     onclick="testNotification()"
                 >
                     Test
                 </button>
 
-                <div id="notificationStatus" class="notificationStatus">
-                    Checking notification status...
+                <div
+                    id="notificationStatus"
+                    class="notificationStatus"
+                >
+                    Checking...
                 </div>
 
             </div>
 
+
             <div class="setting">
 
-                <div class="settingTitle">Theme</div>
+                <div class="settingTitle">
+                    Theme
+                </div>
 
                 <div class="settingDescription">
                     Choose how AstroChat looks.
@@ -860,16 +1424,16 @@ body.light .authBox {
 
             </div>
 
+
             <div class="setting">
 
-                <div class="settingTitle">Account</div>
-
-                <div class="settingDescription">
-                    Sign out of this AstroChat account.
+                <div class="settingTitle">
+                    Account
                 </div>
 
                 <button
-                    class="settingBtn danger"
+                    class="settingBtn"
+                    style="color:var(--danger);margin-top:10px"
                     onclick="logout()"
                 >
                     Log Out
@@ -883,14 +1447,21 @@ body.light .authBox {
 
 </div>
 
-<div id="toast" class="toast"></div>
+
+<div
+    id="toast"
+    class="toast"
+></div>
+
 
 <script>
-/* =========================================================
-   SUPABASE
-========================================================= */
 
-const SUPABASE_URL = "https://kcyoimzjmnfyqwkafgqe.supabase.co";
+/* =========================
+   SUPABASE
+========================= */
+
+const SUPABASE_URL =
+    "https://kcyoimzjmnfyqwkafgqe.supabase.co";
 
 const SUPABASE_KEY =
     "sb_publishable_VB6fLiZr_sRSynCEtTv4vQ_4NdHN97F";
@@ -902,26 +1473,36 @@ const supabaseClient =
     );
 
 
-/* =========================================================
+/* =========================
    STATE
-========================================================= */
+========================= */
 
 let currentUser = null;
+
 let currentProfile = null;
+
 let currentChatUser = null;
+
+let currentGroup = null;
+
 let realtimeChannel = null;
+
+let groupRealtimeChannel = null;
+
+let selectedMembers = [];
+
 let searchTimer = null;
 
 
-/* =========================================================
+/* =========================
    ELEMENTS
-========================================================= */
+========================= */
 
-const authScreen = document.getElementById("authScreen");
-const app = document.getElementById("app");
+const authScreen =
+    document.getElementById("authScreen");
 
-const loginForm = document.getElementById("loginForm");
-const signupForm = document.getElementById("signupForm");
+const app =
+    document.getElementById("app");
 
 const sidebarContent =
     document.getElementById("sidebarContent");
@@ -948,150 +1529,168 @@ const chatAvatar =
     document.getElementById("chatAvatar");
 
 
-/* =========================================================
+/* =========================
+   START
+========================= */
+
+document.addEventListener(
+    "DOMContentLoaded",
+    async () => {
+
+        applySavedTheme();
+
+        registerServiceWorker();
+
+        const {
+            data: {
+                session
+            }
+        } =
+            await supabaseClient.auth.getSession();
+
+        if (session) {
+
+            currentUser =
+                session.user;
+
+            await initializeUser();
+
+        } else {
+
+            showAuth();
+
+        }
+
+    }
+);
+
+
+/* =========================
    SERVICE WORKER
-========================================================= */
+========================= */
 
 async function registerServiceWorker() {
 
-    if (!("serviceWorker" in navigator)) {
-        console.warn("Service workers are not supported.");
-        return;
-    }
+    if (
+        !("serviceWorker" in navigator)
+    ) return;
 
     try {
 
-        await navigator.serviceWorker.register("./sw.js");
+        await navigator.serviceWorker.register(
+            "./sw.js"
+        );
 
-        console.log("AstroChat service worker registered.");
+        console.log(
+            "Service worker registered."
+        );
 
     } catch (error) {
 
-        console.error(
-            "Service worker registration failed:",
-            error
-        );
+        console.error(error);
 
     }
 
 }
 
 
-/* =========================================================
-   INITIALIZATION
-========================================================= */
-
-document.addEventListener("DOMContentLoaded", async () => {
-
-    applySavedTheme();
-
-    registerServiceWorker();
-
-    const {
-        data: {
-            session
-        }
-    } = await supabaseClient.auth.getSession();
-
-    if (session) {
-
-        currentUser = session.user;
-
-        await initializeUser();
-
-    } else {
-
-        showAuth();
-
-    }
-
-    supabaseClient.auth.onAuthStateChange(
-        async (event, session) => {
-
-            if (session) {
-
-                currentUser = session.user;
-
-                await initializeUser();
-
-            } else {
-
-                currentUser = null;
-                currentProfile = null;
-
-                showAuth();
-
-            }
-
-        }
-    );
-
-});
-
-
-/* =========================================================
-   AUTH UI
-========================================================= */
+/* =========================
+   AUTH
+========================= */
 
 function showLogin() {
 
-    loginForm.classList.remove("hidden");
-    signupForm.classList.add("hidden");
+    document
+        .getElementById("loginForm")
+        .classList.remove("hidden");
+
+    document
+        .getElementById("signupForm")
+        .classList.add("hidden");
 
 }
+
 
 function showSignup() {
 
-    loginForm.classList.add("hidden");
-    signupForm.classList.remove("hidden");
+    document
+        .getElementById("loginForm")
+        .classList.add("hidden");
+
+    document
+        .getElementById("signupForm")
+        .classList.remove("hidden");
 
 }
+
 
 function showAuth() {
 
-    authScreen.classList.remove("hidden");
-    app.classList.add("hidden");
+    authScreen.classList.remove(
+        "hidden"
+    );
+
+    app.classList.add(
+        "hidden"
+    );
 
 }
+
 
 function showApp() {
 
-    authScreen.classList.add("hidden");
-    app.classList.remove("hidden");
+    authScreen.classList.add(
+        "hidden"
+    );
+
+    app.classList.remove(
+        "hidden"
+    );
 
 }
 
 
-/* =========================================================
-   SIGN UP
-========================================================= */
+/* =========================
+   SIGNUP
+========================= */
 
 async function signup() {
 
     const username =
-        document.getElementById("signupUsername")
-        .value
-        .trim()
-        .toLowerCase();
+        document
+            .getElementById("signupUsername")
+            .value
+            .trim()
+            .toLowerCase();
 
     const email =
-        document.getElementById("signupEmail")
-        .value
-        .trim();
+        document
+            .getElementById("signupEmail")
+            .value
+            .trim();
 
     const password =
-        document.getElementById("signupPassword")
-        .value;
+        document
+            .getElementById("signupPassword")
+            .value;
 
-    if (!username || !email || !password) {
+    if (
+        !username ||
+        !email ||
+        !password
+    ) {
 
-        showToast("Fill out every field.");
+        showToast(
+            "Fill out every field."
+        );
 
         return;
 
     }
 
-    if (!/^[a-zA-Z0-9_]+$/.test(username)) {
+    if (
+        !/^[a-zA-Z0-9_]+$/.test(username)
+    ) {
 
         showToast(
             "Username can only contain letters, numbers and underscores."
@@ -1101,25 +1700,20 @@ async function signup() {
 
     }
 
-    if (username.length < 3) {
-
-        showToast("Username must be at least 3 characters.");
-
-        return;
-
-    }
-
     const {
         data,
         error
-    } = await supabaseClient.auth.signUp({
-        email,
-        password
-    });
+    } =
+        await supabaseClient.auth.signUp({
+            email,
+            password
+        });
 
     if (error) {
 
-        showToast(error.message);
+        showToast(
+            error.message
+        );
 
         return;
 
@@ -1127,7 +1721,9 @@ async function signup() {
 
     if (!data.user) {
 
-        showToast("Account created. Check your email.");
+        showToast(
+            "Check your email to confirm your account."
+        );
 
         return;
 
@@ -1135,105 +1731,95 @@ async function signup() {
 
     const {
         error: profileError
-    } = await supabaseClient
-        .from("profiles")
-        .insert({
-            id: data.user.id,
-            username: username,
-            display_name: username
-        });
+    } =
+        await supabaseClient
+            .from("profiles")
+            .insert({
+                id: data.user.id,
+                username,
+                display_name: username
+            });
 
     if (profileError) {
 
-        console.error(profileError);
-
-        if (
+        showToast(
             profileError.code === "23505"
-        ) {
-
-            showToast("That username is already taken.");
-
-        } else {
-
-            showToast(
-                "Account created, but profile setup failed."
-            );
-
-        }
+                ? "Username already exists."
+                : profileError.message
+        );
 
         return;
 
     }
 
-    showToast("Account created!");
+    showToast(
+        "Account created!"
+    );
 
 }
 
 
-/* =========================================================
+/* =========================
    LOGIN
-========================================================= */
+========================= */
 
 async function login() {
 
     const email =
-        document.getElementById("loginEmail")
-        .value
-        .trim();
+        document
+            .getElementById("loginEmail")
+            .value
+            .trim();
 
     const password =
-        document.getElementById("loginPassword")
-        .value;
-
-    if (!email || !password) {
-
-        showToast("Enter your email and password.");
-
-        return;
-
-    }
+        document
+            .getElementById("loginPassword")
+            .value;
 
     const {
         error
-    } = await supabaseClient.auth.signInWithPassword({
-        email,
-        password
-    });
+    } =
+        await supabaseClient.auth.signInWithPassword({
+            email,
+            password
+        });
 
     if (error) {
 
-        showToast(error.message);
-
-        return;
+        showToast(
+            error.message
+        );
 
     }
 
 }
 
 
-/* =========================================================
-   USER INITIALIZATION
-========================================================= */
+/* =========================
+   USER INIT
+========================= */
 
 async function initializeUser() {
-
-    if (!currentUser) return;
 
     const {
         data,
         error
-    } = await supabaseClient
-        .from("profiles")
-        .select("*")
-        .eq("id", currentUser.id)
-        .single();
+    } =
+        await supabaseClient
+            .from("profiles")
+            .select("*")
+            .eq(
+                "id",
+                currentUser.id
+            )
+            .single();
 
     if (error) {
 
         console.error(error);
 
         showToast(
-            "Could not load your profile."
+            "Could not load profile."
         );
 
         return;
@@ -1243,7 +1829,7 @@ async function initializeUser() {
     currentProfile = data;
 
     currentUsername.textContent =
-        "@" + currentProfile.username;
+        "@" + data.username;
 
     showApp();
 
@@ -1253,48 +1839,64 @@ async function initializeUser() {
 
     setupRealtime();
 
+    setupGroupRealtime();
+
 }
 
 
-/* =========================================================
+/* =========================
    LOGOUT
-========================================================= */
+========================= */
 
 async function logout() {
 
     if (realtimeChannel) {
 
         await supabaseClient
-            .removeChannel(realtimeChannel);
+            .removeChannel(
+                realtimeChannel
+            );
 
-        realtimeChannel = null;
+    }
+
+    if (groupRealtimeChannel) {
+
+        await supabaseClient
+            .removeChannel(
+                groupRealtimeChannel
+            );
 
     }
 
     await supabaseClient.auth.signOut();
 
     currentUser = null;
+
     currentProfile = null;
+
     currentChatUser = null;
+
+    currentGroup = null;
 
     showAuth();
 
 }
 
 
-/* =========================================================
-   USER SEARCH
-========================================================= */
+/* =========================
+   SEARCH USERS
+========================= */
 
 function searchUsers() {
 
     clearTimeout(searchTimer);
 
     const query =
-        document.getElementById("searchInput")
-        .value
-        .trim()
-        .toLowerCase();
+        document
+            .getElementById("searchInput")
+            .value
+            .trim()
+            .toLowerCase();
 
     if (!query) {
 
@@ -1304,10 +1906,11 @@ function searchUsers() {
 
     }
 
-    searchTimer = setTimeout(
-        () => performUserSearch(query),
-        250
-    );
+    searchTimer =
+        setTimeout(
+            () => performUserSearch(query),
+            250
+        );
 
 }
 
@@ -1320,18 +1923,21 @@ async function performUserSearch(query) {
     const {
         data,
         error
-    } = await supabaseClient
-        .from("profiles")
-        .select("id, username, display_name")
-        .eq("username", query)
-        .limit(10);
+    } =
+        await supabaseClient
+            .from("profiles")
+            .select(
+                "id, username, display_name"
+            )
+            .eq(
+                "username",
+                query
+            )
+            .limit(10);
 
     if (error) {
 
         console.error(error);
-
-        sidebarContent.innerHTML +=
-            '<div class="emptySide">Search failed.</div>';
 
         return;
 
@@ -1339,7 +1945,9 @@ async function performUserSearch(query) {
 
     const users =
         (data || []).filter(
-            user => user.id !== currentUser.id
+            user =>
+                user.id !==
+                currentUser.id
         );
 
     if (!users.length) {
@@ -1351,63 +1959,76 @@ async function performUserSearch(query) {
 
     }
 
-    users.forEach(user => {
+    users.forEach(
+        user => {
 
-        const element =
-            createUserElement(user);
+            sidebarContent.appendChild(
+                createUserElement(user)
+            );
 
-        sidebarContent.appendChild(element);
-
-    });
+        }
+    );
 
 }
 
 
-/* =========================================================
+/* =========================
    USER ELEMENT
-========================================================= */
+========================= */
 
 function createUserElement(user) {
 
     const button =
         document.createElement("button");
 
-    button.className = "userResult";
+    button.className =
+        "userResult";
 
-    const avatarLetter =
-        (user.display_name ||
+    const letter =
+        (
+            user.display_name ||
             user.username ||
-            "?")
+            "?"
+        )
         .charAt(0)
         .toUpperCase();
 
     button.innerHTML = `
+
         <div class="avatar">
-            ${escapeHTML(avatarLetter)}
+            ${escapeHTML(letter)}
         </div>
 
         <div class="userInfo">
+
             <div class="userName">
-                ${escapeHTML(user.display_name || user.username)}
+                ${escapeHTML(
+                    user.display_name ||
+                    user.username
+                )}
             </div>
 
             <div class="userHandle">
-                @${escapeHTML(user.username)}
+                @${escapeHTML(
+                    user.username
+                )}
             </div>
+
         </div>
+
     `;
 
-    button.onclick = () =>
-        openChat(user);
+    button.onclick =
+        () => openChat(user);
 
     return button;
 
 }
 
 
-/* =========================================================
+/* =========================
    RECENT CHATS
-========================================================= */
+========================= */
 
 async function loadRecentChats() {
 
@@ -1416,133 +2037,231 @@ async function loadRecentChats() {
     sidebarContent.innerHTML =
         '<div class="sectionTitle">Recent Chats</div>';
 
+
+    /* GROUPS */
+
     const {
-        data,
-        error
-    } = await supabaseClient
-        .from("messages")
-        .select(
-            "sender_id, receiver_id, content, created_at"
-        )
-        .or(
-            `sender_id.eq.${currentUser.id},receiver_id.eq.${currentUser.id}`
-        )
-        .order(
-            "created_at",
-            {
-                ascending: false
+        data: memberships
+    } =
+        await supabaseClient
+            .from("group_members")
+            .select("group_id")
+            .eq(
+                "user_id",
+                currentUser.id
+            );
+
+    const groupIds =
+        (memberships || [])
+            .map(
+                item =>
+                    item.group_id
+            );
+
+    if (groupIds.length) {
+
+        const {
+            data: groups
+        } =
+            await supabaseClient
+                .from("groups")
+                .select("*")
+                .in(
+                    "id",
+                    groupIds
+                )
+                .order(
+                    "created_at",
+                    {
+                        ascending: false
+                    }
+                );
+
+        (groups || []).forEach(
+            group => {
+
+                sidebarContent.appendChild(
+                    createGroupElement(group)
+                );
+
             }
-        )
-        .limit(100);
-
-    if (error) {
-
-        console.error(error);
-
-        sidebarContent.innerHTML +=
-            '<div class="emptySide">Could not load chats.</div>';
-
-        return;
+        );
 
     }
+
+
+    /* DIRECT MESSAGES */
+
+    const {
+        data: messages
+    } =
+        await supabaseClient
+            .from("messages")
+            .select(
+                "sender_id, receiver_id, content, created_at"
+            )
+            .or(
+                `sender_id.eq.${currentUser.id},receiver_id.eq.${currentUser.id}`
+            )
+            .order(
+                "created_at",
+                {
+                    ascending: false
+                }
+            )
+            .limit(100);
 
     const ids = [];
 
-    for (const message of data || []) {
+    (messages || []).forEach(
+        message => {
 
-        const otherId =
-            message.sender_id === currentUser.id
-                ? message.receiver_id
-                : message.sender_id;
+            const otherId =
+                message.sender_id ===
+                currentUser.id
+                    ? message.receiver_id
+                    : message.sender_id;
 
-        if (!ids.includes(otherId)) {
+            if (
+                !ids.includes(otherId)
+            ) {
 
-            ids.push(otherId);
+                ids.push(otherId);
+
+            }
 
         }
-
-    }
+    );
 
     if (!ids.length) {
 
-        sidebarContent.innerHTML += `
-            <div class="emptySide">
-                No conversations yet.<br>
-                Search for a username to start one.
-            </div>
-        `;
+        if (!groupIds.length) {
+
+            sidebarContent.innerHTML += `
+                <div class="emptySide">
+                    No conversations yet.<br>
+                    Search for a username or create a group.
+                </div>
+            `;
+
+        }
 
         return;
 
     }
 
     const {
-        data: profiles,
-        error: profileError
-    } = await supabaseClient
-        .from("profiles")
-        .select("id, username, display_name")
-        .in("id", ids);
-
-    if (profileError) {
-
-        console.error(profileError);
-
-        return;
-
-    }
+        data: profiles
+    } =
+        await supabaseClient
+            .from("profiles")
+            .select(
+                "id, username, display_name"
+            )
+            .in(
+                "id",
+                ids
+            );
 
     const profileMap = {};
 
-    (profiles || []).forEach(profile => {
+    (profiles || []).forEach(
+        profile => {
 
-        profileMap[profile.id] = profile;
+            profileMap[
+                profile.id
+            ] = profile;
 
-    });
+        }
+    );
 
     const latest = {};
 
-    (data || []).forEach(message => {
+    (messages || []).forEach(
+        message => {
 
-        const otherId =
-            message.sender_id === currentUser.id
-                ? message.receiver_id
-                : message.sender_id;
+            const otherId =
+                message.sender_id ===
+                currentUser.id
+                    ? message.receiver_id
+                    : message.sender_id;
 
-        if (!latest[otherId]) {
+            if (!latest[otherId]) {
 
-            latest[otherId] = message;
+                latest[otherId] =
+                    message;
+
+            }
 
         }
+    );
 
-    });
+    ids.forEach(
+        id => {
 
-    ids.forEach(id => {
+            if (!profileMap[id]) return;
 
-        const profile =
-            profileMap[id];
-
-        if (!profile) return;
-
-        const message =
-            latest[id];
-
-        const element =
-            createRecentChatElement(
-                profile,
-                message
+            sidebarContent.appendChild(
+                createRecentChatElement(
+                    profileMap[id],
+                    latest[id]
+                )
             );
 
-        sidebarContent.appendChild(element);
-
-    });
+        }
+    );
 
 }
 
 
-/* =========================================================
-   RECENT CHAT ELEMENT
-========================================================= */
+/* =========================
+   GROUP SIDEBAR ELEMENT
+========================= */
+
+function createGroupElement(group) {
+
+    const button =
+        document.createElement("button");
+
+    button.className =
+        "recentChat";
+
+    const letter =
+        group.name
+            .charAt(0)
+            .toUpperCase();
+
+    button.innerHTML = `
+
+        <div class="avatar groupAvatar">
+            ${escapeHTML(letter)}
+        </div>
+
+        <div class="userInfo">
+
+            <div class="userName">
+                ${escapeHTML(group.name)}
+            </div>
+
+            <div class="previewText">
+                Group chat
+            </div>
+
+        </div>
+
+    `;
+
+    button.onclick =
+        () => openGroup(group);
+
+    return button;
+
+}
+
+
+/* =========================
+   DIRECT CHAT ELEMENT
+========================= */
 
 function createRecentChatElement(
     user,
@@ -1555,33 +2274,19 @@ function createRecentChatElement(
     button.className =
         "recentChat";
 
-    if (
-        currentChatUser &&
-        currentChatUser.id === user.id
-    ) {
-
-        button.classList.add("active");
-
-    }
-
-    const avatarLetter =
-        (user.display_name ||
+    const letter =
+        (
+            user.display_name ||
             user.username ||
-            "?")
+            "?"
+        )
         .charAt(0)
         .toUpperCase();
 
-    const preview =
-        message?.content || "";
-
-    const time =
-        message?.created_at
-            ? formatShortTime(message.created_at)
-            : "";
-
     button.innerHTML = `
+
         <div class="avatar">
-            ${escapeHTML(avatarLetter)}
+            ${escapeHTML(letter)}
         </div>
 
         <div class="userInfo">
@@ -1596,35 +2301,48 @@ function createRecentChatElement(
                 </div>
 
                 <div class="previewTime">
-                    ${escapeHTML(time)}
+                    ${escapeHTML(
+                        formatShortTime(
+                            message?.created_at
+                        )
+                    )}
                 </div>
 
             </div>
 
             <div class="previewText">
-                ${escapeHTML(preview)}
+                ${escapeHTML(
+                    message?.content || ""
+                )}
             </div>
 
         </div>
+
     `;
 
-    button.onclick = () =>
-        openChat(user);
+    button.onclick =
+        () => openChat(user);
 
     return button;
 
 }
 
 
-/* =========================================================
-   OPEN CHAT
-========================================================= */
+/* =========================
+   OPEN DIRECT CHAT
+========================= */
 
 async function openChat(user) {
 
-    currentChatUser = user;
+    currentChatUser =
+        user;
 
-    app.classList.add("chat-open");
+    currentGroup =
+        null;
+
+    app.classList.add(
+        "chat-open"
+    );
 
     chatTitleName.textContent =
         user.display_name ||
@@ -1632,6 +2350,9 @@ async function openChat(user) {
 
     chatTitleHandle.textContent =
         "@" + user.username;
+
+    chatAvatar.className =
+        "avatar";
 
     chatAvatar.textContent =
         (
@@ -1642,113 +2363,144 @@ async function openChat(user) {
         .charAt(0)
         .toUpperCase();
 
-    messageInput.disabled = false;
-    sendBtn.disabled = false;
+    messageInput.disabled =
+        false;
+
+    sendBtn.disabled =
+        false;
 
     await loadMessages();
 
     messageInput.focus();
 
-    loadRecentChats();
+}
+
+
+/* =========================
+   OPEN GROUP
+========================= */
+
+async function openGroup(group) {
+
+    currentGroup =
+        group;
+
+    currentChatUser =
+        null;
+
+    app.classList.add(
+        "chat-open"
+    );
+
+    chatTitleName.textContent =
+        group.name;
+
+    chatTitleHandle.textContent =
+        "Group chat";
+
+    chatAvatar.className =
+        "avatar groupAvatar";
+
+    chatAvatar.textContent =
+        group.name
+            .charAt(0)
+            .toUpperCase();
+
+    messageInput.disabled =
+        false;
+
+    sendBtn.disabled =
+        false;
+
+    await loadGroupMessages();
+
+    messageInput.focus();
 
 }
 
 
-/* =========================================================
-   CLOSE MOBILE CHAT
-========================================================= */
-
-function closeMobileChat() {
-
-    app.classList.remove("chat-open");
-
-}
-
-
-/* =========================================================
-   LOAD MESSAGES
-========================================================= */
+/* =========================
+   LOAD DIRECT MESSAGES
+========================= */
 
 async function loadMessages() {
-
-    if (!currentUser || !currentChatUser) return;
 
     messagesElement.innerHTML = "";
 
     const {
         data,
         error
-    } = await supabaseClient
-        .from("messages")
-        .select("*")
-        .or(
-            `and(sender_id.eq.${currentUser.id},receiver_id.eq.${currentChatUser.id}),and(sender_id.eq.${currentChatUser.id},receiver_id.eq.${currentUser.id})`
-        )
-        .order(
-            "created_at",
-            {
-                ascending: true
-            }
-        );
+    } =
+        await supabaseClient
+            .from("messages")
+            .select("*")
+            .or(
+                `and(sender_id.eq.${currentUser.id},receiver_id.eq.${currentChatUser.id}),and(sender_id.eq.${currentChatUser.id},receiver_id.eq.${currentUser.id})`
+            )
+            .order(
+                "created_at",
+                {
+                    ascending: true
+                }
+            );
 
     if (error) {
 
         console.error(error);
 
-        messagesElement.innerHTML = `
-            <div class="emptyChat">
-                <div>Could not load messages.</div>
-            </div>
-        `;
+        return;
+
+    }
+
+    if (!data.length) {
+
+        showEmptyMessages(
+            "Start the conversation",
+            "Send a message."
+        );
 
         return;
 
     }
 
-    if (!data || !data.length) {
-
-        messagesElement.innerHTML = `
-            <div class="emptyChat">
-                <div>
-                    <strong>Start the conversation</strong>
-                    Send a message to @${escapeHTML(currentChatUser.username)}.
-                </div>
-            </div>
-        `;
-
-        return;
-
-    }
-
-    data.forEach(message => {
-
-        renderMessage(message);
-
-    });
+    data.forEach(
+        renderDirectMessage
+    );
 
     scrollMessages();
 
 }
 
 
-/* =========================================================
-   RENDER MESSAGE
-========================================================= */
+/* =========================
+   DIRECT MESSAGE RENDER
+========================= */
 
-function renderMessage(message) {
+function renderDirectMessage(message) {
 
     const element =
         document.createElement("div");
 
-    const isSent =
-        message.sender_id === currentUser.id;
+    element.dataset.messageId =
+        message.id;
+
+    const sent =
+        message.sender_id ===
+        currentUser.id;
 
     element.className =
         "message " +
-        (isSent ? "sent" : "received");
+        (
+            sent
+                ? "sent"
+                : "received"
+        );
 
     element.innerHTML = `
-        ${escapeHTML(message.content)}
+
+        ${escapeHTML(
+            message.content
+        )}
 
         <span class="messageTime">
             ${escapeHTML(
@@ -1757,20 +2509,180 @@ function renderMessage(message) {
                 )
             )}
         </span>
+
     `;
 
-    messagesElement.appendChild(element);
+    messagesElement.appendChild(
+        element
+    );
 
 }
 
 
-/* =========================================================
-   SEND MESSAGE
-========================================================= */
+/* =========================
+   LOAD GROUP MESSAGES
+========================= */
+
+async function loadGroupMessages() {
+
+    messagesElement.innerHTML = "";
+
+    const {
+        data,
+        error
+    } =
+        await supabaseClient
+            .from("group_messages")
+            .select("*")
+            .eq(
+                "group_id",
+                currentGroup.id
+            )
+            .order(
+                "created_at",
+                {
+                    ascending: true
+                }
+            );
+
+    if (error) {
+
+        console.error(error);
+
+        showToast(
+            "Could not load group messages."
+        );
+
+        return;
+
+    }
+
+    if (!data.length) {
+
+        showEmptyMessages(
+            "Group created!",
+            "Send the first message."
+        );
+
+        return;
+
+    }
+
+    const senderIds =
+        [
+            ...new Set(
+                data.map(
+                    m => m.sender_id
+                )
+            )
+        ];
+
+    const {
+        data: profiles
+    } =
+        await supabaseClient
+            .from("profiles")
+            .select(
+                "id, username, display_name"
+            )
+            .in(
+                "id",
+                senderIds
+            );
+
+    const map = {};
+
+    (profiles || []).forEach(
+        p => {
+            map[p.id] = p;
+        }
+    );
+
+    data.forEach(
+        message =>
+            renderGroupMessage(
+                message,
+                map[message.sender_id]
+            )
+    );
+
+    scrollMessages();
+
+}
+
+
+/* =========================
+   GROUP MESSAGE RENDER
+========================= */
+
+function renderGroupMessage(
+    message,
+    sender
+) {
+
+    const element =
+        document.createElement("div");
+
+    element.dataset.messageId =
+        "group-" + message.id;
+
+    const sent =
+        message.sender_id ===
+        currentUser.id;
+
+    element.className =
+        "message " +
+        (
+            sent
+                ? "sent"
+                : "received"
+        );
+
+    const senderName =
+        sender?.display_name ||
+        sender?.username ||
+        "User";
+
+    element.innerHTML = `
+
+        ${
+            !sent
+                ? `
+                    <div class="messageSender">
+                        ${escapeHTML(
+                            senderName
+                        )}
+                    </div>
+                  `
+                : ""
+        }
+
+        ${escapeHTML(
+            message.content
+        )}
+
+        <span class="messageTime">
+            ${escapeHTML(
+                formatMessageTime(
+                    message.created_at
+                )
+            )}
+        </span>
+
+    `;
+
+    messagesElement.appendChild(
+        element
+    );
+
+}
+
+
+/* =========================
+   SEND
+========================= */
 
 async function sendMessage() {
-
-    if (!currentUser || !currentChatUser) return;
 
     const content =
         messageInput.value.trim();
@@ -1779,112 +2691,82 @@ async function sendMessage() {
 
     messageInput.value = "";
 
-    const {
-        data,
-        error
-    } = await supabaseClient
-        .from("messages")
-        .insert({
-            sender_id: currentUser.id,
-            receiver_id: currentChatUser.id,
-            content: content
-        })
-        .select()
-        .single();
 
-    if (error) {
+    /* GROUP */
 
-        console.error(error);
+    if (currentGroup) {
 
-        showToast(
-            "Message failed to send."
-        );
+        const {
+            error
+        } =
+            await supabaseClient
+                .from("group_messages")
+                .insert({
+                    group_id:
+                        currentGroup.id,
+                    sender_id:
+                        currentUser.id,
+                    content
+                });
 
-        messageInput.value = content;
+        if (error) {
+
+            console.error(error);
+
+            showToast(
+                "Message failed to send."
+            );
+
+            messageInput.value =
+                content;
+
+        }
 
         return;
 
     }
 
-    /*
-       The realtime listener normally renders this.
-       If realtime is slow/unavailable, render immediately.
-    */
 
-    if (data) {
+    /* DIRECT */
 
-        const exists =
-            [...messagesElement.children]
-            .some(element =>
-                element.dataset.messageId ===
-                String(data.id)
+    if (currentChatUser) {
+
+        const {
+            error
+        } =
+            await supabaseClient
+                .from("messages")
+                .insert({
+                    sender_id:
+                        currentUser.id,
+                    receiver_id:
+                        currentChatUser.id,
+                    content
+                });
+
+        if (error) {
+
+            console.error(error);
+
+            showToast(
+                "Message failed to send."
             );
 
-        if (!exists) {
-
-            const element =
-                document.createElement("div");
-
-            element.dataset.messageId =
-                data.id;
-
-            const isSent = true;
-
-            element.className =
-                "message sent";
-
-            element.innerHTML = `
-                ${escapeHTML(data.content)}
-
-                <span class="messageTime">
-                    ${escapeHTML(
-                        formatMessageTime(
-                            data.created_at
-                        )
-                    )}
-                </span>
-            `;
-
-            messagesElement.appendChild(element);
-
-            scrollMessages();
+            messageInput.value =
+                content;
 
         }
 
     }
 
-    loadRecentChats();
-
 }
 
 
-/* =========================================================
-   ENTER TO SEND
-========================================================= */
-
-function handleMessageKey(event) {
-
-    if (
-        event.key === "Enter" &&
-        !event.shiftKey
-    ) {
-
-        event.preventDefault();
-
-        sendMessage();
-
-    }
-
-}
-
-
-/* =========================================================
-   REALTIME
-========================================================= */
+/* =========================
+   REALTIME DIRECT
+========================= */
 
 function setupRealtime() {
-
-    if (!currentUser) return;
 
     if (realtimeChannel) {
 
@@ -1897,7 +2779,7 @@ function setupRealtime() {
     realtimeChannel =
         supabaseClient
             .channel(
-                "astrochat-messages-" +
+                "astrochat-direct-" +
                 currentUser.id
             )
             .on(
@@ -1915,17 +2797,7 @@ function setupRealtime() {
                     if (
                         message.sender_id ===
                         currentUser.id
-                    ) {
-
-                        return;
-
-                    }
-
-                    /*
-                       If this message belongs to the
-                       conversation currently open,
-                       display it immediately.
-                    */
+                    ) return;
 
                     if (
                         currentChatUser &&
@@ -1933,234 +2805,554 @@ function setupRealtime() {
                         currentChatUser.id
                     ) {
 
-                        const existing =
-                            [...messagesElement.children]
-                            .some(element =>
-                                element.dataset.messageId ===
-                                String(message.id)
-                            );
+                        renderDirectMessage(
+                            message
+                        );
 
-                        if (!existing) {
+                        scrollMessages();
 
-                            const element =
-                                document.createElement("div");
-
-                            element.dataset.messageId =
-                                message.id;
-
-                            element.className =
-                                "message received";
-
-                            element.innerHTML = `
-                                ${escapeHTML(message.content)}
-
-                                <span class="messageTime">
-                                    ${escapeHTML(
-                                        formatMessageTime(
-                                            message.created_at
-                                        )
-                                    )}
-                                </span>
-                            `;
-
-                            messagesElement.appendChild(
-                                element
-                            );
-
-                            scrollMessages();
-
-                        }
+                        return;
 
                     }
 
-                    /*
-                       Refresh sidebar so the newest
-                       conversation appears at the top.
-                    */
-
                     loadRecentChats();
 
-                    /*
-                       Desktop notification.
-                    */
-
-                    await showMessageNotification(
+                    showMessageNotification(
                         message
                     );
 
                 }
             )
-            .subscribe(
-                status => {
+            .subscribe();
 
-                    console.log(
-                        "Realtime status:",
-                        status
+}
+
+
+/* =========================
+   REALTIME GROUPS
+========================= */
+
+function setupGroupRealtime() {
+
+    if (groupRealtimeChannel) {
+
+        supabaseClient.removeChannel(
+            groupRealtimeChannel
+        );
+
+    }
+
+    groupRealtimeChannel =
+        supabaseClient
+            .channel(
+                "astrochat-groups-" +
+                currentUser.id
+            )
+            .on(
+                "postgres_changes",
+                {
+                    event: "INSERT",
+                    schema: "public",
+                    table: "group_messages"
+                },
+                async payload => {
+
+                    const message =
+                        payload.new;
+
+                    if (
+                        message.sender_id ===
+                        currentUser.id
+                    ) return;
+
+                    if (
+                        currentGroup &&
+                        message.group_id ===
+                        currentGroup.id
+                    ) {
+
+                        const {
+                            data: sender
+                        } =
+                            await supabaseClient
+                                .from("profiles")
+                                .select(
+                                    "username, display_name"
+                                )
+                                .eq(
+                                    "id",
+                                    message.sender_id
+                                )
+                                .single();
+
+                        renderGroupMessage(
+                            message,
+                            sender
+                        );
+
+                        scrollMessages();
+
+                        return;
+
+                    }
+
+                    loadRecentChats();
+
+                    showGroupNotification(
+                        message
                     );
 
                 }
-            );
+            )
+            .subscribe();
 
 }
 
 
-/* =========================================================
-   SERVICE WORKER NOTIFICATIONS
-========================================================= */
+/* =========================
+   CREATE GROUP
+========================= */
 
-async function enableNotifications() {
+function openCreateGroup() {
 
-    if (!("Notification" in window)) {
+    selectedMembers = [];
 
-        showToast(
-            "This browser does not support notifications."
-        );
+    document
+        .getElementById("groupName")
+        .value = "";
+
+    document
+        .getElementById("memberSearch")
+        .value = "";
+
+    document
+        .getElementById("memberResults")
+        .innerHTML = "";
+
+    renderSelectedMembers();
+
+    document
+        .getElementById("groupOverlay")
+        .classList.remove("hidden");
+
+}
+
+
+function closeCreateGroup() {
+
+    document
+        .getElementById("groupOverlay")
+        .classList.add("hidden");
+
+}
+
+
+/* =========================
+   GROUP USER SEARCH
+========================= */
+
+let groupSearchTimer = null;
+
+function searchGroupMembers() {
+
+    clearTimeout(
+        groupSearchTimer
+    );
+
+    const query =
+        document
+            .getElementById("memberSearch")
+            .value
+            .trim()
+            .toLowerCase();
+
+    if (!query) {
+
+        document
+            .getElementById("memberResults")
+            .innerHTML = "";
 
         return;
 
     }
 
-    if (!("serviceWorker" in navigator)) {
-
-        showToast(
-            "Service workers are not supported."
+    groupSearchTimer =
+        setTimeout(
+            () =>
+                performGroupUserSearch(
+                    query
+                ),
+            250
         );
 
-        return;
+}
 
-    }
 
-    try {
+async function performGroupUserSearch(
+    query
+) {
 
-        const permission =
-            await Notification.requestPermission();
+    const {
+        data,
+        error
+    } =
+        await supabaseClient
+            .from("profiles")
+            .select(
+                "id, username, display_name"
+            )
+            .eq(
+                "username",
+                query
+            )
+            .limit(10);
 
-        updateNotificationUI();
-
-        if (permission === "granted") {
-
-            showToast(
-                "Desktop notifications enabled!"
-            );
-
-        } else if (permission === "denied") {
-
-            showToast(
-                "Notifications are blocked. Enable them in browser settings."
-            );
-
-        } else {
-
-            showToast(
-                "Notification permission was not granted."
-            );
-
-        }
-
-    } catch (error) {
+    if (error) {
 
         console.error(error);
 
-        showToast(
-            "Could not enable notifications."
-        );
-
-    }
-
-}
-
-
-/* =========================================================
-   NOTIFICATION STATUS
-========================================================= */
-
-function updateNotificationUI() {
-
-    const button =
-        document.getElementById(
-            "notificationButton"
-        );
-
-    const status =
-        document.getElementById(
-            "notificationStatus"
-        );
-
-    if (!button || !status) return;
-
-    if (!("Notification" in window)) {
-
-        button.disabled = true;
-        button.textContent =
-            "Not Supported";
-
-        status.textContent =
-            "Your browser does not support desktop notifications.";
-
-        status.className =
-            "notificationStatus blocked";
-
         return;
 
     }
 
-    if (Notification.permission === "granted") {
+    const container =
+        document.getElementById(
+            "memberResults"
+        );
 
-        button.textContent =
-            "Notifications Enabled";
+    container.innerHTML = "";
 
-        button.disabled = false;
+    const users =
+        (data || []).filter(
+            user =>
+                user.id !==
+                currentUser.id
+        );
 
-        status.textContent =
-            "Desktop notifications are enabled.";
+    users.forEach(
+        user => {
 
-        status.className =
-            "notificationStatus enabled";
+            const item =
+                document.createElement(
+                    "div"
+                );
 
-    } else if (
-        Notification.permission === "denied"
-    ) {
+            item.className =
+                "memberItem";
 
-        button.textContent =
-            "Notifications Blocked";
+            if (
+                selectedMembers.some(
+                    member =>
+                        member.id ===
+                        user.id
+                )
+            ) {
 
-        status.textContent =
-            "Notifications are blocked by your browser. Change the browser permission to enable them.";
+                item.classList.add(
+                    "selected"
+                );
 
-        status.className =
-            "notificationStatus blocked";
+            }
+
+            item.innerHTML = `
+
+                <div class="avatar">
+                    ${escapeHTML(
+                        (
+                            user.display_name ||
+                            user.username ||
+                            "?"
+                        )
+                        .charAt(0)
+                        .toUpperCase()
+                    )}
+                </div>
+
+                <div class="userInfo">
+
+                    <div class="userName">
+                        ${escapeHTML(
+                            user.display_name ||
+                            user.username
+                        )}
+                    </div>
+
+                    <div class="userHandle">
+                        @${escapeHTML(
+                            user.username
+                        )}
+                    </div>
+
+                </div>
+
+            `;
+
+            item.onclick =
+                () =>
+                    toggleGroupMember(
+                        user
+                    );
+
+            container.appendChild(
+                item
+            );
+
+        }
+    );
+
+}
+
+
+/* =========================
+   SELECT MEMBERS
+========================= */
+
+function toggleGroupMember(user) {
+
+    const index =
+        selectedMembers.findIndex(
+            member =>
+                member.id ===
+                user.id
+        );
+
+    if (index >= 0) {
+
+        selectedMembers.splice(
+            index,
+            1
+        );
 
     } else {
 
-        button.textContent =
-            "Enable Notifications";
+        selectedMembers.push(
+            user
+        );
 
-        status.textContent =
-            "Notifications have not been enabled yet.";
+    }
 
-        status.className =
-            "notificationStatus";
+    renderSelectedMembers();
+
+    searchGroupMembers();
+
+}
+
+
+function renderSelectedMembers() {
+
+    const container =
+        document.getElementById(
+            "selectedMembers"
+        );
+
+    container.innerHTML = "";
+
+    selectedMembers.forEach(
+        user => {
+
+            const chip =
+                document.createElement(
+                    "div"
+                );
+
+            chip.className =
+                "memberChip";
+
+            chip.innerHTML = `
+                @${escapeHTML(
+                    user.username
+                )}
+
+                <button
+                    class="removeMember"
+                    onclick="removeGroupMember('${user.id}')"
+                >
+                    ×
+                </button>
+            `;
+
+            container.appendChild(
+                chip
+            );
+
+        }
+    );
+
+}
+
+
+function removeGroupMember(id) {
+
+    selectedMembers =
+        selectedMembers.filter(
+            user =>
+                user.id !== id
+        );
+
+    renderSelectedMembers();
+
+    searchGroupMembers();
+
+}
+
+
+/* =========================
+   CREATE GROUP DATABASE
+========================= */
+
+async function createGroup() {
+
+    const name =
+        document
+            .getElementById("groupName")
+            .value
+            .trim();
+
+    if (!name) {
+
+        showToast(
+            "Enter a group name."
+        );
+
+        return;
+
+    }
+
+    if (!selectedMembers.length) {
+
+        showToast(
+            "Add at least one other person."
+        );
+
+        return;
+
+    }
+
+
+    const {
+        data: group,
+        error: groupError
+    } =
+        await supabaseClient
+            .from("groups")
+            .insert({
+                name,
+                created_by:
+                    currentUser.id
+            })
+            .select()
+            .single();
+
+    if (groupError) {
+
+        console.error(groupError);
+
+        showToast(
+            groupError.message
+        );
+
+        return;
+
+    }
+
+
+    const members = [
+
+        {
+            group_id:
+                group.id,
+
+            user_id:
+                currentUser.id
+        },
+
+        ...selectedMembers.map(
+            user => ({
+                group_id:
+                    group.id,
+
+                user_id:
+                    user.id
+            })
+        )
+
+    ];
+
+
+    const {
+        error: memberError
+    } =
+        await supabaseClient
+            .from("group_members")
+            .insert(
+                members
+            );
+
+    if (memberError) {
+
+        console.error(
+            memberError
+        );
+
+        showToast(
+            "Group members could not be added."
+        );
+
+        return;
+
+    }
+
+
+    closeCreateGroup();
+
+    showToast(
+        "Group created!"
+    );
+
+    await loadRecentChats();
+
+    openGroup(group);
+
+}
+
+
+/* =========================
+   NOTIFICATIONS
+========================= */
+
+async function enableNotifications() {
+
+    if (
+        !("Notification" in window)
+    ) {
+
+        showToast(
+            "Notifications aren't supported."
+        );
+
+        return;
+
+    }
+
+    const permission =
+        await Notification.requestPermission();
+
+    updateNotificationUI();
+
+    if (
+        permission === "granted"
+    ) {
+
+        showToast(
+            "Notifications enabled!"
+        );
 
     }
 
 }
 
 
-/* =========================================================
-   TEST NOTIFICATION
-========================================================= */
-
 async function testNotification() {
-
-    if (!("Notification" in window)) {
-
-        showToast(
-            "Notifications are not supported."
-        );
-
-        return;
-
-    }
 
     if (
         Notification.permission !==
@@ -2170,12 +3362,13 @@ async function testNotification() {
         const permission =
             await Notification.requestPermission();
 
-        updateNotificationUI();
-
-        if (permission !== "granted") {
+        if (
+            permission !==
+            "granted"
+        ) {
 
             showToast(
-                "Notification permission was not granted."
+                "Notifications are blocked."
             );
 
             return;
@@ -2190,7 +3383,7 @@ async function testNotification() {
             await navigator.serviceWorker.ready;
 
         await registration.showNotification(
-            "AstroChat Test",
+            "AstroChat",
             {
                 body:
                     "Desktop notifications are working!",
@@ -2201,16 +3394,12 @@ async function testNotification() {
             }
         );
 
-        showToast(
-            "Test notification sent."
-        );
-
     } catch (error) {
 
         console.error(error);
 
         showToast(
-            "The test notification failed."
+            "Notification failed."
         );
 
     }
@@ -2218,51 +3407,94 @@ async function testNotification() {
 }
 
 
-/* =========================================================
-   MESSAGE NOTIFICATION
-========================================================= */
+function updateNotificationUI() {
+
+    const button =
+        document.getElementById(
+            "notificationButton"
+        );
+
+    const status =
+        document.getElementById(
+            "notificationStatus"
+        );
+
+    if (
+        !("Notification" in window)
+    ) {
+
+        button.disabled = true;
+
+        status.textContent =
+            "Not supported.";
+
+        return;
+
+    }
+
+    if (
+        Notification.permission ===
+        "granted"
+    ) {
+
+        button.textContent =
+            "Notifications Enabled";
+
+        status.textContent =
+            "Desktop notifications are enabled.";
+
+        status.className =
+            "notificationStatus enabled";
+
+    } else if (
+        Notification.permission ===
+        "denied"
+    ) {
+
+        button.textContent =
+            "Notifications Blocked";
+
+        status.textContent =
+            "Notifications are blocked in your browser.";
+
+        status.className =
+            "notificationStatus blocked";
+
+    } else {
+
+        button.textContent =
+            "Enable Notifications";
+
+        status.textContent =
+            "Notifications have not been enabled.";
+
+        status.className =
+            "notificationStatus";
+
+    }
+
+}
+
 
 async function showMessageNotification(
     message
 ) {
 
     if (
-        !("Notification" in window)
-    ) {
-
-        return;
-
-    }
-
-    if (
         Notification.permission !==
         "granted"
-    ) {
-
-        return;
-
-    }
-
-    /*
-       Don't notify if the user is already
-       looking at this conversation.
-    */
+    ) return;
 
     if (
         currentChatUser &&
         currentChatUser.id ===
         message.sender_id
-    ) {
+    ) return;
 
-        return;
-
-    }
-
-    try {
-
-        const {
-            data: sender
-        } = await supabaseClient
+    const {
+        data: sender
+    } =
+        await supabaseClient
             .from("profiles")
             .select(
                 "username, display_name"
@@ -2273,49 +3505,105 @@ async function showMessageNotification(
             )
             .single();
 
-        const senderName =
-            sender?.display_name ||
-            sender?.username ||
-            "New message";
+    const registration =
+        await navigator.serviceWorker.ready;
 
-        const registration =
-            await navigator.serviceWorker.ready;
+    await registration.showNotification(
+        sender?.display_name ||
+        sender?.username ||
+        "New message",
+        {
+            body:
+                message.content,
 
-        await registration.showNotification(
-            senderName,
-            {
-                body: message.content,
+            tag:
+                "astrochat-message-" +
+                message.id,
 
-                tag:
-                    "astrochat-message-" +
-                    message.sender_id +
-                    "-" +
-                    message.id,
+            renotify: true,
 
-                renotify: true,
-
-                data: {
-                    senderId:
-                        message.sender_id
-                }
+            data: {
+                type: "direct",
+                senderId:
+                    message.sender_id
             }
-        );
-
-    } catch (error) {
-
-        console.error(
-            "Notification error:",
-            error
-        );
-
-    }
+        }
+    );
 
 }
 
 
-/* =========================================================
+async function showGroupNotification(
+    message
+) {
+
+    if (
+        Notification.permission !==
+        "granted"
+    ) return;
+
+    const {
+        data: group
+    } =
+        await supabaseClient
+            .from("groups")
+            .select("name")
+            .eq(
+                "id",
+                message.group_id
+            )
+            .single();
+
+    const {
+        data: sender
+    } =
+        await supabaseClient
+            .from("profiles")
+            .select(
+                "username, display_name"
+            )
+            .eq(
+                "id",
+                message.sender_id
+            )
+            .single();
+
+    const registration =
+        await navigator.serviceWorker.ready;
+
+    await registration.showNotification(
+        group?.name ||
+        "Group Chat",
+        {
+            body:
+                (
+                    sender?.display_name ||
+                    sender?.username ||
+                    "Someone"
+                ) +
+                ": " +
+                message.content,
+
+            tag:
+                "astrochat-group-" +
+                message.id,
+
+            renotify: true,
+
+            data: {
+                type: "group",
+                groupId:
+                    message.group_id
+            }
+        }
+    );
+
+}
+
+
+/* =========================
    SETTINGS
-========================================================= */
+========================= */
 
 function openSettings() {
 
@@ -2323,18 +3611,21 @@ function openSettings() {
         .getElementById(
             "settingsOverlay"
         )
-        .classList.remove("hidden");
+        .classList.remove(
+            "hidden"
+        );
 
     document
         .getElementById(
             "newUsername"
         )
         .value =
-        currentProfile?.username || "";
+        currentProfile.username;
 
     updateNotificationUI();
 
 }
+
 
 function closeSettings() {
 
@@ -2342,51 +3633,36 @@ function closeSettings() {
         .getElementById(
             "settingsOverlay"
         )
-        .classList.add("hidden");
+        .classList.add(
+            "hidden"
+        );
 
 }
 
 
-/* =========================================================
-   CHANGE USERNAME
-========================================================= */
+/* =========================
+   USERNAME
+========================= */
 
 async function changeUsername() {
 
-    const input =
-        document.getElementById(
-            "newUsername"
-        );
-
     const username =
-        input.value
+        document
+            .getElementById(
+                "newUsername"
+            )
+            .value
             .trim()
             .toLowerCase();
 
-    if (!username) {
+    if (
+        !/^[a-zA-Z0-9_]+$/.test(
+            username
+        )
+    ) {
 
         showToast(
-            "Enter a username."
-        );
-
-        return;
-
-    }
-
-    if (!/^[a-zA-Z0-9_]+$/.test(username)) {
-
-        showToast(
-            "Username can only contain letters, numbers and underscores."
-        );
-
-        return;
-
-    }
-
-    if (username.length < 3) {
-
-        showToast(
-            "Username must be at least 3 characters."
+            "Invalid username."
         );
 
         return;
@@ -2395,34 +3671,26 @@ async function changeUsername() {
 
     const {
         error
-    } = await supabaseClient
-        .from("profiles")
-        .update({
-            username: username,
-            display_name: username
-        })
-        .eq(
-            "id",
-            currentUser.id
-        );
+    } =
+        await supabaseClient
+            .from("profiles")
+            .update({
+                username,
+                display_name:
+                    username
+            })
+            .eq(
+                "id",
+                currentUser.id
+            );
 
     if (error) {
 
-        if (error.code === "23505") {
-
-            showToast(
-                "That username is already taken."
-            );
-
-        } else {
-
-            console.error(error);
-
-            showToast(
-                error.message
-            );
-
-        }
+        showToast(
+            error.code === "23505"
+                ? "Username already taken."
+                : error.message
+        );
 
         return;
 
@@ -2441,40 +3709,24 @@ async function changeUsername() {
         "Username updated!"
     );
 
-    loadRecentChats();
-
 }
 
 
-/* =========================================================
+/* =========================
    THEME
-========================================================= */
+========================= */
 
 function setTheme(theme) {
 
-    if (theme === "light") {
+    document.body.classList.toggle(
+        "light",
+        theme === "light"
+    );
 
-        document.body.classList.add(
-            "light"
-        );
-
-        localStorage.setItem(
-            "astrochat-theme",
-            "light"
-        );
-
-    } else {
-
-        document.body.classList.remove(
-            "light"
-        );
-
-        localStorage.setItem(
-            "astrochat-theme",
-            "dark"
-        );
-
-    }
+    localStorage.setItem(
+        "astrochat-theme",
+        theme
+    );
 
     updateThemeButtons();
 
@@ -2483,51 +3735,105 @@ function setTheme(theme) {
 
 function applySavedTheme() {
 
-    const theme =
+    setTheme(
         localStorage.getItem(
             "astrochat-theme"
-        ) || "dark";
-
-    setTheme(theme);
+        ) || "dark"
+    );
 
 }
 
 
 function updateThemeButtons() {
 
-    const dark =
-        document.getElementById(
-            "darkThemeBtn"
-        );
-
     const light =
-        document.getElementById(
-            "lightThemeBtn"
-        );
-
-    if (!dark || !light) return;
-
-    const isLight =
         document.body.classList.contains(
             "light"
         );
 
-    dark.classList.toggle(
-        "active",
-        !isLight
-    );
+    document
+        .getElementById(
+            "darkThemeBtn"
+        )
+        ?.classList.toggle(
+            "active",
+            !light
+        );
 
-    light.classList.toggle(
-        "active",
-        isLight
+    document
+        .getElementById(
+            "lightThemeBtn"
+        )
+        ?.classList.toggle(
+            "active",
+            light
+        );
+
+}
+
+
+/* =========================
+   HELPERS
+========================= */
+
+function handleMessageKey(event) {
+
+    if (
+        event.key === "Enter" &&
+        !event.shiftKey
+    ) {
+
+        event.preventDefault();
+
+        sendMessage();
+
+    }
+
+}
+
+
+function closeMobileChat() {
+
+    app.classList.remove(
+        "chat-open"
     );
 
 }
 
 
-/* =========================================================
-   HELPERS
-========================================================= */
+function showEmptyMessages(
+    title,
+    subtitle
+) {
+
+    messagesElement.innerHTML = `
+
+        <div class="emptyChat">
+
+            <div>
+
+                <strong>
+                    ${escapeHTML(title)}
+                </strong>
+
+                ${escapeHTML(subtitle)}
+
+            </div>
+
+        </div>
+
+    `;
+
+}
+
+
+function scrollMessages() {
+
+    messagesElement.scrollTop =
+        messagesElement.scrollHeight;
+
+}
+
 
 function escapeHTML(value) {
 
@@ -2543,6 +3849,8 @@ function escapeHTML(value) {
 
 function formatMessageTime(date) {
 
+    if (!date) return "";
+
     return new Date(date)
         .toLocaleTimeString(
             [],
@@ -2556,6 +3864,8 @@ function formatMessageTime(date) {
 
 
 function formatShortTime(date) {
+
+    if (!date) return "";
 
     const d =
         new Date(date);
@@ -2589,14 +3899,6 @@ function formatShortTime(date) {
 }
 
 
-function scrollMessages() {
-
-    messagesElement.scrollTop =
-        messagesElement.scrollHeight;
-
-}
-
-
 function showToast(message) {
 
     const toast =
@@ -2612,15 +3914,17 @@ function showToast(message) {
     );
 
     clearTimeout(
-        showToast.timeout
+        showToast.timer
     );
 
-    showToast.timeout =
+    showToast.timer =
         setTimeout(
             () => {
+
                 toast.classList.remove(
                     "show"
                 );
+
             },
             3000
         );
