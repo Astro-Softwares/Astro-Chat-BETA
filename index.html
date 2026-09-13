@@ -3133,7 +3133,22 @@ function toggleGroupMember(user) {
 
     renderSelectedMembers();
 
-    searchGroupMembers();
+    // Update the visible search result immediately instead of
+    // starting another async search request.
+    const results = document.getElementById("memberResults");
+
+    results.querySelectorAll(".memberItem").forEach(item => {
+        const handle = item.querySelector(".userHandle");
+        if (!handle) return;
+
+        const username = handle.textContent.trim().replace(/^@/, "");
+
+        const isSelected = selectedMembers.some(
+            member => member.username === username
+        );
+
+        item.classList.toggle("selected", isSelected);
+    });
 
 }
 
@@ -3146,6 +3161,19 @@ function renderSelectedMembers() {
         );
 
     container.innerHTML = "";
+
+    if (selectedMembers.length) {
+        const count = document.createElement("div");
+        count.style.width = "100%";
+        count.style.color = "var(--muted)";
+        count.style.fontSize = "10px";
+        count.textContent =
+            selectedMembers.length +
+            (selectedMembers.length === 1
+                ? " person selected"
+                : " people selected");
+        container.appendChild(count);
+    }
 
     selectedMembers.forEach(
         user => {
@@ -3218,16 +3246,24 @@ async function createGroup() {
 
     }
 
-    if (!selectedMembers.length) {
+    // The creator is automatically added below, so only one
+    // other selected account is required.
+    if (selectedMembers.length < 1) {
 
         showToast(
-            "Add at least one other person."
+            "Select at least one other person."
         );
 
         return;
 
     }
 
+    // Prevent duplicate member rows if the UI is clicked quickly.
+    const uniqueMembers = [
+        ...new Map(
+            selectedMembers.map(user => [user.id, user])
+        ).values()
+    ];
 
     const {
         data: group,
@@ -3266,7 +3302,7 @@ async function createGroup() {
                 currentUser.id
         },
 
-        ...selectedMembers.map(
+        ...uniqueMembers.map(
             user => ({
                 group_id:
                     group.id,
