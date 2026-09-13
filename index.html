@@ -734,4 +734,732 @@ authButton.onclick = async () => {
 
       authMessage.textContent =
         "That username is already taken.";
+
+      return;
+    }
+
+
+    /* CREATE ACCOUNT */
+
+    const {
+      data,
+      error
+    } =
+      await supabaseClient.auth.signUp({
+        email,
+        password
+      });
+
+
+    if (error) {
+
+      authMessage.textContent =
+        error.message;
+
+      return;
+    }
+
+
+    if (!data.user) {
+
+      authMessage.textContent =
+        "Account creation failed.";
+
+      return;
+    }
+
+
+    /* CREATE PROFILE */
+
+    const {
+      error: profileError
+    } =
+      await supabaseClient
+        .from("profiles")
+        .insert({
+          id: data.user.id,
+          username: username,
+          display_name: username
+        });
+
+
+    if (profileError) {
+
+      authMessage.textContent =
+        profileError.message;
+
+      return;
+    }
+
+
+    authMessage.style.color =
+      "#67d78b";
+
+    authMessage.textContent =
+      "Account created! You can now sign in.";
+
+
+    signupMode = false;
+
+    usernameInput.style.display =
+      "none";
+
+    authButton.textContent =
+      "Sign In";
+
+    switchText.textContent =
+      "Don't have an account?";
+
+    switchButton.textContent =
+      "Create one";
+
+    return;
+  }
+
+
+  /* SIGN IN */
+
+  const {
+    error
+  } =
+    await supabaseClient.auth.signInWithPassword({
+      email,
+      password
+    });
+
+
+  if (error) {
+
+    authMessage.textContent =
+      error.message;
+
+    return;
+  }
+
+};
+
+
+/* ============================= */
+/* START APP */
+/* ============================= */
+
+async function startApp() {
+
+  const {
+    data: {
+      session
+    }
+  } =
+    await supabaseClient.auth.getSession();
+
+
+  if (session) {
+
+    await loadUser(session.user);
+
+  } else {
+
+    showLogin();
+
+  }
+
+}
+
+
+supabaseClient.auth.onAuthStateChange(
+  async (event, session) => {
+
+    if (session) {
+
+      await loadUser(session.user);
+
+    } else {
+
+      showLogin();
+
+    }
+
+  }
+);
+
+
+/* ============================= */
+/* LOAD USER */
+/* ============================= */
+
+async function loadUser(user) {
+
+  currentUser = user;
+
+
+  const {
+    data,
+    error
+  } =
+    await supabaseClient
+      .from("profiles")
+      .select("*")
+      .eq("id", user.id)
+      .single();
+
+
+  if (error) {
+
+    console.error(error);
+
+    return;
+  }
+
+
+  currentProfile = data;
+
+  loginScreen.style.display =
+    "none";
+
+  app.style.display =
+    "flex";
+
+
+  loadUsers("");
+
+}
+
+
+/* ============================= */
+/* SHOW LOGIN */
+/* ============================= */
+
+function showLogin() {
+
+  currentUser = null;
+  currentProfile = null;
+  selectedUser = null;
+
+  loginScreen.style.display =
+    "flex";
+
+  app.style.display =
+    "none";
+
+  searchInput.value = "";
+
+}
+
+
+/* ============================= */
+/* LOGOUT */
+/* ============================= */
+
+logoutButton.onclick = async () => {
+
+  if (realtimeChannel) {
+
+    await supabaseClient
+      .removeChannel(realtimeChannel);
+
+    realtimeChannel = null;
+  }
+
+
+  await supabaseClient.auth.signOut();
+
+};
+
+
+/* ============================= */
+/* SEARCH USERS */
+/* ============================= */
+
+async function loadUsers(search = "") {
+
+  chatList.innerHTML = "";
+
+
+  /* DON'T SHOW USERS UNTIL SEARCHED */
+
+  if (!search.trim()) {
+
+    chatList.innerHTML = `
+      <div style="
+        padding:35px 20px;
+        text-align:center;
+        color:var(--muted);
+        font-size:13px;
+        line-height:1.6;
+      ">
+        🔍
+        <br><br>
+        Search for a username to start chatting.
+      </div>
+    `;
+
+    return;
+  }
+
+
+  /* EXACT USERNAME SEARCH */
+
+  const {
+    data,
+    error
+  } =
+    await supabaseClient
+      .from("profiles")
+      .select("*")
+      .eq(
+        "username",
+        search.trim().toLowerCase()
+      )
+      .neq(
+        "id",
+        currentUser.id
+      )
+      .limit(1);
+
+
+  if (error) {
+
+    console.error(error);
+
+    chatList.innerHTML = `
+      <div style="
+        padding:25px;
+        text-align:center;
+        color:#ff7d7d;
+        font-size:13px;
+      ">
+        Search failed.
+      </div>
+    `;
+
+    return;
+  }
+
+
+  if (!data || data.length === 0) {
+
+    chatList.innerHTML = `
+      <div style="
+        padding:30px 20px;
+        text-align:center;
+        color:var(--muted);
+        font-size:13px;
+      ">
+        No user found.
+      </div>
+    `;
+
+    return;
+  }
+
+
+  const user = data[0];
+
+  const div =
+    document.createElement("div");
+
+  div.className = "chat";
+
+
+  div.innerHTML = `
+    <div class="avatar">
+      ${escapeHTML(
+        user.display_name
+          .charAt(0)
+          .toUpperCase()
+      )}
+    </div>
+
+    <div class="chat-info">
+
+      <div class="chat-name">
+        ${escapeHTML(
+          user.display_name
+        )}
+      </div>
+
+      <div class="chat-status">
+        @${escapeHTML(
+          user.username
+        )}
+      </div>
+
+    </div>
+  `;
+
+
+  div.onclick = () =>
+    selectUser(user);
+
+
+  chatList.appendChild(div);
+
+}
+
+
+/* ============================= */
+/* SEARCH EVENT */
+/* ============================= */
+
+searchInput.addEventListener(
+  "input",
+  () => {
+
+    loadUsers(
+      searchInput.value
+    );
+
+  }
+);
+
+
+/* ============================= */
+/* SELECT USER */
+/* ============================= */
+
+async function selectUser(user) {
+
+  selectedUser = user;
+
+
+  headerName.textContent =
+    user.display_name;
+
+
+  headerStatus.textContent =
+    "@" + user.username;
+
+
+  headerAvatar.textContent =
+    user.display_name
+      .charAt(0)
+      .toUpperCase();
+
+
+  messageInput.disabled = false;
+  sendButton.disabled = false;
+
+
+  messageInput.focus();
+
+
+  await loadMessages();
+
+  subscribeToMessages();
+
+}
+
+
+/* ============================= */
+/* LOAD MESSAGES */
+/* ============================= */
+
+async function loadMessages() {
+
+  if (!selectedUser)
+    return;
+
+
+  messages.innerHTML = "";
+
+
+  const {
+    data,
+    error
+  } =
+    await supabaseClient
+      .from("messages")
+      .select("*")
+      .or(
+        `and(sender_id.eq.${currentUser.id},receiver_id.eq.${selectedUser.id}),and(sender_id.eq.${selectedUser.id},receiver_id.eq.${currentUser.id})`
+      )
+      .order(
+        "created_at",
+        {
+          ascending: true
+        }
+      );
+
+
+  if (error) {
+
+    console.error(error);
+
+    messages.innerHTML = `
+      <div class="empty">
+        Could not load messages.
+      </div>
+    `;
+
+    return;
+  }
+
+
+  if (!data || data.length === 0) {
+
+    messages.innerHTML = `
+      <div class="empty">
+        No messages yet.
+        <br>
+        Say hello! 👋
+      </div>
+    `;
+
+    return;
+  }
+
+
+  data.forEach(message =>
+    addMessage(message)
+  );
+
+
+  scrollMessages();
+
+}
+
+
+/* ============================= */
+/* ADD MESSAGE */
+/* ============================= */
+
+function addMessage(message) {
+
+  const empty =
+    messages.querySelector(".empty");
+
+  if (empty)
+    empty.remove();
+
+
+  const existing =
+    document.querySelector(
+      `[data-message-id="${message.id}"]`
+    );
+
+
+  if (existing)
+    return;
+
+
+  const div =
+    document.createElement("div");
+
+
+  div.dataset.messageId =
+    message.id;
+
+
+  const mine =
+    message.sender_id === currentUser.id;
+
+
+  div.className =
+    "message " +
+    (mine ? "mine" : "theirs");
+
+
+  const date =
+    new Date(
+      message.created_at
+    );
+
+
+  const time =
+    date.toLocaleTimeString(
+      [],
+      {
+        hour: "numeric",
+        minute: "2-digit"
+      }
+    );
+
+
+  div.innerHTML = `
+    ${escapeHTML(message.content)}
+    <span class="time">
+      ${time}
+    </span>
+  `;
+
+
+  messages.appendChild(div);
+
+  scrollMessages();
+
+}
+
+
+/* ============================= */
+/* SEND MESSAGE */
+/* ============================= */
+
+async function sendMessage() {
+
+  if (!selectedUser)
+    return;
+
+
+  const content =
+    messageInput.value.trim();
+
+
+  if (!content)
+    return;
+
+
+  messageInput.value = "";
+
+
+  const {
+    error
+  } =
+    await supabaseClient
+      .from("messages")
+      .insert({
+        sender_id: currentUser.id,
+        receiver_id: selectedUser.id,
+        content: content
+      });
+
+
+  if (error) {
+
+    console.error(error);
+
+    alert(
+      "Could not send message:\n\n" +
+      error.message
+    );
+
+  }
+
+}
+
+
+sendButton.onclick =
+  sendMessage;
+
+
+messageInput.addEventListener(
+  "keydown",
+  event => {
+
+    if (event.key === "Enter") {
+
+      event.preventDefault();
+
+      sendMessage();
+
+    }
+
+  }
+);
+
+
+/* ============================= */
+/* REALTIME MESSAGES */
+/* ============================= */
+
+function subscribeToMessages() {
+
+  if (realtimeChannel) {
+
+    supabaseClient
+      .removeChannel(
+        realtimeChannel
+      );
+
+  }
+
+
+  realtimeChannel =
+    supabaseClient
+      .channel(
+        "chat-" +
+        currentUser.id +
+        "-" +
+        selectedUser.id
+      )
+      .on(
+        "postgres_changes",
+        {
+          event: "INSERT",
+          schema: "public",
+          table: "messages"
+        },
+        payload => {
+
+          const message =
+            payload.new;
+
+
+          const belongsToChat =
+            (
+              message.sender_id ===
+              currentUser.id &&
+              message.receiver_id ===
+              selectedUser.id
+            )
+            ||
+            (
+              message.sender_id ===
+              selectedUser.id &&
+              message.receiver_id ===
+              currentUser.id
+            );
+
+
+          if (belongsToChat) {
+
+            addMessage(message);
+
+          }
+
+        }
+      )
+      .subscribe();
+
+}
+
+
+/* ============================= */
+/* SCROLL */
+/* ============================= */
+
+function scrollMessages() {
+
+  messages.scrollTop =
+    messages.scrollHeight;
+
+}
+
+
+/* ============================= */
+/* HTML ESCAPING */
+/* ============================= */
+
+function escapeHTML(text) {
+
+  const div =
+    document.createElement("div");
+
+  div.textContent =
+    text;
+
+  return div.innerHTML;
+
+}
+
+
+/* ============================= */
+/* START */
+/* ============================= */
+
+startApp();
+
+</script>
+
+</body>
+</html>
 ```
