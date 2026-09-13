@@ -3302,51 +3302,7 @@ async function createGroup() {
     }
 
 
-    const members = [
-
-        {
-            group_id:
-                group.id,
-
-            user_id:
-                currentUser.id
-        },
-
-        ...uniqueMembers.map(
-            user => ({
-                group_id:
-                    group.id,
-
-                user_id:
-                    user.id
-            })
-        )
-
-    ];
-
-
-    const {
-        error: memberError
-    } =
-        await supabaseClient
-            .from("group_members")
-            .insert(
-                members
-            );
-
-    if (memberError) {
-
-        console.error(
-            memberError
-        );
-
-        showToast(
-            "Group members could not be added."
-        );
-
-        return;
-
-    }
+    // The create_group RPC already adds the creator and selected members.
 
 
     closeCreateGroup();
