@@ -3265,19 +3265,29 @@ async function createGroup() {
         ).values()
     ];
 
+    // Get the real Supabase session right before creating the group.
+    // This prevents an old/stale currentUser value from being used.
+    const {
+        data: { session },
+        error: sessionError
+    } = await supabaseClient.auth.getSession();
+
+    if (sessionError || !session?.user) {
+        showToast("You are not logged in. Please log in again.");
+        return;
+    }
+
+    currentUser = session.user;
+
+    // Use the secure database function so group creation works even when
+    // the groups table itself has strict RLS policies.
     const {
         data: group,
         error: groupError
-    } =
-        await supabaseClient
-            .from("groups")
-            .insert({
-                name,
-                created_by:
-                    currentUser.id
-            })
-            .select()
-            .single();
+    } = await supabaseClient.rpc("create_group", {
+        p_name: name,
+        p_member_ids: uniqueMembers.map(user => user.id)
+    });
 
     if (groupError) {
 
