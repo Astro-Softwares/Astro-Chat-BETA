@@ -3,7 +3,6 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
 <title>AstroChat</title>
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
@@ -17,29 +16,27 @@
 
 :root {
     --bg: #08090d;
-    --panel: #101219;
-    --panel2: #151720;
-    --panel3: #1c1f2a;
-    --border: rgba(255,255,255,.08);
-    --text: #ffffff;
-    --muted: #969baa;
+    --panel: #101218;
+    --panel2: #171922;
+    --input: #1d202a;
+    --border: #292d38;
+    --text: #f5f5f7;
+    --muted: #8c91a0;
     --accent: #7c5cff;
     --accent2: #9b84ff;
-    --danger: #ff5c6c;
-    --message: #202330;
-    --mine: #6d50e9;
+    --danger: #ff5c70;
+    --message: #7c5cff;
 }
 
 body.light {
-    --bg: #f1f2f6;
+    --bg: #f4f5f8;
     --panel: #ffffff;
-    --panel2: #f5f5f8;
-    --panel3: #e9eaf0;
-    --border: rgba(0,0,0,.08);
-    --text: #111218;
-    --muted: #6f7280;
-    --message: #e8e9ee;
-    --mine: #7357ed;
+    --panel2: #f0f1f5;
+    --input: #e8e9ee;
+    --border: #d8dae2;
+    --text: #16171c;
+    --muted: #70737d;
+    --message: #7c5cff;
 }
 
 html,
@@ -50,11 +47,9 @@ body {
 }
 
 body {
-    background:
-        radial-gradient(circle at top left, rgba(124,92,255,.12), transparent 35%),
-        var(--bg);
+    font-family: "Montserrat", sans-serif;
+    background: var(--bg);
     color: var(--text);
-    font-family: Montserrat, sans-serif;
     overflow: hidden;
 }
 
@@ -79,21 +74,23 @@ button {
     display: flex;
     align-items: center;
     justify-content: center;
-    padding: 20px;
+    background:
+        radial-gradient(circle at 20% 20%, rgba(124,92,255,.18), transparent 35%),
+        radial-gradient(circle at 80% 80%, rgba(155,132,255,.10), transparent 35%),
+        var(--bg);
 }
 
 .authBox {
-    width: min(420px, 100%);
-    background: rgba(16,18,25,.92);
+    width: min(420px, calc(100% - 32px));
+    background: rgba(16,18,24,.92);
     border: 1px solid var(--border);
     border-radius: 24px;
     padding: 32px;
-    box-shadow: 0 30px 80px rgba(0,0,0,.4);
-    backdrop-filter: blur(20px);
+    box-shadow: 0 25px 80px rgba(0,0,0,.35);
 }
 
 body.light .authBox {
-    background: rgba(255,255,255,.92);
+    background: rgba(255,255,255,.95);
 }
 
 .logo {
@@ -103,53 +100,57 @@ body.light .authBox {
 }
 
 .logo span {
-    color: var(--accent2);
+    color: var(--accent);
 }
 
 .authSubtitle {
     color: var(--muted);
     margin-bottom: 28px;
+    font-size: 14px;
 }
 
-.authBox input {
+.authInput {
     width: 100%;
-    padding: 14px 16px;
-    margin-bottom: 12px;
-    border-radius: 12px;
     border: 1px solid var(--border);
-    outline: none;
-    background: var(--panel2);
+    background: var(--input);
     color: var(--text);
+    padding: 14px 15px;
+    border-radius: 12px;
+    outline: none;
+    margin-bottom: 12px;
 }
 
-.authBox input:focus {
+.authInput:focus {
     border-color: var(--accent);
 }
 
-.primaryButton {
+.primaryBtn {
     width: 100%;
-    padding: 14px;
     border: 0;
-    border-radius: 12px;
-    background: linear-gradient(135deg, var(--accent), var(--accent2));
+    background: var(--accent);
     color: white;
-    font-weight: 700;
-}
-
-.secondaryButton {
-    width: 100%;
-    padding: 13px;
-    border: 1px solid var(--border);
+    padding: 14px;
     border-radius: 12px;
-    background: var(--panel2);
-    color: var(--text);
-    margin-top: 10px;
+    font-weight: 600;
+    margin-top: 4px;
 }
 
-.authStatus {
-    margin-top: 15px;
-    font-size: 13px;
+.primaryBtn:hover {
+    background: var(--accent2);
+}
+
+.authSwitch {
+    text-align: center;
     color: var(--muted);
+    font-size: 13px;
+    margin-top: 18px;
+}
+
+.linkBtn {
+    border: 0;
+    background: transparent;
+    color: var(--accent2);
+    font-weight: 600;
 }
 
 /* APP */
@@ -161,54 +162,71 @@ body.light .authBox {
 }
 
 .sidebar {
-    width: 320px;
-    min-width: 320px;
+    width: 330px;
+    min-width: 330px;
     height: 100%;
-    background: rgba(16,18,25,.96);
+    background: var(--panel);
     border-right: 1px solid var(--border);
     display: flex;
     flex-direction: column;
 }
 
-body.light .sidebar {
-    background: rgba(255,255,255,.96);
-}
-
-.sidebarTop {
+.sidebarHeader {
     padding: 22px;
     border-bottom: 1px solid var(--border);
 }
 
-.appTitle {
+.sidebarTop {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 18px;
+}
+
+.appName {
     font-size: 22px;
     font-weight: 700;
-    margin-bottom: 4px;
+}
+
+.appName span {
+    color: var(--accent);
 }
 
 .usernameLabel {
-    color: var(--muted);
     font-size: 12px;
+    color: var(--muted);
+    margin-top: 4px;
 }
 
-.searchBox {
-    margin-top: 18px;
-}
-
-.searchBox input {
-    width: 100%;
-    padding: 12px 14px;
-    border-radius: 12px;
+.iconBtn {
+    width: 38px;
+    height: 38px;
     border: 1px solid var(--border);
-    outline: none;
     background: var(--panel2);
     color: var(--text);
+    border-radius: 11px;
+    font-size: 17px;
 }
 
-.searchBox input:focus {
+.iconBtn:hover {
     border-color: var(--accent);
 }
 
-.sidebarList {
+.searchBox {
+    width: 100%;
+    background: var(--input);
+    border: 1px solid var(--border);
+    color: var(--text);
+    border-radius: 12px;
+    padding: 12px 14px;
+    outline: none;
+}
+
+.searchBox:focus {
+    border-color: var(--accent);
+}
+
+.sidebarContent {
     flex: 1;
     overflow-y: auto;
     padding: 10px;
@@ -219,28 +237,39 @@ body.light .sidebar {
     font-size: 11px;
     font-weight: 700;
     text-transform: uppercase;
-    padding: 10px;
+    letter-spacing: .08em;
+    padding: 10px 10px 7px;
 }
 
-.userItem {
+.userResult,
+.recentChat {
     display: flex;
     align-items: center;
     gap: 12px;
+    width: 100%;
     padding: 12px;
-    border-radius: 14px;
-    margin-bottom: 4px;
-    transition: .15s;
+    border-radius: 13px;
+    border: 0;
+    background: transparent;
+    color: var(--text);
+    text-align: left;
 }
 
-.userItem:hover {
+.userResult:hover,
+.recentChat:hover {
     background: var(--panel2);
+}
+
+.userResult.active,
+.recentChat.active {
+    background: rgba(124,92,255,.15);
 }
 
 .avatar {
     width: 42px;
     height: 42px;
     border-radius: 50%;
-    background: linear-gradient(135deg, var(--accent), #4f8cff);
+    background: linear-gradient(135deg, var(--accent), var(--accent2));
     display: flex;
     align-items: center;
     justify-content: center;
@@ -259,68 +288,76 @@ body.light .sidebar {
     font-weight: 600;
 }
 
-.userPreview {
+.userHandle {
+    font-size: 12px;
     color: var(--muted);
-    font-size: 11px;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
     margin-top: 3px;
 }
 
-.userTime {
+.chatPreview {
+    display: flex;
+    justify-content: space-between;
+    gap: 10px;
+}
+
+.previewText {
+    color: var(--muted);
+    font-size: 12px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.previewTime {
     color: var(--muted);
     font-size: 10px;
+    white-space: nowrap;
 }
 
-.sidebarBottom {
-    padding: 12px;
-    border-top: 1px solid var(--border);
-}
-
-.settingsButton {
-    width: 100%;
-    padding: 12px;
-    background: var(--panel2);
-    border: 1px solid var(--border);
-    border-radius: 12px;
-    color: var(--text);
+.emptySide {
+    text-align: center;
+    color: var(--muted);
+    padding: 30px 15px;
+    font-size: 13px;
 }
 
 /* CHAT */
 
-.chat {
+.chatArea {
     flex: 1;
     min-width: 0;
     height: 100%;
     display: flex;
     flex-direction: column;
+    background:
+        radial-gradient(circle at 80% 10%, rgba(124,92,255,.05), transparent 35%),
+        var(--bg);
 }
 
 .chatHeader {
-    min-height: 76px;
-    padding: 15px 22px;
+    height: 76px;
     border-bottom: 1px solid var(--border);
+    background: var(--panel);
     display: flex;
     align-items: center;
     gap: 12px;
-    background: rgba(16,18,25,.65);
-    backdrop-filter: blur(15px);
+    padding: 14px 20px;
 }
 
-body.light .chatHeader {
-    background: rgba(255,255,255,.65);
+.mobileBack {
+    display: none;
 }
 
-.chatHeaderInfo {
-    flex: 1;
+.chatTitle {
+    min-width: 0;
 }
 
-.chatName {
+.chatTitleName {
+    font-size: 15px;
     font-weight: 700;
 }
 
-.chatUsername {
+.chatTitleHandle {
     color: var(--muted);
     font-size: 11px;
     margin-top: 3px;
@@ -329,70 +366,92 @@ body.light .chatHeader {
 .messages {
     flex: 1;
     overflow-y: auto;
-    padding: 25px;
+    padding: 24px;
     display: flex;
     flex-direction: column;
-    gap: 8px;
+    gap: 9px;
 }
 
 .emptyChat {
-    margin: auto;
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     text-align: center;
     color: var(--muted);
+    padding: 30px;
 }
 
 .emptyChat strong {
-    color: var(--text);
     display: block;
-    font-size: 22px;
+    color: var(--text);
     margin-bottom: 7px;
 }
 
 .message {
     max-width: min(70%, 600px);
-    padding: 11px 14px;
-    border-radius: 16px;
-    background: var(--message);
-    align-self: flex-start;
-    word-break: break-word;
+    padding: 10px 14px;
+    border-radius: 17px;
+    font-size: 13px;
+    line-height: 1.45;
+    word-wrap: break-word;
 }
 
-.message.mine {
+.message.sent {
     align-self: flex-end;
-    background: var(--mine);
+    background: var(--message);
     color: white;
+    border-bottom-right-radius: 5px;
+}
+
+.message.received {
+    align-self: flex-start;
+    background: var(--panel2);
+    border: 1px solid var(--border);
+    border-bottom-left-radius: 5px;
 }
 
 .messageTime {
+    display: block;
+    opacity: .65;
     font-size: 9px;
-    opacity: .6;
-    margin-top: 4px;
+    margin-top: 5px;
 }
 
-.composer {
-    padding: 14px;
+.messageInputArea {
+    padding: 15px 20px;
     border-top: 1px solid var(--border);
+    background: var(--panel);
     display: flex;
     gap: 10px;
 }
 
-.composer input {
+.messageInput {
     flex: 1;
-    padding: 14px 16px;
-    border-radius: 14px;
+    min-width: 0;
     border: 1px solid var(--border);
-    outline: none;
-    background: var(--panel2);
+    background: var(--input);
     color: var(--text);
+    padding: 13px 15px;
+    border-radius: 14px;
+    outline: none;
 }
 
-.sendButton {
-    width: 52px;
+.messageInput:focus {
+    border-color: var(--accent);
+}
+
+.sendBtn {
+    width: 48px;
     border: 0;
-    border-radius: 14px;
+    border-radius: 13px;
     background: var(--accent);
     color: white;
     font-size: 18px;
+}
+
+.sendBtn:hover {
+    background: var(--accent2);
 }
 
 /* SETTINGS */
@@ -401,133 +460,176 @@ body.light .chatHeader {
     position: fixed;
     inset: 0;
     background: rgba(0,0,0,.55);
+    backdrop-filter: blur(7px);
+    z-index: 100;
     display: flex;
     align-items: center;
     justify-content: center;
-    z-index: 100;
     padding: 20px;
 }
 
 .settings {
-    width: min(500px, 100%);
+    width: min(520px, 100%);
     max-height: 90vh;
     overflow-y: auto;
     background: var(--panel);
     border: 1px solid var(--border);
-    border-radius: 22px;
-    box-shadow: 0 30px 100px rgba(0,0,0,.5);
+    border-radius: 20px;
+    box-shadow: 0 30px 100px rgba(0,0,0,.45);
 }
 
 .settingsHeader {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
     padding: 20px;
     border-bottom: 1px solid var(--border);
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
 }
 
-.closeButton {
-    width: 34px;
-    height: 34px;
-    border: 0;
-    border-radius: 10px;
-    background: var(--panel2);
-    color: var(--text);
-    font-size: 18px;
+.settingsHeader h2 {
+    margin: 0;
+    font-size: 19px;
 }
 
 .settingsBody {
     padding: 20px;
 }
 
-.settingSection {
-    margin-bottom: 25px;
+.setting {
+    padding: 17px 0;
+    border-bottom: 1px solid var(--border);
+}
+
+.setting:last-child {
+    border-bottom: 0;
 }
 
 .settingTitle {
-    font-size: 13px;
-    font-weight: 700;
-    margin-bottom: 10px;
+    font-size: 14px;
+    font-weight: 600;
 }
 
 .settingDescription {
     color: var(--muted);
     font-size: 11px;
+    line-height: 1.5;
+    margin-top: 5px;
     margin-bottom: 12px;
 }
 
-.settingRow {
-    background: var(--panel2);
+.settingInput {
+    width: 100%;
     border: 1px solid var(--border);
-    border-radius: 13px;
-    padding: 13px;
-    margin-bottom: 8px;
+    background: var(--input);
+    color: var(--text);
+    border-radius: 10px;
+    padding: 11px;
+    outline: none;
 }
 
-.settingRow button {
-    border: 0;
-    border-radius: 9px;
-    padding: 9px 13px;
-    background: var(--accent);
-    color: white;
+.settingInput:focus {
+    border-color: var(--accent);
+}
+
+.settingBtn {
+    border: 1px solid var(--border);
+    background: var(--panel2);
+    color: var(--text);
+    padding: 10px 14px;
+    border-radius: 10px;
     font-weight: 600;
 }
 
-.usernameChange {
+.settingBtn:hover {
+    border-color: var(--accent);
+}
+
+.settingBtn.danger {
+    color: var(--danger);
+}
+
+.notificationStatus {
+    font-size: 11px;
+    margin-top: 9px;
+    color: var(--muted);
+}
+
+.notificationStatus.enabled {
+    color: #66d68a;
+}
+
+.notificationStatus.blocked {
+    color: var(--danger);
+}
+
+.themeButtons {
     display: flex;
     gap: 8px;
 }
 
-.usernameChange input {
+.themeButtons button {
     flex: 1;
-    padding: 11px;
-    background: var(--panel3);
-    color: var(--text);
+}
+
+.themeButtons button.active {
+    background: var(--accent);
+    color: white;
+    border-color: var(--accent);
+}
+
+.toast {
+    position: fixed;
+    left: 50%;
+    bottom: 25px;
+    transform: translateX(-50%) translateY(20px);
+    background: var(--panel2);
     border: 1px solid var(--border);
-    border-radius: 10px;
-    outline: none;
-}
-
-.notificationStatus {
+    color: var(--text);
+    padding: 12px 17px;
+    border-radius: 12px;
+    opacity: 0;
+    pointer-events: none;
+    transition: .25s;
+    z-index: 300;
     font-size: 12px;
-    color: var(--muted);
-    margin-bottom: 10px;
+    box-shadow: 0 15px 40px rgba(0,0,0,.3);
 }
 
-.notificationStatus.good {
-    color: #65e58a;
-}
-
-.notificationStatus.bad {
-    color: #ff707d;
+.toast.show {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0);
 }
 
 /* MOBILE */
 
-.mobileBack {
-    display: none;
-}
-
-@media(max-width: 700px) {
+@media (max-width: 700px) {
     .sidebar {
         width: 100%;
         min-width: 100%;
     }
 
-    .chat {
-        width: 100%;
+    .chatArea {
+        display: none;
     }
 
-    .mobileHidden {
+    #app.chat-open .sidebar {
         display: none;
+    }
+
+    #app.chat-open .chatArea {
+        display: flex;
     }
 
     .mobileBack {
         display: block;
     }
 
+    .messages {
+        padding: 16px;
+    }
+
     .message {
-        max-width: 85%;
+        max-width: 84%;
     }
 }
 </style>
@@ -536,183 +638,118 @@ body.light .chatHeader {
 <body>
 
 <!-- AUTH -->
-
 <div id="authScreen">
-
     <div class="authBox">
+        <div class="logo">Astro<span>Chat</span></div>
+        <div class="authSubtitle">Private messaging, powered by the web.</div>
 
-        <div class="logo">
-            Astro<span>Chat</span>
+        <div id="loginForm">
+            <input id="loginEmail" class="authInput" type="email" placeholder="Email">
+            <input id="loginPassword" class="authInput" type="password" placeholder="Password">
+            <button class="primaryBtn" onclick="login()">Log In</button>
+
+            <div class="authSwitch">
+                Don't have an account?
+                <button class="linkBtn" onclick="showSignup()">Sign up</button>
+            </div>
         </div>
 
-        <div class="authSubtitle">
-            Simple messaging, powered by Supabase.
+        <div id="signupForm" class="hidden">
+            <input id="signupUsername" class="authInput" placeholder="Username">
+            <input id="signupEmail" class="authInput" type="email" placeholder="Email">
+            <input id="signupPassword" class="authInput" type="password" placeholder="Password">
+
+            <button class="primaryBtn" onclick="signup()">Create Account</button>
+
+            <div class="authSwitch">
+                Already have an account?
+                <button class="linkBtn" onclick="showLogin()">Log in</button>
+            </div>
         </div>
-
-        <input
-            id="emailInput"
-            type="email"
-            placeholder="Email"
-            autocomplete="email"
-        >
-
-        <input
-            id="passwordInput"
-            type="password"
-            placeholder="Password"
-            autocomplete="current-password"
-        >
-
-        <input
-            id="usernameInput"
-            type="text"
-            placeholder="Username (for signup)"
-            autocomplete="username"
-        >
-
-        <button
-            class="primaryButton"
-            onclick="login()"
-        >
-            Log In
-        </button>
-
-        <button
-            class="secondaryButton"
-            onclick="signup()"
-        >
-            Create Account
-        </button>
-
-        <div
-            id="authStatus"
-            class="authStatus"
-        ></div>
-
     </div>
-
 </div>
 
-
 <!-- APP -->
-
 <div id="app" class="hidden">
 
     <aside class="sidebar">
 
-        <div class="sidebarTop">
+        <div class="sidebarHeader">
 
-            <div class="appTitle">
-                AstroChat
+            <div class="sidebarTop">
+                <div>
+                    <div class="appName">Astro<span>Chat</span></div>
+                    <div id="currentUsername" class="usernameLabel"></div>
+                </div>
+
+                <button class="iconBtn" onclick="openSettings()" title="Settings">
+                    ⚙
+                </button>
             </div>
 
-            <div
-                id="currentUsername"
-                class="usernameLabel"
+            <input
+                id="searchInput"
+                class="searchBox"
+                placeholder="Search exact username..."
+                autocomplete="off"
+                oninput="searchUsers()"
             >
-                @loading
-            </div>
-
-            <div class="searchBox">
-
-                <input
-                    id="searchInput"
-                    type="text"
-                    placeholder="Search exact username..."
-                    oninput="searchUsers()"
-                >
-
-            </div>
 
         </div>
 
-        <div
-            id="sidebarList"
-            class="sidebarList"
-        ></div>
-
-        <div class="sidebarBottom">
-
-            <button
-                class="settingsButton"
-                onclick="openSettings()"
-            >
-                ⚙ Settings
-            </button>
-
-        </div>
+        <div id="sidebarContent" class="sidebarContent"></div>
 
     </aside>
 
+    <main class="chatArea">
 
-    <main class="chat">
+        <div class="chatHeader">
 
-        <header class="chatHeader">
-
-            <button
-                class="closeButton mobileBack"
-                onclick="showSidebar()"
-            >
+            <button class="iconBtn mobileBack" onclick="closeMobileChat()">
                 ←
             </button>
 
-            <div
-                id="chatAvatar"
-                class="avatar"
-            >
-                ?
-            </div>
+            <div id="chatAvatar" class="avatar">?</div>
 
-            <div class="chatHeaderInfo">
-
-                <div
-                    id="chatName"
-                    class="chatName"
-                >
+            <div class="chatTitle">
+                <div id="chatTitleName" class="chatTitleName">
                     AstroChat
                 </div>
 
-                <div
-                    id="chatUsername"
-                    class="chatUsername"
-                >
+                <div id="chatTitleHandle" class="chatTitleHandle">
                     Select a user to start chatting
                 </div>
-
-            </div>
-
-        </header>
-
-
-        <div
-            id="messages"
-            class="messages"
-        >
-
-            <div class="emptyChat">
-
-                <strong>Welcome to AstroChat</strong>
-
-                Search for a username to start a conversation.
-
             </div>
 
         </div>
 
+        <div id="messages" class="messages">
 
-        <div class="composer">
+            <div class="emptyChat">
+                <div>
+                    <strong>Welcome to AstroChat</strong>
+                    Search for a username to start a conversation.
+                </div>
+            </div>
+
+        </div>
+
+        <div class="messageInputArea">
 
             <input
                 id="messageInput"
-                type="text"
+                class="messageInput"
                 placeholder="Type a message..."
+                autocomplete="off"
                 disabled
                 onkeydown="handleMessageKey(event)"
             >
 
             <button
-                class="sendButton"
+                id="sendBtn"
+                class="sendBtn"
                 onclick="sendMessage()"
+                disabled
             >
                 ➤
             </button>
@@ -723,145 +760,115 @@ body.light .chatHeader {
 
 </div>
 
-
 <!-- SETTINGS -->
+<div id="settingsOverlay" class="overlay hidden">
 
-<div
-    id="settingsOverlay"
-    class="overlay hidden"
-    onclick="closeSettings(event)"
->
-
-    <div
-        class="settings"
-        onclick="event.stopPropagation()"
-    >
+    <div class="settings">
 
         <div class="settingsHeader">
+            <h2>Settings</h2>
 
-            <strong>Settings</strong>
-
-            <button
-                class="closeButton"
-                onclick="closeSettings()"
-            >
+            <button class="iconBtn" onclick="closeSettings()">
                 ×
             </button>
-
         </div>
-
 
         <div class="settingsBody">
 
-            <!-- ACCOUNT -->
+            <div class="setting">
 
-            <div class="settingSection">
-
-                <div class="settingTitle">
-                    Account
-                </div>
+                <div class="settingTitle">Username</div>
 
                 <div class="settingDescription">
-                    Change your AstroChat username.
+                    Change the username people use to find you.
                 </div>
 
-                <div class="settingRow">
+                <input
+                    id="newUsername"
+                    class="settingInput"
+                    placeholder="New username"
+                >
 
-                    <div class="usernameChange">
-
-                        <input
-                            id="newUsername"
-                            type="text"
-                            placeholder="New username"
-                        >
-
-                        <button onclick="changeUsername()">
-                            Save
-                        </button>
-
-                    </div>
-
-                </div>
+                <button class="settingBtn" style="margin-top:10px" onclick="changeUsername()">
+                    Change Username
+                </button>
 
             </div>
 
+            <div class="setting">
 
-            <!-- APPEARANCE -->
-
-            <div class="settingSection">
-
-                <div class="settingTitle">
-                    Appearance
-                </div>
-
-                <div class="settingRow">
-
-                    <button onclick="toggleTheme()">
-                        Toggle Light / Dark
-                    </button>
-
-                </div>
-
-            </div>
-
-
-            <!-- NOTIFICATIONS -->
-
-            <div class="settingSection">
-
-                <div class="settingTitle">
-                    Notifications
-                </div>
+                <div class="settingTitle">Notifications</div>
 
                 <div class="settingDescription">
-                    Allow AstroChat to show desktop notifications when new messages arrive.
+                    Receive desktop notifications when someone sends you a message.
                 </div>
 
-                <div class="settingRow">
+                <button
+                    id="notificationButton"
+                    class="settingBtn"
+                    onclick="enableNotifications()"
+                >
+                    Enable Notifications
+                </button>
 
-                    <div
-                        id="notificationStatus"
-                        class="notificationStatus"
-                    >
-                        Checking notification support...
-                    </div>
+                <button
+                    class="settingBtn"
+                    style="margin-left:6px"
+                    onclick="testNotification()"
+                >
+                    Test
+                </button>
+
+                <div id="notificationStatus" class="notificationStatus">
+                    Checking notification status...
+                </div>
+
+            </div>
+
+            <div class="setting">
+
+                <div class="settingTitle">Theme</div>
+
+                <div class="settingDescription">
+                    Choose how AstroChat looks.
+                </div>
+
+                <div class="themeButtons">
 
                     <button
-                        onclick="enableNotifications()"
+                        id="darkThemeBtn"
+                        class="settingBtn"
+                        onclick="setTheme('dark')"
                     >
-                        Enable Notifications
+                        Dark
                     </button>
 
                     <button
-                        onclick="testNotification()"
-                        style="margin-left:6px;"
+                        id="lightThemeBtn"
+                        class="settingBtn"
+                        onclick="setTheme('light')"
                     >
-                        Test
+                        Light
                     </button>
 
                 </div>
 
             </div>
 
+            <div class="setting">
 
-            <!-- ACCOUNT ACTION -->
+                <div class="settingTitle">Account</div>
 
-            <div class="settingSection">
-
-                <div class="settingTitle">
-                    Account Actions
+                <div class="settingDescription">
+                    Sign out of this AstroChat account.
                 </div>
 
-                <div class="settingRow">
-
-                    <button
-                        onclick="logout()"
-                        style="background:#ff5668;"
-                    >
-                        Log Out
-                    </button>
-
-                </div>
+                <button
+                    class="settingBtn danger"
+                    onclick="logout()"
+                >
+                    Log Out
+                </button>
 
             </div>
 
@@ -871,15 +878,14 @@ body.light .chatHeader {
 
 </div>
 
+<div id="toast" class="toast"></div>
 
 <script>
-
 /* =========================================================
    SUPABASE
 ========================================================= */
 
-const SUPABASE_URL =
-    "https://kcyoimzjmnfyqwkafgqe.supabase.co";
+const SUPABASE_URL = "https://kcyoimzjmnfyqwkafgqe.supabase.co";
 
 const SUPABASE_KEY =
     "sb_publishable_VB6fLiZr_sRSynCEtTv4vQ_4NdHN97F";
@@ -897,112 +903,229 @@ const supabaseClient =
 
 let currentUser = null;
 let currentProfile = null;
-let selectedUser = null;
-
-let messageChannel = null;
+let currentChatUser = null;
+let realtimeChannel = null;
+let searchTimer = null;
 
 
 /* =========================================================
-   HELPERS
+   ELEMENTS
 ========================================================= */
 
-function escapeHTML(value) {
+const authScreen = document.getElementById("authScreen");
+const app = document.getElementById("app");
 
-    return String(value ?? "")
-        .replace(/&/g, "&amp;")
-        .replace(/</g, "&lt;")
-        .replace(/>/g, "&gt;")
-        .replace(/"/g, "&quot;")
-        .replace(/'/g, "&#039;");
-}
+const loginForm = document.getElementById("loginForm");
+const signupForm = document.getElementById("signupForm");
+
+const sidebarContent =
+    document.getElementById("sidebarContent");
+
+const messagesElement =
+    document.getElementById("messages");
+
+const messageInput =
+    document.getElementById("messageInput");
+
+const sendBtn =
+    document.getElementById("sendBtn");
+
+const currentUsername =
+    document.getElementById("currentUsername");
+
+const chatTitleName =
+    document.getElementById("chatTitleName");
+
+const chatTitleHandle =
+    document.getElementById("chatTitleHandle");
+
+const chatAvatar =
+    document.getElementById("chatAvatar");
 
 
-function setAuthStatus(text) {
+/* =========================================================
+   SERVICE WORKER
+========================================================= */
 
-    document.getElementById("authStatus").textContent = text;
-}
+async function registerServiceWorker() {
 
+    if (!("serviceWorker" in navigator)) {
+        console.warn("Service workers are not supported.");
+        return;
+    }
 
-function formatTime(dateString) {
+    try {
 
-    const date = new Date(dateString);
+        await navigator.serviceWorker.register("./sw.js");
 
-    return date.toLocaleTimeString([], {
-        hour: "numeric",
-        minute: "2-digit"
-    });
-}
+        console.log("AstroChat service worker registered.");
 
+    } catch (error) {
 
-function getInitial(username) {
+        console.error(
+            "Service worker registration failed:",
+            error
+        );
 
-    return (username || "?")
-        .charAt(0)
-        .toUpperCase();
+    }
+
 }
 
 
 /* =========================================================
-   AUTH
+   INITIALIZATION
+========================================================= */
+
+document.addEventListener("DOMContentLoaded", async () => {
+
+    applySavedTheme();
+
+    registerServiceWorker();
+
+    const {
+        data: {
+            session
+        }
+    } = await supabaseClient.auth.getSession();
+
+    if (session) {
+
+        currentUser = session.user;
+
+        await initializeUser();
+
+    } else {
+
+        showAuth();
+
+    }
+
+    supabaseClient.auth.onAuthStateChange(
+        async (event, session) => {
+
+            if (session) {
+
+                currentUser = session.user;
+
+                await initializeUser();
+
+            } else {
+
+                currentUser = null;
+                currentProfile = null;
+
+                showAuth();
+
+            }
+
+        }
+    );
+
+});
+
+
+/* =========================================================
+   AUTH UI
+========================================================= */
+
+function showLogin() {
+
+    loginForm.classList.remove("hidden");
+    signupForm.classList.add("hidden");
+
+}
+
+function showSignup() {
+
+    loginForm.classList.add("hidden");
+    signupForm.classList.remove("hidden");
+
+}
+
+function showAuth() {
+
+    authScreen.classList.remove("hidden");
+    app.classList.add("hidden");
+
+}
+
+function showApp() {
+
+    authScreen.classList.add("hidden");
+    app.classList.remove("hidden");
+
+}
+
+
+/* =========================================================
+   SIGN UP
 ========================================================= */
 
 async function signup() {
 
+    const username =
+        document.getElementById("signupUsername")
+        .value
+        .trim()
+        .toLowerCase();
+
     const email =
-        document.getElementById("emailInput").value.trim();
+        document.getElementById("signupEmail")
+        .value
+        .trim();
 
     const password =
-        document.getElementById("passwordInput").value;
+        document.getElementById("signupPassword")
+        .value;
 
-    const username =
-        document.getElementById("usernameInput").value
-            .trim()
-            .toLowerCase();
+    if (!username || !email || !password) {
 
-    if (!email || !password || !username) {
+        showToast("Fill out every field.");
 
-        setAuthStatus(
-            "Enter an email, password, and username."
+        return;
+
+    }
+
+    if (!/^[a-zA-Z0-9_]+$/.test(username)) {
+
+        showToast(
+            "Username can only contain letters, numbers and underscores."
         );
 
         return;
+
     }
 
-    if (!/^[a-z0-9_]{3,20}$/.test(username)) {
+    if (username.length < 3) {
 
-        setAuthStatus(
-            "Username must be 3-20 characters and use letters, numbers, or underscores."
-        );
+        showToast("Username must be at least 3 characters.");
 
         return;
-    }
 
-    setAuthStatus("Creating account...");
+    }
 
     const {
         data,
         error
     } = await supabaseClient.auth.signUp({
-
         email,
         password
-
     });
 
     if (error) {
 
-        setAuthStatus(error.message);
+        showToast(error.message);
 
         return;
+
     }
 
     if (!data.user) {
 
-        setAuthStatus(
-            "Account created. Check your email if confirmation is required."
-        );
+        showToast("Account created. Check your email.");
 
         return;
+
     }
 
     const {
@@ -1010,117 +1133,84 @@ async function signup() {
     } = await supabaseClient
         .from("profiles")
         .insert({
-
             id: data.user.id,
             username: username,
             display_name: username
-
         });
 
     if (profileError) {
 
-        setAuthStatus(
-            "Account created, but profile setup failed: " +
-            profileError.message
-        );
+        console.error(profileError);
+
+        if (
+            profileError.code === "23505"
+        ) {
+
+            showToast("That username is already taken.");
+
+        } else {
+
+            showToast(
+                "Account created, but profile setup failed."
+            );
+
+        }
 
         return;
+
     }
 
-    setAuthStatus("Account created!");
-
-    await startApp(data.user);
+    showToast("Account created!");
 
 }
 
+
+/* =========================================================
+   LOGIN
+========================================================= */
 
 async function login() {
 
     const email =
-        document.getElementById("emailInput").value.trim();
+        document.getElementById("loginEmail")
+        .value
+        .trim();
 
     const password =
-        document.getElementById("passwordInput").value;
+        document.getElementById("loginPassword")
+        .value;
 
     if (!email || !password) {
 
-        setAuthStatus(
-            "Enter your email and password."
-        );
+        showToast("Enter your email and password.");
 
         return;
+
     }
 
-    setAuthStatus("Logging in...");
-
     const {
-        data,
         error
     } = await supabaseClient.auth.signInWithPassword({
-
         email,
         password
-
     });
 
     if (error) {
 
-        setAuthStatus(error.message);
+        showToast(error.message);
 
         return;
+
     }
 
-    await startApp(data.user);
-}
-
-
-async function logout() {
-
-    await supabaseClient.auth.signOut();
-
-    currentUser = null;
-    currentProfile = null;
-    selectedUser = null;
-
-    document.getElementById("app")
-        .classList.add("hidden");
-
-    document.getElementById("authScreen")
-        .classList.remove("hidden");
-
 }
 
 
 /* =========================================================
-   START APP
+   USER INITIALIZATION
 ========================================================= */
 
-async function startApp(user) {
-
-    currentUser = user;
-
-    document.getElementById("authScreen")
-        .classList.add("hidden");
-
-    document.getElementById("app")
-        .classList.remove("hidden");
-
-    await loadProfile();
-
-    await loadRecentChats();
-
-    setupRealtime();
-
-    updateNotificationUI();
-
-}
-
-
-/* =========================================================
-   PROFILE
-========================================================= */
-
-async function loadProfile() {
+async function initializeUser() {
 
     if (!currentUser) return;
 
@@ -1131,33 +1221,58 @@ async function loadProfile() {
         .from("profiles")
         .select("*")
         .eq("id", currentUser.id)
-        .maybeSingle();
+        .single();
 
     if (error) {
 
-        console.error(
-            "Profile error:",
-            error
+        console.error(error);
+
+        showToast(
+            "Could not load your profile."
         );
 
         return;
+
     }
 
     currentProfile = data;
 
-    if (currentProfile) {
+    currentUsername.textContent =
+        "@" + currentProfile.username;
 
-        document.getElementById(
-            "currentUsername"
-        ).textContent =
-            "@" + currentProfile.username;
+    showApp();
 
-        document.getElementById(
-            "newUsername"
-        ).value =
-            currentProfile.username;
+    updateNotificationUI();
+
+    loadRecentChats();
+
+    setupRealtime();
+
+}
+
+
+/* =========================================================
+   LOGOUT
+========================================================= */
+
+async function logout() {
+
+    if (realtimeChannel) {
+
+        await supabaseClient
+            .removeChannel(realtimeChannel);
+
+        realtimeChannel = null;
 
     }
+
+    await supabaseClient.auth.signOut();
+
+    currentUser = null;
+    currentProfile = null;
+    currentChatUser = null;
+
+    showAuth();
 
 }
 
@@ -1166,38 +1281,122 @@ async function loadProfile() {
    USER SEARCH
 ========================================================= */
 
-async function searchUsers() {
+function searchUsers() {
+
+    clearTimeout(searchTimer);
 
     const query =
         document.getElementById("searchInput")
-            .value
-            .trim()
-            .toLowerCase();
+        .value
+        .trim()
+        .toLowerCase();
 
     if (!query) {
 
-        await loadRecentChats();
+        loadRecentChats();
 
         return;
+
     }
+
+    searchTimer = setTimeout(
+        () => performUserSearch(query),
+        250
+    );
+
+}
+
+
+async function performUserSearch(query) {
+
+    sidebarContent.innerHTML =
+        '<div class="sectionTitle">Search Results</div>';
 
     const {
         data,
         error
     } = await supabaseClient
         .from("profiles")
-        .select("*")
+        .select("id, username, display_name")
         .eq("username", query)
-        .neq("id", currentUser.id);
+        .limit(10);
 
     if (error) {
 
         console.error(error);
 
+        sidebarContent.innerHTML +=
+            '<div class="emptySide">Search failed.</div>';
+
         return;
+
     }
 
-    renderUsers(data || [], false);
+    const users =
+        (data || []).filter(
+            user => user.id !== currentUser.id
+        );
+
+    if (!users.length) {
+
+        sidebarContent.innerHTML +=
+            '<div class="emptySide">No exact username found.</div>';
+
+        return;
+
+    }
+
+    users.forEach(user => {
+
+        const element =
+            createUserElement(user);
+
+        sidebarContent.appendChild(element);
+
+    });
+
+}
+
+
+/* =========================================================
+   USER ELEMENT
+========================================================= */
+
+function createUserElement(user) {
+
+    const button =
+        document.createElement("button");
+
+    button.className = "userResult";
+
+    const avatarLetter =
+        (user.display_name ||
+            user.username ||
+            "?")
+        .charAt(0)
+        .toUpperCase();
+
+    button.innerHTML = `
+        <div class="avatar">
+            ${escapeHTML(avatarLetter)}
+        </div>
+
+        <div class="userInfo">
+            <div class="userName">
+                ${escapeHTML(user.display_name || user.username)}
+            </div>
+
+            <div class="userHandle">
+                @${escapeHTML(user.username)}
+            </div>
+        </div>
+    `;
+
+    button.onclick = () =>
+        openChat(user);
+
+    return button;
+
 }
 
 
@@ -1209,30 +1408,37 @@ async function loadRecentChats() {
 
     if (!currentUser) return;
 
+    sidebarContent.innerHTML =
+        '<div class="sectionTitle">Recent Chats</div>';
+
     const {
         data,
         error
     } = await supabaseClient
         .from("messages")
-        .select("*")
+        .select(
+            "sender_id, receiver_id, content, created_at"
+        )
         .or(
             `sender_id.eq.${currentUser.id},receiver_id.eq.${currentUser.id}`
         )
-        .order("created_at", {
-            ascending: false
-        })
+        .order(
+            "created_at",
+            {
+                ascending: false
+            }
+        )
         .limit(100);
 
     if (error) {
 
-        console.error(
-            "Recent chat error:",
-            error
-        );
+        console.error(error);
 
-        renderUsers([], true);
+        sidebarContent.innerHTML +=
+            '<div class="emptySide">Could not load chats.</div>';
 
         return;
+
     }
 
     const ids = [];
@@ -1254,140 +1460,202 @@ async function loadRecentChats() {
 
     if (!ids.length) {
 
-        renderUsers([], true);
+        sidebarContent.innerHTML += `
+            <div class="emptySide">
+                No conversations yet.<br>
+                Search for a username to start one.
+            </div>
+        `;
 
         return;
+
     }
 
     const {
-        data: profiles
+        data: profiles,
+        error: profileError
     } = await supabaseClient
         .from("profiles")
-        .select("*")
+        .select("id, username, display_name")
         .in("id", ids);
+
+    if (profileError) {
+
+        console.error(profileError);
+
+        return;
+
+    }
 
     const profileMap = {};
 
-    for (const profile of profiles || []) {
+    (profiles || []).forEach(profile => {
 
         profileMap[profile.id] = profile;
 
-    }
+    });
 
-    const users = ids
-        .map(id => profileMap[id])
-        .filter(Boolean);
+    const latest = {};
 
-    renderUsers(users, true);
+    (data || []).forEach(message => {
+
+        const otherId =
+            message.sender_id === currentUser.id
+                ? message.receiver_id
+                : message.sender_id;
+
+        if (!latest[otherId]) {
+
+            latest[otherId] = message;
+
+        }
+
+    });
+
+    ids.forEach(id => {
+
+        const profile =
+            profileMap[id];
+
+        if (!profile) return;
+
+        const message =
+            latest[id];
+
+        const element =
+            createRecentChatElement(
+                profile,
+                message
+            );
+
+        sidebarContent.appendChild(element);
+
+    });
+
 }
 
 
 /* =========================================================
-   SIDEBAR
+   RECENT CHAT ELEMENT
 ========================================================= */
 
-function renderUsers(users, recent) {
+function createRecentChatElement(
+    user,
+    message
+) {
 
-    const list =
-        document.getElementById("sidebarList");
+    const button =
+        document.createElement("button");
 
-    if (!users.length) {
+    button.className =
+        "recentChat";
 
-        list.innerHTML = `
-            <div class="sectionTitle">
-                ${recent ? "Recent Chats" : "Search"}
-            </div>
+    if (
+        currentChatUser &&
+        currentChatUser.id === user.id
+    ) {
 
-            <div style="
-                color:var(--muted);
-                padding:15px;
-                font-size:12px;
-            ">
-                ${recent
-                    ? "No conversations yet."
-                    : "No user found."
-                }
-            </div>
-        `;
+        button.classList.add("active");
 
-        return;
     }
 
-    list.innerHTML = `
-        <div class="sectionTitle">
-            ${recent ? "Recent Chats" : "Search Results"}
+    const avatarLetter =
+        (user.display_name ||
+            user.username ||
+            "?")
+        .charAt(0)
+        .toUpperCase();
+
+    const preview =
+        message?.content || "";
+
+    const time =
+        message?.created_at
+            ? formatShortTime(message.created_at)
+            : "";
+
+    button.innerHTML = `
+        <div class="avatar">
+            ${escapeHTML(avatarLetter)}
+        </div>
+
+        <div class="userInfo">
+
+            <div class="chatPreview">
+
+                <div class="userName">
+                    ${escapeHTML(
+                        user.display_name ||
+                        user.username
+                    )}
+                </div>
+
+                <div class="previewTime">
+                    ${escapeHTML(time)}
+                </div>
+
+            </div>
+
+            <div class="previewText">
+                ${escapeHTML(preview)}
+            </div>
+
         </div>
     `;
 
-    for (const user of users) {
+    button.onclick = () =>
+        openChat(user);
 
-        const item =
-            document.createElement("div");
+    return button;
 
-        item.className = "userItem";
-
-        item.innerHTML = `
-
-            <div class="avatar">
-                ${escapeHTML(getInitial(user.username))}
-            </div>
-
-            <div class="userInfo">
-
-                <div class="userName">
-                    ${escapeHTML(user.display_name)}
-                </div>
-
-                <div class="userPreview">
-                    @${escapeHTML(user.username)}
-                </div>
-
-            </div>
-
-        `;
-
-        item.onclick = () => openChat(user);
-
-        list.appendChild(item);
-
-    }
 }
 
 
 /* =========================================================
-   CHAT
+   OPEN CHAT
 ========================================================= */
 
 async function openChat(user) {
 
-    selectedUser = user;
+    currentChatUser = user;
 
-    document.getElementById("chatName")
-        .textContent =
-        user.display_name;
+    app.classList.add("chat-open");
 
-    document.getElementById("chatUsername")
-        .textContent =
+    chatTitleName.textContent =
+        user.display_name ||
+        user.username;
+
+    chatTitleHandle.textContent =
         "@" + user.username;
 
-    document.getElementById("chatAvatar")
-        .textContent =
-        getInitial(user.username);
+    chatAvatar.textContent =
+        (
+            user.display_name ||
+            user.username ||
+            "?"
+        )
+        .charAt(0)
+        .toUpperCase();
 
-    document.getElementById("messageInput")
-        .disabled = false;
+    messageInput.disabled = false;
+    sendBtn.disabled = false;
 
-    document.getElementById("messageInput")
-        .focus();
+    await loadMessages();
 
-    await loadMessages(user);
+    messageInput.focus();
 
-    if (window.innerWidth <= 700) {
+    loadRecentChats();
 
-        document.querySelector(".sidebar")
-            .classList.add("mobileHidden");
+}
 
-    }
+
+/* =========================================================
+   CLOSE MOBILE CHAT
+========================================================= */
+
+function closeMobileChat() {
+
+    app.classList.remove("chat-open");
 
 }
 
@@ -1396,9 +1664,11 @@ async function openChat(user) {
    LOAD MESSAGES
 ========================================================= */
 
-async function loadMessages(user) {
+async function loadMessages() {
 
-    if (!currentUser || !user) return;
+    if (!currentUser || !currentChatUser) return;
+
+    messagesElement.innerHTML = "";
 
     const {
         data,
@@ -1407,109 +1677,85 @@ async function loadMessages(user) {
         .from("messages")
         .select("*")
         .or(
-            `and(sender_id.eq.${currentUser.id},receiver_id.eq.${user.id}),and(sender_id.eq.${user.id},receiver_id.eq.${currentUser.id})`
+            `and(sender_id.eq.${currentUser.id},receiver_id.eq.${currentChatUser.id}),and(sender_id.eq.${currentChatUser.id},receiver_id.eq.${currentUser.id})`
         )
-        .order("created_at", {
-            ascending: true
-        });
+        .order(
+            "created_at",
+            {
+                ascending: true
+            }
+        );
 
     if (error) {
 
-        console.error(
-            "Message loading error:",
-            error
-        );
+        console.error(error);
 
-        return;
-    }
-
-    renderMessages(data || []);
-}
-
-
-/* =========================================================
-   RENDER MESSAGES
-========================================================= */
-
-function renderMessages(messages) {
-
-    const container =
-        document.getElementById("messages");
-
-    if (!messages.length) {
-
-        container.innerHTML = `
+        messagesElement.innerHTML = `
             <div class="emptyChat">
-
-                <strong>Start the conversation</strong>
-
-                Send a message to
-                @${escapeHTML(selectedUser.username)}
-
+                <div>Could not load messages.</div>
             </div>
         `;
 
         return;
-    }
-
-    container.innerHTML = "";
-
-    for (const message of messages) {
-
-        addMessageToScreen(message, false);
 
     }
 
-    container.scrollTop =
-        container.scrollHeight;
+    if (!data || !data.length) {
+
+        messagesElement.innerHTML = `
+            <div class="emptyChat">
+                <div>
+                    <strong>Start the conversation</strong>
+                    Send a message to @${escapeHTML(currentChatUser.username)}.
+                </div>
+            </div>
+        `;
+
+        return;
+
+    }
+
+    data.forEach(message => {
+
+        renderMessage(message);
+
+    });
+
+    scrollMessages();
+
 }
 
 
-function addMessageToScreen(message, scroll = true) {
+/* =========================================================
+   RENDER MESSAGE
+========================================================= */
 
-    const container =
-        document.getElementById("messages");
+function renderMessage(message) {
 
-    const empty =
-        container.querySelector(".emptyChat");
-
-    if (empty) {
-
-        empty.remove();
-
-    }
-
-    const div =
+    const element =
         document.createElement("div");
 
-    div.className =
+    const isSent =
+        message.sender_id === currentUser.id;
+
+    element.className =
         "message " +
-        (
-            message.sender_id === currentUser.id
-                ? "mine"
-                : ""
-        );
+        (isSent ? "sent" : "received");
 
-    div.innerHTML = `
+    element.innerHTML = `
+        ${escapeHTML(message.content)}
 
-        <div>
-            ${escapeHTML(message.content)}
-        </div>
-
-        <div class="messageTime">
-            ${formatTime(message.created_at)}
-        </div>
-
+        <span class="messageTime">
+            ${escapeHTML(
+                formatMessageTime(
+                    message.created_at
+                )
+            )}
+        </span>
     `;
 
-    container.appendChild(div);
+    messagesElement.appendChild(element);
 
-    if (scroll) {
-
-        container.scrollTop =
-            container.scrollHeight;
-
-    }
 }
 
 
@@ -1519,17 +1765,14 @@ function addMessageToScreen(message, scroll = true) {
 
 async function sendMessage() {
 
-    if (!currentUser || !selectedUser) return;
-
-    const input =
-        document.getElementById("messageInput");
+    if (!currentUser || !currentChatUser) return;
 
     const content =
-        input.value.trim();
+        messageInput.value.trim();
 
     if (!content) return;
 
-    input.value = "";
+    messageInput.value = "";
 
     const {
         data,
@@ -1537,47 +1780,89 @@ async function sendMessage() {
     } = await supabaseClient
         .from("messages")
         .insert({
-
             sender_id: currentUser.id,
-            receiver_id: selectedUser.id,
+            receiver_id: currentChatUser.id,
             content: content
-
         })
         .select()
         .single();
 
     if (error) {
 
-        console.error(
-            "Send message error:",
-            error
+        console.error(error);
+
+        showToast(
+            "Message failed to send."
         );
 
-        alert(
-            "Could not send message:\n" +
-            error.message
-        );
-
-        input.value = content;
+        messageInput.value = content;
 
         return;
+
     }
 
     /*
-        Realtime will normally add this message.
-        Add it immediately too so the sender sees it
-        without waiting for the realtime event.
+       The realtime listener normally renders this.
+       If realtime is slow/unavailable, render immediately.
     */
 
-    addMessageToScreen(data);
+    if (data) {
 
-    await loadRecentChats();
+        const exists =
+            [...messagesElement.children]
+            .some(element =>
+                element.dataset.messageId ===
+                String(data.id)
+            );
+
+        if (!exists) {
+
+            const element =
+                document.createElement("div");
+
+            element.dataset.messageId =
+                data.id;
+
+            const isSent = true;
+
+            element.className =
+                "message sent";
+
+            element.innerHTML = `
+                ${escapeHTML(data.content)}
+
+                <span class="messageTime">
+                    ${escapeHTML(
+                        formatMessageTime(
+                            data.created_at
+                        )
+                    )}
+                </span>
+            `;
+
+            messagesElement.appendChild(element);
+
+            scrollMessages();
+
+        }
+
+    }
+
+    loadRecentChats();
+
 }
 
 
+/* =========================================================
+   ENTER TO SEND
+========================================================= */
+
 function handleMessageKey(event) {
 
-    if (event.key === "Enter") {
+    if (
+        event.key === "Enter" &&
+        !event.shiftKey
+    ) {
 
         event.preventDefault();
 
@@ -1594,14 +1879,17 @@ function handleMessageKey(event) {
 
 function setupRealtime() {
 
-    if (messageChannel) {
+    if (!currentUser) return;
 
-        supabaseClient
-            .removeChannel(messageChannel);
+    if (realtimeChannel) {
+
+        supabaseClient.removeChannel(
+            realtimeChannel
+        );
 
     }
 
-    messageChannel =
+    realtimeChannel =
         supabaseClient
             .channel(
                 "astrochat-messages-" +
@@ -1619,17 +1907,8 @@ function setupRealtime() {
                     const message =
                         payload.new;
 
-                    console.log(
-                        "Realtime message:",
-                        message
-                    );
-
-                    /*
-                        Only process messages sent TO us.
-                    */
-
                     if (
-                        message.receiver_id !==
+                        message.sender_id ===
                         currentUser.id
                     ) {
 
@@ -1638,137 +1917,109 @@ function setupRealtime() {
                     }
 
                     /*
-                        If we're currently viewing this
-                        conversation, display it.
+                       If this message belongs to the
+                       conversation currently open,
+                       display it immediately.
                     */
 
                     if (
-                        selectedUser &&
+                        currentChatUser &&
                         message.sender_id ===
-                        selectedUser.id
+                        currentChatUser.id
                     ) {
 
-                        addMessageToScreen(message);
+                        const existing =
+                            [...messagesElement.children]
+                            .some(element =>
+                                element.dataset.messageId ===
+                                String(message.id)
+                            );
+
+                        if (!existing) {
+
+                            const element =
+                                document.createElement("div");
+
+                            element.dataset.messageId =
+                                message.id;
+
+                            element.className =
+                                "message received";
+
+                            element.innerHTML = `
+                                ${escapeHTML(message.content)}
+
+                                <span class="messageTime">
+                                    ${escapeHTML(
+                                        formatMessageTime(
+                                            message.created_at
+                                        )
+                                    )}
+                                </span>
+                            `;
+
+                            messagesElement.appendChild(
+                                element
+                            );
+
+                            scrollMessages();
+
+                        }
 
                     }
 
                     /*
-                        ALWAYS refresh recent chats.
+                       Refresh sidebar so the newest
+                       conversation appears at the top.
                     */
 
-                    await loadRecentChats();
+                    loadRecentChats();
 
                     /*
-                        Show desktop notification.
+                       Desktop notification.
                     */
 
-                    await showMessageNotification(message);
+                    await showMessageNotification(
+                        message
+                    );
 
                 }
             )
-            .subscribe(status => {
+            .subscribe(
+                status => {
 
-                console.log(
-                    "Realtime status:",
-                    status
-                );
+                    console.log(
+                        "Realtime status:",
+                        status
+                    );
 
-            });
+                }
+            );
 
 }
 
 
 /* =========================================================
-   NOTIFICATIONS
+   SERVICE WORKER NOTIFICATIONS
 ========================================================= */
-
-function notificationSupported() {
-
-    return "Notification" in window;
-
-}
-
-
-function updateNotificationUI() {
-
-    const status =
-        document.getElementById(
-            "notificationStatus"
-        );
-
-    if (!notificationSupported()) {
-
-        status.textContent =
-            "This browser does not support desktop notifications.";
-
-        status.className =
-            "notificationStatus bad";
-
-        return;
-    }
-
-    if (Notification.permission === "granted") {
-
-        status.textContent =
-            "✓ Notifications are enabled.";
-
-        status.className =
-            "notificationStatus good";
-
-        return;
-    }
-
-    if (Notification.permission === "denied") {
-
-        status.textContent =
-            "✕ Notifications are blocked. Allow AstroChat notifications in your browser's site settings.";
-
-        status.className =
-            "notificationStatus bad";
-
-        return;
-    }
-
-    status.textContent =
-        "Notifications have not been enabled yet.";
-
-    status.className =
-        "notificationStatus";
-
-}
-
 
 async function enableNotifications() {
 
-    console.log(
-        "Notification support:",
-        notificationSupported()
-    );
+    if (!("Notification" in window)) {
 
-    if (!notificationSupported()) {
-
-        alert(
-            "Your browser does not support desktop notifications."
+        showToast(
+            "This browser does not support notifications."
         );
 
         return;
 
     }
 
-    console.log(
-        "Current permission:",
-        Notification.permission
-    );
+    if (!("serviceWorker" in navigator)) {
 
-    if (Notification.permission === "denied") {
-
-        alert(
-            "Notifications are blocked for AstroChat.\n\n" +
-            "Click the lock/settings icon next to the website address, " +
-            "open notification permissions, and change AstroChat to Allow."
+        showToast(
+            "Service workers are not supported."
         );
-
-        updateNotificationUI();
 
         return;
 
@@ -1779,52 +2030,34 @@ async function enableNotifications() {
         const permission =
             await Notification.requestPermission();
 
-        console.log(
-            "New permission:",
-            permission
-        );
+        updateNotificationUI();
 
         if (permission === "granted") {
 
-            localStorage.setItem(
-                "astrochat-notifications",
-                "true"
+            showToast(
+                "Desktop notifications enabled!"
             );
 
-            updateNotificationUI();
+        } else if (permission === "denied") {
 
-            /*
-                Immediately test that the browser itself
-                can display the notification.
-            */
-
-            new Notification(
-                "AstroChat",
-                {
-                    body:
-                        "Desktop notifications are now enabled!",
-                    tag:
-                        "astrochat-test-" +
-                        Date.now()
-                }
+            showToast(
+                "Notifications are blocked. Enable them in browser settings."
             );
 
         } else {
 
-            updateNotificationUI();
+            showToast(
+                "Notification permission was not granted."
+            );
 
         }
 
     } catch (error) {
 
-        console.error(
-            "Notification permission error:",
-            error
-        );
+        console.error(error);
 
-        alert(
-            "Notification error:\n\n" +
-            error.message
+        showToast(
+            "Could not enable notifications."
         );
 
     }
@@ -1832,38 +2065,130 @@ async function enableNotifications() {
 }
 
 
-function testNotification() {
+/* =========================================================
+   NOTIFICATION STATUS
+========================================================= */
 
-    if (!notificationSupported()) {
+function updateNotificationUI() {
 
-        alert(
-            "Your browser does not support notifications."
+    const button =
+        document.getElementById(
+            "notificationButton"
+        );
+
+    const status =
+        document.getElementById(
+            "notificationStatus"
+        );
+
+    if (!button || !status) return;
+
+    if (!("Notification" in window)) {
+
+        button.disabled = true;
+        button.textContent =
+            "Not Supported";
+
+        status.textContent =
+            "Your browser does not support desktop notifications.";
+
+        status.className =
+            "notificationStatus blocked";
+
+        return;
+
+    }
+
+    if (Notification.permission === "granted") {
+
+        button.textContent =
+            "Notifications Enabled";
+
+        button.disabled = false;
+
+        status.textContent =
+            "Desktop notifications are enabled.";
+
+        status.className =
+            "notificationStatus enabled";
+
+    } else if (
+        Notification.permission === "denied"
+    ) {
+
+        button.textContent =
+            "Notifications Blocked";
+
+        status.textContent =
+            "Notifications are blocked by your browser. Change the browser permission to enable them.";
+
+        status.className =
+            "notificationStatus blocked";
+
+    } else {
+
+        button.textContent =
+            "Enable Notifications";
+
+        status.textContent =
+            "Notifications have not been enabled yet.";
+
+        status.className =
+            "notificationStatus";
+
+    }
+
+}
+
+
+/* =========================================================
+   TEST NOTIFICATION
+========================================================= */
+
+async function testNotification() {
+
+    if (!("Notification" in window)) {
+
+        showToast(
+            "Notifications are not supported."
         );
 
         return;
+
     }
 
-    console.log(
-        "Testing notification. Permission:",
-        Notification.permission
-    );
+    if (
+        Notification.permission !==
+        "granted"
+    ) {
 
-    if (Notification.permission !== "granted") {
+        const permission =
+            await Notification.requestPermission();
 
-        alert(
-            "Notifications are not allowed yet.\n\n" +
-            "Click Enable Notifications first."
-        );
+        updateNotificationUI();
 
-        return;
+        if (permission !== "granted") {
+
+            showToast(
+                "Notification permission was not granted."
+            );
+
+            return;
+
+        }
+
     }
 
-    const notification =
-        new Notification(
+    try {
+
+        const registration =
+            await navigator.serviceWorker.ready;
+
+        await registration.showNotification(
             "AstroChat Test",
             {
                 body:
-                    "If you can see this, browser notifications are working!",
+                    "Desktop notifications are working!",
                 tag:
                     "astrochat-test-" +
                     Date.now(),
@@ -1871,45 +2196,42 @@ function testNotification() {
             }
         );
 
-    notification.onclick = () => {
+        showToast(
+            "Test notification sent."
+        );
 
-        window.focus();
+    } catch (error) {
 
-        notification.close();
+        console.error(error);
 
-    };
+        showToast(
+            "The test notification failed."
+        );
+
+    }
 
 }
 
 
-async function showMessageNotification(message) {
+/* =========================================================
+   MESSAGE NOTIFICATION
+========================================================= */
 
-    if (!notificationSupported()) {
-
-        console.log(
-            "Notifications unsupported."
-        );
-
-        return;
-    }
-
-    if (Notification.permission !== "granted") {
-
-        console.log(
-            "Notification permission is:",
-            Notification.permission
-        );
-
-        return;
-    }
-
-    /*
-        Don't notify yourself.
-    */
+async function showMessageNotification(
+    message
+) {
 
     if (
-        message.sender_id ===
-        currentUser.id
+        !("Notification" in window)
+    ) {
+
+        return;
+
+    }
+
+    if (
+        Notification.permission !==
+        "granted"
     ) {
 
         return;
@@ -1917,20 +2239,15 @@ async function showMessageNotification(message) {
     }
 
     /*
-        If the conversation is currently open,
-        don't spam the user with a notification.
+       Don't notify if the user is already
+       looking at this conversation.
     */
 
     if (
-        selectedUser &&
-        selectedUser.id ===
+        currentChatUser &&
+        currentChatUser.id ===
         message.sender_id
     ) {
-
-        /*
-            You can remove this return if you WANT
-            notifications even while viewing the chat.
-        */
 
         return;
 
@@ -1942,48 +2259,47 @@ async function showMessageNotification(message) {
             data: sender
         } = await supabaseClient
             .from("profiles")
-            .select("username,display_name")
-            .eq("id", message.sender_id)
-            .maybeSingle();
+            .select(
+                "username, display_name"
+            )
+            .eq(
+                "id",
+                message.sender_id
+            )
+            .single();
 
         const senderName =
             sender?.display_name ||
             sender?.username ||
-            "Someone";
+            "New message";
 
-        const notification =
-            new Notification(
-                senderName,
-                {
-                    body:
-                        message.content,
-                    tag:
-                        "astrochat-message-" +
-                        message.sender_id +
-                        "-" +
-                        message.id,
-                    renotify: true
+        const registration =
+            await navigator.serviceWorker.ready;
+
+        await registration.showNotification(
+            senderName,
+            {
+                body: message.content,
+
+                tag:
+                    "astrochat-message-" +
+                    message.sender_id +
+                    "-" +
+                    message.id,
+
+                renotify: true,
+
+                data: {
+                    senderId:
+                        message.sender_id
                 }
-            );
-
-        notification.onclick = async () => {
-
-            window.focus();
-
-            notification.close();
-
-            if (sender) {
-
-                await openChat(sender);
-
             }
-
-        };
+        );
 
     } catch (error) {
 
         console.error(
-            "Could not show notification:",
+            "Notification error:",
             error
         );
 
@@ -1998,62 +2314,30 @@ async function showMessageNotification(message) {
 
 function openSettings() {
 
-    document.getElementById(
-        "settingsOverlay"
-    ).classList.remove("hidden");
+    document
+        .getElementById(
+            "settingsOverlay"
+        )
+        .classList.remove("hidden");
+
+    document
+        .getElementById(
+            "newUsername"
+        )
+        .value =
+        currentProfile?.username || "";
 
     updateNotificationUI();
 
 }
 
+function closeSettings() {
 
-function closeSettings(event) {
-
-    if (
-        event &&
-        event.target !==
-        document.getElementById(
+    document
+        .getElementById(
             "settingsOverlay"
         )
-    ) {
-
-        return;
-
-    }
-
-    document.getElementById(
-        "settingsOverlay"
-    ).classList.add("hidden");
-
-}
-
-
-function toggleTheme() {
-
-    document.body.classList.toggle("light");
-
-    localStorage.setItem(
-        "astrochat-theme",
-        document.body.classList.contains("light")
-            ? "light"
-            : "dark"
-    );
-
-}
-
-
-function loadTheme() {
-
-    const theme =
-        localStorage.getItem(
-            "astrochat-theme"
-        );
-
-    if (theme === "light") {
-
-        document.body.classList.add("light");
-
-    }
+        .classList.add("hidden");
 
 }
 
@@ -2063,8 +2347,6 @@ function loadTheme() {
 ========================================================= */
 
 async function changeUsername() {
-
-    if (!currentUser) return;
 
     const input =
         document.getElementById(
@@ -2076,10 +2358,30 @@ async function changeUsername() {
             .trim()
             .toLowerCase();
 
-    if (!/^[a-z0-9_]{3,20}$/.test(username)) {
+    if (!username) {
 
-        alert(
-            "Username must be 3-20 characters and use letters, numbers, or underscores."
+        showToast(
+            "Enter a username."
+        );
+
+        return;
+
+    }
+
+    if (!/^[a-zA-Z0-9_]+$/.test(username)) {
+
+        showToast(
+            "Username can only contain letters, numbers and underscores."
+        );
+
+        return;
+
+    }
+
+    if (username.length < 3) {
+
+        showToast(
+            "Username must be at least 3 characters."
         );
 
         return;
@@ -2091,97 +2393,234 @@ async function changeUsername() {
     } = await supabaseClient
         .from("profiles")
         .update({
-
             username: username,
             display_name: username
-
         })
-        .eq("id", currentUser.id);
+        .eq(
+            "id",
+            currentUser.id
+        );
 
     if (error) {
 
-        alert(
-            "Could not change username:\n" +
-            error.message
-        );
+        if (error.code === "23505") {
+
+            showToast(
+                "That username is already taken."
+            );
+
+        } else {
+
+            console.error(error);
+
+            showToast(
+                error.message
+            );
+
+        }
 
         return;
 
     }
 
-    await loadProfile();
+    currentProfile.username =
+        username;
 
-    alert(
+    currentProfile.display_name =
+        username;
+
+    currentUsername.textContent =
+        "@" + username;
+
+    showToast(
         "Username updated!"
+    );
+
+    loadRecentChats();
+
+}
+
+
+/* =========================================================
+   THEME
+========================================================= */
+
+function setTheme(theme) {
+
+    if (theme === "light") {
+
+        document.body.classList.add(
+            "light"
+        );
+
+        localStorage.setItem(
+            "astrochat-theme",
+            "light"
+        );
+
+    } else {
+
+        document.body.classList.remove(
+            "light"
+        );
+
+        localStorage.setItem(
+            "astrochat-theme",
+            "dark"
+        );
+
+    }
+
+    updateThemeButtons();
+
+}
+
+
+function applySavedTheme() {
+
+    const theme =
+        localStorage.getItem(
+            "astrochat-theme"
+        ) || "dark";
+
+    setTheme(theme);
+
+}
+
+
+function updateThemeButtons() {
+
+    const dark =
+        document.getElementById(
+            "darkThemeBtn"
+        );
+
+    const light =
+        document.getElementById(
+            "lightThemeBtn"
+        );
+
+    if (!dark || !light) return;
+
+    const isLight =
+        document.body.classList.contains(
+            "light"
+        );
+
+    dark.classList.toggle(
+        "active",
+        !isLight
+    );
+
+    light.classList.toggle(
+        "active",
+        isLight
     );
 
 }
 
 
 /* =========================================================
-   MOBILE
+   HELPERS
 ========================================================= */
 
-function showSidebar() {
+function escapeHTML(value) {
 
-    document.querySelector(".sidebar")
-        .classList.remove("mobileHidden");
+    return String(value ?? "")
+        .replaceAll("&", "&amp;")
+        .replaceAll("<", "&lt;")
+        .replaceAll(">", "&gt;")
+        .replaceAll('"', "&quot;")
+        .replaceAll("'", "&#039;");
 
 }
 
 
-/* =========================================================
-   STARTUP
-========================================================= */
+function formatMessageTime(date) {
 
-loadTheme();
-
-(async function () {
-
-    const {
-        data
-    } = await supabaseClient.auth.getSession();
-
-    if (data.session?.user) {
-
-        await startApp(
-            data.session.user
-        );
-
-    }
-
-})();
-
-
-/* =========================================================
-   AUTH STATE
-========================================================= */
-
-supabaseClient.auth.onAuthStateChange(
-    async (event, session) => {
-
-        console.log(
-            "Auth state:",
-            event
-        );
-
-        if (
-            event === "SIGNED_IN" &&
-            session?.user
-        ) {
-
-            if (!currentUser) {
-
-                await startApp(
-                    session.user
-                );
-
+    return new Date(date)
+        .toLocaleTimeString(
+            [],
+            {
+                hour: "numeric",
+                minute: "2-digit"
             }
+        );
 
-        }
+}
+
+
+function formatShortTime(date) {
+
+    const d =
+        new Date(date);
+
+    const now =
+        new Date();
+
+    if (
+        d.toDateString() ===
+        now.toDateString()
+    ) {
+
+        return d.toLocaleTimeString(
+            [],
+            {
+                hour: "numeric",
+                minute: "2-digit"
+            }
+        );
 
     }
-);
+
+    return d.toLocaleDateString(
+        [],
+        {
+            month: "short",
+            day: "numeric"
+        }
+    );
+
+}
+
+
+function scrollMessages() {
+
+    messagesElement.scrollTop =
+        messagesElement.scrollHeight;
+
+}
+
+
+function showToast(message) {
+
+    const toast =
+        document.getElementById(
+            "toast"
+        );
+
+    toast.textContent =
+        message;
+
+    toast.classList.add(
+        "show"
+    );
+
+    clearTimeout(
+        showToast.timeout
+    );
+
+    showToast.timeout =
+        setTimeout(
+            () => {
+                toast.classList.remove(
+                    "show"
+                );
+            },
+            3000
+        );
+
+}
 
 </script>
 
