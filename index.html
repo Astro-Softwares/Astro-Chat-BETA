@@ -5,11 +5,8 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Meetup</title>
+<title>AstroChat</title>
 
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
 <link rel="icon" type="image/png" href="./icon.png?v=2">
 <link rel="shortcut icon" type="image/png" href="./icon.png?v=2">
 
@@ -17,11 +14,10 @@
 
 <style>
 
-
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap');
 
 * {
     box-sizing: border-box;
-    font-family: "Montserrat", sans-serif;
 }
 
 :root {
@@ -120,12 +116,8 @@ button {
     font-weight: 700;
 }
 
-.brandMeet {
-    color: #ffd84d !important;
-}
-
-.brandUp {
-    color: #55e878 !important;
+.logo span {
+    color: var(--accent);
 }
 
 .authSubtitle {
@@ -236,8 +228,8 @@ button {
     font-weight: 700;
 }
 
-.appName, .appName span {
-    color: #ffd84d;
+.appName span {
+    color: var(--accent);
 }
 
 .usernameLabel {
@@ -632,6 +624,103 @@ button {
 }
 
 
+
+
+/* =========================
+   CALLING
+========================= */
+
+.chatHeaderActions {
+    margin-left: auto;
+    display: flex;
+    gap: 8px;
+    align-items: center;
+}
+
+.callBtn {
+    width: 42px;
+    height: 42px;
+    border: 1px solid var(--border);
+    background: var(--panel2);
+    color: var(--text);
+    border-radius: 12px;
+    font-size: 18px;
+    cursor: pointer;
+}
+
+.callBtn:hover:not(:disabled) {
+    border-color: var(--accent);
+    transform: translateY(-1px);
+}
+
+.callBtn:disabled {
+    opacity: .4;
+    cursor: not-allowed;
+}
+
+.callCard {
+    width: min(390px, 100%);
+    background: var(--panel);
+    border: 1px solid var(--border);
+    border-radius: 24px;
+    padding: 28px;
+    text-align: center;
+    box-shadow: 0 30px 100px rgba(0,0,0,.5);
+}
+
+.callAvatar {
+    width: 78px;
+    height: 78px;
+    margin: 4px auto 16px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--accent);
+    color: white;
+    font-size: 30px;
+    font-weight: 700;
+}
+
+.callName {
+    font-size: 20px;
+    font-weight: 700;
+}
+
+.callStatus {
+    color: var(--muted);
+    margin-top: 7px;
+    font-size: 13px;
+}
+
+.callActions {
+    display: flex;
+    gap: 10px;
+    margin-top: 24px;
+}
+
+.callActionBtn {
+    flex: 1;
+    border: none;
+    border-radius: 12px;
+    padding: 13px;
+    font-weight: 700;
+    cursor: pointer;
+    background: var(--accent);
+    color: white;
+}
+
+.callActionBtn.secondary {
+    background: var(--panel2);
+    color: var(--text);
+    border: 1px solid var(--border);
+}
+
+.callActionBtn.danger {
+    background: var(--danger);
+}
+
+
 /* =========================
    OVERLAY
 ========================= */
@@ -982,7 +1071,7 @@ button {
     <div class="authBox">
 
         <div class="logo">
-             <span class="brandMeet">Meet</span><span class="brandUp">up</span>
+            Astro<span>Chat</span>
         </div>
 
         <div class="authSubtitle">
@@ -1092,7 +1181,7 @@ button {
                 <div>
 
                     <div class="appName">
-                         <span class="brandMeet">Meet</span><span class="brandUp">up</span>
+                        Astro<span>Chat</span>
                     </div>
 
                     <div
@@ -1163,13 +1252,27 @@ button {
                 ?
             </div>
 
+            <div class="chatHeaderActions">
+
+                <button
+                    id="callBtn"
+                    class="callBtn"
+                    onclick="startCall()"
+                    disabled
+                    title="Voice call"
+                >
+                    ☎
+                </button>
+
+            </div>
+
             <div class="chatTitle">
 
                 <div
                     id="chatTitleName"
                     class="chatTitleName"
                 >
-                    Meetup
+                    AstroChat
                 </div>
 
                 <div
@@ -1194,7 +1297,7 @@ button {
                 <div>
 
                     <strong>
-                        Welcome to Meetup
+                        Welcome to AstroChat
                     </strong>
 
                     Search for a username or create
@@ -1407,7 +1510,7 @@ button {
                 </div>
 
                 <div class="settingDescription">
-                    Choose how Meetup looks.
+                    Choose how AstroChat looks.
                 </div>
 
                 <div class="themeButtons">
@@ -1456,6 +1559,31 @@ button {
 </div>
 
 
+<!-- =========================
+     CALL OVERLAY
+========================= -->
+
+<div id="callOverlay" class="overlay hidden">
+    <div class="callCard">
+        <div id="callAvatar" class="callAvatar">?</div>
+        <div id="callName" class="callName">Call</div>
+        <div id="callStatus" class="callStatus">Calling...</div>
+        <div id="groupCallParticipants" class="callStatus hidden"></div>
+
+        <div class="callActions">
+            <button id="callSecondaryBtn" class="callActionBtn secondary" onclick="declineIncomingCall()">
+                Decline
+            </button>
+            <button id="callPrimaryBtn" class="callActionBtn danger" onclick="hangUpCall()">
+                Hang Up
+            </button>
+        </div>
+    </div>
+</div>
+
+<audio id="remoteAudio" autoplay playsinline></audio>
+
+
 <div
     id="toast"
     class="toast"
@@ -1501,6 +1629,27 @@ let selectedMembers = [];
 
 let searchTimer = null;
 
+// Voice calling (WebRTC)
+let callChannel = null;
+let peerConnection = null;
+let localStream = null;
+let currentCallPeer = null;
+let incomingCall = null;
+let pendingIceCandidates = [];
+let callTimer = null;
+let callSeconds = 0;
+
+// Group voice calling (WebRTC mesh)
+let groupCallId = null;
+let groupCallMembers = [];
+let groupCallInvitedMembers = [];
+let groupCallPeers = new Map();
+let groupCallRemoteAudios = new Map();
+let groupCallIncoming = null;
+let groupCallIsActive = false;
+let groupCallIsInitiator = false;
+
+
 
 /* =========================
    ELEMENTS
@@ -1517,6 +1666,34 @@ const sidebarContent =
 
 const messagesElement =
     document.getElementById("messages");
+
+const callBtn =
+    document.getElementById("callBtn");
+
+const callOverlay =
+    document.getElementById("callOverlay");
+
+const callAvatar =
+    document.getElementById("callAvatar");
+
+const callName =
+    document.getElementById("callName");
+
+const callStatus =
+    document.getElementById("callStatus");
+
+const groupCallParticipants =
+    document.getElementById("groupCallParticipants");
+
+const callPrimaryBtn =
+    document.getElementById("callPrimaryBtn");
+
+const callSecondaryBtn =
+    document.getElementById("callSecondaryBtn");
+
+const remoteAudio =
+    document.getElementById("remoteAudio");
+
 
 const messageInput =
     document.getElementById("messageInput");
@@ -1849,6 +2026,8 @@ async function initializeUser() {
 
     setupGroupRealtime();
 
+    setupCallSignaling();
+
 }
 
 
@@ -1875,6 +2054,17 @@ async function logout() {
             );
 
     }
+
+    if (callChannel) {
+
+        await supabaseClient
+            .removeChannel(callChannel);
+
+        callChannel = null;
+
+    }
+
+    await hangUpCall(false);
 
     await supabaseClient.auth.signOut();
 
@@ -2377,6 +2567,9 @@ async function openChat(user) {
     sendBtn.disabled =
         false;
 
+    callBtn.disabled = false;
+    callBtn.title = "Voice call";
+
     await loadMessages();
 
     messageInput.focus();
@@ -2419,6 +2612,9 @@ async function openGroup(group) {
 
     sendBtn.disabled =
         false;
+
+    callBtn.disabled = false;
+    callBtn.title = "Start group voice call";
 
     await loadGroupMessages();
 
@@ -2769,6 +2965,985 @@ async function sendMessage() {
 
 }
 
+
+/* =========================
+   VOICE CALLING
+========================= */
+
+const rtcConfiguration = {
+    iceServers: [
+        { urls: "stun:stun.l.google.com:19302" },
+        { urls: "stun:stun1.l.google.com:19302" }
+    ]
+};
+
+function showCallOverlay(name, status) {
+
+    callName.textContent = name || "Call";
+    groupCallParticipants.classList.add("hidden");
+    groupCallParticipants.textContent = "";
+
+    callAvatar.textContent =
+        (name || "?").charAt(0).toUpperCase();
+
+    callStatus.textContent = status || "";
+
+    callOverlay.classList.remove("hidden");
+
+}
+
+function hideCallOverlay() {
+
+    callOverlay.classList.add("hidden");
+
+}
+
+function setCallTimer(start) {
+
+    clearInterval(callTimer);
+    callTimer = null;
+    callSeconds = 0;
+
+    if (!start) return;
+
+    callTimer = setInterval(() => {
+
+        callSeconds++;
+
+        const minutes =
+            Math.floor(callSeconds / 60)
+                .toString()
+                .padStart(2, "0");
+
+        const seconds =
+            (callSeconds % 60)
+                .toString()
+                .padStart(2, "0");
+
+        callStatus.textContent =
+            `Connected · ${minutes}:${seconds}`;
+
+    }, 1000);
+
+}
+
+async function sendCallSignal(type, receiverId, payload = {}) {
+
+    const { error } =
+        await supabaseClient
+            .from("call_signals")
+            .insert({
+                caller_id: currentUser.id,
+                receiver_id: receiverId,
+                type,
+                payload
+            });
+
+    if (error) {
+        console.error("Call signal error:", error);
+    }
+
+}
+
+async function setupCallSignaling() {
+
+    if (callChannel) {
+        await supabaseClient.removeChannel(callChannel);
+    }
+
+    callChannel =
+        supabaseClient
+            .channel("astrochat-calls-" + currentUser.id)
+            .on(
+                "postgres_changes",
+                {
+                    event: "INSERT",
+                    schema: "public",
+                    table: "call_signals",
+                    filter: "receiver_id=eq." + currentUser.id
+                },
+                async payload => {
+
+                    const signal = payload.new;
+
+                    if (signal.caller_id === currentUser.id) {
+                        return;
+                    }
+
+                    await handleCallSignal(signal);
+
+                }
+            )
+            .subscribe();
+
+}
+
+async function handleCallSignal(signal) {
+
+    if (signal.type && signal.type.startsWith("group-")) {
+        await handleGroupCallSignal(signal);
+        return;
+    }
+
+    if (signal.type === "offer") {
+
+        // Do not interrupt an active call.
+        if (peerConnection || incomingCall) {
+            await sendCallSignal(
+                "hangup",
+                signal.caller_id
+            );
+            return;
+        }
+
+        incomingCall = signal;
+        currentCallPeer = signal.caller_id;
+        pendingIceCandidates = [];
+
+        const callerName =
+            signal.payload?.display_name ||
+            signal.payload?.username ||
+            "Someone";
+
+        showCallOverlay(
+            callerName,
+            "Incoming voice call"
+        );
+
+        callPrimaryBtn.textContent = "Answer";
+        callPrimaryBtn.className = "callActionBtn";
+        callPrimaryBtn.onclick = answerIncomingCall;
+
+        callSecondaryBtn.textContent = "Decline";
+        callSecondaryBtn.className = "callActionBtn secondary";
+        callSecondaryBtn.onclick = declineIncomingCall;
+
+        return;
+    }
+
+    if (signal.caller_id !== currentCallPeer) return;
+
+    if (signal.type === "answer") {
+
+        if (!peerConnection) return;
+
+        try {
+            await peerConnection.setRemoteDescription(
+                new RTCSessionDescription(signal.payload)
+            );
+
+            await flushPendingIceCandidates();
+
+            callStatus.textContent = "Connecting...";
+
+        } catch (error) {
+            console.error(error);
+            showToast("Could not connect the call.");
+            await hangUpCall();
+        }
+
+        return;
+    }
+
+    if (signal.type === "ice") {
+
+        if (!peerConnection || !signal.payload) return;
+
+        try {
+
+            const candidate =
+                new RTCIceCandidate(signal.payload);
+
+            if (peerConnection.remoteDescription) {
+                await peerConnection.addIceCandidate(candidate);
+            } else {
+                pendingIceCandidates.push(candidate);
+            }
+
+        } catch (error) {
+            console.error("ICE candidate error:", error);
+        }
+
+        return;
+    }
+
+    if (signal.type === "hangup") {
+        await hangUpCall(false);
+    }
+
+}
+
+/* =========================
+   GROUP VOICE CALLING
+========================= */
+
+function showGroupCallOverlay(status, incoming = false) {
+
+    const count = Math.max(groupCallMembers.length, 1);
+
+    callName.textContent = currentGroup?.name || "Group call";
+    callAvatar.textContent = (currentGroup?.name || "G").charAt(0).toUpperCase();
+    callStatus.textContent = status;
+
+    groupCallParticipants.textContent =
+        count === 1
+            ? "1 participant"
+            : `${count} participants`;
+
+    groupCallParticipants.classList.remove("hidden");
+    callOverlay.classList.remove("hidden");
+
+    if (incoming) {
+        callPrimaryBtn.classList.remove("hidden");
+        callSecondaryBtn.classList.remove("hidden");
+    }
+}
+
+function getGroupMemberIds() {
+    return groupCallMembers
+        .map(member => member.id || member.user_id)
+        .filter(Boolean);
+}
+
+function groupPeer(id) {
+    return groupCallPeers.get(id);
+}
+
+async function loadGroupCallMembers(groupId) {
+    const { data, error } = await supabaseClient
+        .from("group_members")
+        .select("user_id")
+        .eq("group_id", groupId);
+
+    if (error) {
+        console.error("Group call members error:", error);
+        return [];
+    }
+
+    const ids = (data || []).map(row => row.user_id).filter(id => id !== currentUser.id);
+    if (!ids.length) return [];
+
+    const { data: profiles, error: profileError } = await supabaseClient
+        .from("profiles")
+        .select("id, username, display_name")
+        .in("id", ids);
+
+    if (profileError) {
+        console.error("Group call profiles error:", profileError);
+        return [];
+    }
+
+    return profiles || [];
+}
+
+async function startGroupCall() {
+
+    if (!currentUser || !currentGroup || groupCallIsActive || groupCallIncoming) return;
+
+    const members = await loadGroupCallMembers(currentGroup.id);
+
+    if (!members.length) {
+        showToast("Add another person to the group before calling.");
+        return;
+    }
+
+    const stream = await getMicrophone();
+    if (!stream) return;
+
+    groupCallId = crypto.randomUUID();
+    groupCallMembers = [
+        { id: currentUser.id, username: currentProfile?.username, display_name: currentProfile?.display_name }
+    ];
+    groupCallInvitedMembers = members;
+    groupCallIsActive = true;
+    groupCallIsInitiator = true;
+    groupCallIncoming = null;
+
+    showGroupCallOverlay("Starting group call...");
+
+    callPrimaryBtn.textContent = "End Call";
+    callPrimaryBtn.className = "callActionBtn danger";
+    callPrimaryBtn.onclick = () => hangUpGroupCall();
+    callSecondaryBtn.classList.add("hidden");
+
+    for (const member of members) {
+        await sendCallSignal("group-invite", member.id, {
+            callId: groupCallId,
+            groupId: currentGroup.id,
+            groupName: currentGroup.name,
+            memberIds: [currentUser.id, ...members.map(m => m.id)],
+            username: currentProfile?.username,
+            display_name: currentProfile?.display_name
+        });
+    }
+
+    await broadcastGroupRoster();
+}
+
+async function acceptGroupCall() {
+
+    if (!groupCallIncoming) return;
+
+    const signal = groupCallIncoming;
+    groupCallIncoming = null;
+
+    const stream = await getMicrophone();
+    if (!stream) {
+        await sendCallSignal("group-decline", signal.caller_id, {
+            callId: signal.payload.callId,
+            groupId: signal.payload.groupId
+        });
+        resetGroupCallState();
+        return;
+    }
+
+    groupCallId = signal.payload.callId;
+    groupCallInvitedMembers = (signal.payload.memberIds || [])
+        .filter(id => id && id !== currentUser.id)
+        .map(id => ({ id }));
+    groupCallMembers = [{
+        id: currentUser.id,
+        username: currentProfile?.username,
+        display_name: currentProfile?.display_name
+    }];
+    groupCallIsActive = true;
+    groupCallIsInitiator = false;
+
+    currentGroup = currentGroup || { id: signal.payload.groupId, name: signal.payload.groupName || "Group call" };
+
+    showGroupCallOverlay("Connecting to group call...");
+    callPrimaryBtn.textContent = "End Call";
+    callPrimaryBtn.className = "callActionBtn danger";
+    callPrimaryBtn.onclick = () => hangUpGroupCall();
+    callSecondaryBtn.classList.add("hidden");
+
+    await sendCallSignal("group-accept", signal.caller_id, {
+        callId: groupCallId,
+        groupId: signal.payload.groupId,
+        username: currentProfile?.username,
+        display_name: currentProfile?.display_name
+    });
+}
+
+async function declineGroupCall() {
+
+    const signal = groupCallIncoming;
+    groupCallIncoming = null;
+
+    if (signal) {
+        await sendCallSignal("group-decline", signal.caller_id, {
+            callId: signal.payload?.callId,
+            groupId: signal.payload?.groupId
+        });
+    }
+
+    hideCallOverlay();
+    callSecondaryBtn.classList.remove("hidden");
+}
+
+async function broadcastGroupRoster() {
+
+    if (!groupCallId) return;
+
+    const ids = groupCallMembers.map(member => member.id).filter(Boolean);
+
+    for (const peerId of ids) {
+        if (peerId === currentUser.id) continue;
+
+        await sendCallSignal("group-roster", peerId, {
+            callId: groupCallId,
+            groupId: currentGroup?.id,
+            memberIds: ids
+        });
+    }
+}
+
+function shouldInitiateGroupPeer(peerId) {
+    return currentUser.id < peerId;
+}
+
+async function createGroupPeerConnection(peerId, makeOffer = false) {
+
+    if (!groupCallIsActive || !peerId || peerId === currentUser.id) return null;
+
+    let pc = groupPeer(peerId);
+    if (pc) {
+        if (makeOffer && pc.signalingState === "stable") {
+            await makeGroupOffer(peerId, pc);
+        }
+        return pc;
+    }
+
+    pc = new RTCPeerConnection(rtcConfiguration);
+    groupCallPeers.set(peerId, pc);
+
+    pc.onicecandidate = async event => {
+        if (event.candidate && groupCallId) {
+            await sendCallSignal("group-ice", peerId, {
+                callId: groupCallId,
+                groupId: currentGroup?.id,
+                candidate: event.candidate.toJSON()
+            });
+        }
+    };
+
+    pc.ontrack = event => {
+        if (!event.streams?.[0]) return;
+
+        let audio = groupCallRemoteAudios.get(peerId);
+        if (!audio) {
+            audio = document.createElement("audio");
+            audio.autoplay = true;
+            audio.playsInline = true;
+            audio.dataset.peerId = peerId;
+            document.body.appendChild(audio);
+            groupCallRemoteAudios.set(peerId, audio);
+        }
+
+        audio.srcObject = event.streams[0];
+        audio.play().catch(() => {});
+    };
+
+    pc.onconnectionstatechange = () => {
+        if (!groupCallIsActive) return;
+        const state = pc.connectionState;
+        if (state === "failed" || state === "closed") {
+            removeGroupPeer(peerId);
+        }
+    };
+
+    if (localStream) {
+        localStream.getTracks().forEach(track => {
+            pc.addTrack(track, localStream);
+        });
+    }
+
+    if (makeOffer) {
+        await makeGroupOffer(peerId, pc);
+    }
+
+    return pc;
+}
+
+async function makeGroupOffer(peerId, pc) {
+
+    if (!groupCallId || !pc || pc.signalingState !== "stable") return;
+
+    const offer = await pc.createOffer();
+    await pc.setLocalDescription(offer);
+
+    await sendCallSignal("group-offer", peerId, {
+        callId: groupCallId,
+        groupId: currentGroup?.id,
+        type: offer.type,
+        sdp: offer.sdp
+    });
+}
+
+async function handleGroupOffer(signal) {
+
+    const payload = signal.payload || {};
+    if (!groupCallIsActive || payload.callId !== groupCallId) return;
+
+    const pc = await createGroupPeerConnection(signal.caller_id, false);
+    if (!pc) return;
+
+    await pc.setRemoteDescription(new RTCSessionDescription({
+        type: payload.type,
+        sdp: payload.sdp
+    }));
+
+    const answer = await pc.createAnswer();
+    await pc.setLocalDescription(answer);
+
+    await sendCallSignal("group-answer", signal.caller_id, {
+        callId: groupCallId,
+        groupId: currentGroup?.id,
+        type: answer.type,
+        sdp: answer.sdp
+    });
+}
+
+async function handleGroupRoster(signal) {
+
+    const payload = signal.payload || {};
+    if (!groupCallIsActive || payload.callId !== groupCallId) return;
+
+    const ids = [...new Set(payload.memberIds || [])].filter(id => id !== currentUser.id);
+    groupCallMembers = ids.map(id => ({ id }));
+    groupCallMembers.push({
+        id: currentUser.id,
+        username: currentProfile?.username,
+        display_name: currentProfile?.display_name
+    });
+
+    groupCallParticipants.textContent = `${groupCallMembers.length} participants`;
+
+    for (const peerId of ids) {
+        await createGroupPeerConnection(
+            peerId,
+            shouldInitiateGroupPeer(peerId)
+        );
+    }
+}
+
+async function handleGroupCallSignal(signal) {
+
+    const payload = signal.payload || {};
+
+    if (signal.type === "group-invite") {
+
+        if (groupCallIsActive || groupCallIncoming) {
+            await sendCallSignal("group-decline", signal.caller_id, {
+                callId: payload.callId,
+                groupId: payload.groupId
+            });
+            return;
+        }
+
+        groupCallIncoming = signal;
+        groupCallId = payload.callId;
+        groupCallMembers = (payload.memberIds || []).map(id => ({ id }));
+
+        callName.textContent = payload.groupName || "Group call";
+        callAvatar.textContent = (payload.groupName || "G").charAt(0).toUpperCase();
+        callStatus.textContent = "Incoming group voice call";
+        groupCallParticipants.textContent = `${groupCallMembers.length} participants`;
+        groupCallParticipants.classList.remove("hidden");
+        callOverlay.classList.remove("hidden");
+
+        callPrimaryBtn.textContent = "Join Call";
+        callPrimaryBtn.className = "callActionBtn";
+        callPrimaryBtn.onclick = acceptGroupCall;
+
+        callSecondaryBtn.textContent = "Decline";
+        callSecondaryBtn.className = "callActionBtn secondary";
+        callSecondaryBtn.classList.remove("hidden");
+        callSecondaryBtn.onclick = declineGroupCall;
+        return;
+    }
+
+    if (!groupCallIsActive || payload.callId !== groupCallId) return;
+
+    if (signal.type === "group-accept") {
+        const id = signal.caller_id;
+        if (!groupCallMembers.some(member => member.id === id)) {
+            groupCallMembers.push({
+                id,
+                username: payload.username,
+                display_name: payload.display_name
+            });
+        }
+
+        groupCallParticipants.textContent = `${groupCallMembers.length} participants`;
+        await broadcastGroupRoster();
+        await createGroupPeerConnection(id, shouldInitiateGroupPeer(id));
+        return;
+    }
+
+    if (signal.type === "group-roster") {
+        await handleGroupRoster(signal);
+        return;
+    }
+
+    if (signal.type === "group-offer") {
+        await handleGroupOffer(signal);
+        return;
+    }
+
+    if (signal.type === "group-answer") {
+        const pc = groupPeer(signal.caller_id);
+        if (!pc) return;
+
+        await pc.setRemoteDescription(new RTCSessionDescription({
+            type: payload.type,
+            sdp: payload.sdp
+        }));
+        return;
+    }
+
+    if (signal.type === "group-ice") {
+        const pc = groupPeer(signal.caller_id);
+        if (!pc || !payload.candidate) return;
+
+        try {
+            await pc.addIceCandidate(new RTCIceCandidate(payload.candidate));
+        } catch (error) {
+            console.error("Group ICE error:", error);
+        }
+        return;
+    }
+
+    if (signal.type === "group-decline") {
+        groupCallMembers = groupCallMembers.filter(member => member.id !== signal.caller_id);
+        groupCallParticipants.textContent = `${Math.max(groupCallMembers.length, 1)} participants`;
+        return;
+    }
+
+    if (signal.type === "group-hangup") {
+        await hangUpGroupCall(false);
+    }
+}
+
+function removeGroupPeer(peerId) {
+    const pc = groupCallPeers.get(peerId);
+    if (pc) {
+        pc.ontrack = null;
+        pc.onicecandidate = null;
+        pc.close();
+    }
+    groupCallPeers.delete(peerId);
+
+    const audio = groupCallRemoteAudios.get(peerId);
+    if (audio) {
+        audio.srcObject = null;
+        audio.remove();
+    }
+    groupCallRemoteAudios.delete(peerId);
+}
+
+async function hangUpGroupCall(sendSignal = true) {
+
+    const callId = groupCallId;
+    const peers = [...groupCallPeers.keys()];
+
+    if (sendSignal && callId) {
+        const ids = [...new Set(groupCallMembers.map(member => member.id))]
+            .filter(id => id && id !== currentUser.id);
+
+        for (const peerId of ids) {
+            await sendCallSignal("group-hangup", peerId, {
+                callId,
+                groupId: currentGroup?.id
+            });
+        }
+    }
+
+    peers.forEach(removeGroupPeer);
+    groupCallPeers.clear();
+
+    for (const audio of groupCallRemoteAudios.values()) {
+        audio.srcObject = null;
+        audio.remove();
+    }
+    groupCallRemoteAudios.clear();
+
+    groupCallId = null;
+    groupCallMembers = [];
+    groupCallInvitedMembers = [];
+    groupCallIncoming = null;
+    groupCallIsActive = false;
+    groupCallIsInitiator = false;
+
+    if (localStream && !peerConnection) {
+        localStream.getTracks().forEach(track => track.stop());
+        localStream = null;
+    }
+
+    hideCallOverlay();
+    callSecondaryBtn.classList.remove("hidden");
+}
+
+function resetGroupCallState() {
+    groupCallId = null;
+    groupCallMembers = [];
+    groupCallInvitedMembers = [];
+    groupCallIncoming = null;
+    groupCallIsActive = false;
+    groupCallIsInitiator = false;
+}
+
+async function createPeerConnection(peerId) {
+
+    peerConnection =
+        new RTCPeerConnection(rtcConfiguration);
+
+    currentCallPeer = peerId;
+
+    peerConnection.onicecandidate = async event => {
+
+        if (event.candidate && currentCallPeer) {
+
+            await sendCallSignal(
+                "ice",
+                currentCallPeer,
+                event.candidate.toJSON()
+            );
+
+        }
+
+    };
+
+    peerConnection.ontrack = event => {
+
+        if (event.streams && event.streams[0]) {
+            remoteAudio.srcObject = event.streams[0];
+            remoteAudio.play().catch(() => {});
+        }
+
+    };
+
+    peerConnection.onconnectionstatechange = () => {
+
+        const state =
+            peerConnection?.connectionState;
+
+        if (state === "connected") {
+            setCallTimer(true);
+            callStatus.textContent = "Connected · 00:00";
+        }
+
+        if (
+            state === "failed" ||
+            state === "disconnected" ||
+            state === "closed"
+        ) {
+            hangUpCall(false);
+        }
+
+    };
+
+    if (localStream && !groupCallIsActive) {
+        localStream
+            .getTracks()
+            .forEach(track => {
+                peerConnection.addTrack(
+                    track,
+                    localStream
+                );
+            });
+    }
+
+}
+
+async function getMicrophone() {
+
+    if (localStream) return localStream;
+
+    try {
+
+        localStream =
+            await navigator.mediaDevices.getUserMedia({
+                audio: true,
+                video: false
+            });
+
+        return localStream;
+
+    } catch (error) {
+
+        console.error(error);
+
+        showToast(
+            "Microphone permission is required for calls."
+        );
+
+        return null;
+
+    }
+
+}
+
+async function startCall() {
+
+    if (currentGroup) {
+        await startGroupCall();
+        return;
+    }
+
+    if (!currentUser || !currentChatUser) {
+        return;
+    }
+
+    if (peerConnection || incomingCall) {
+        return;
+    }
+
+    const stream = await getMicrophone();
+
+    if (!stream) return;
+
+    currentCallPeer = currentChatUser.id;
+    pendingIceCandidates = [];
+
+    showCallOverlay(
+        currentChatUser.display_name ||
+        currentChatUser.username,
+        "Calling..."
+    );
+
+    callPrimaryBtn.textContent = "Hang Up";
+    callPrimaryBtn.className = "callActionBtn danger";
+    callPrimaryBtn.onclick = () => hangUpCall();
+
+    callSecondaryBtn.classList.add("hidden");
+
+    try {
+
+        await createPeerConnection(
+            currentChatUser.id
+        );
+
+        const offer =
+            await peerConnection.createOffer();
+
+        await peerConnection.setLocalDescription(
+            offer
+        );
+
+        await sendCallSignal(
+            "offer",
+            currentChatUser.id,
+            {
+                type: offer.type,
+                sdp: offer.sdp,
+                username: currentProfile?.username,
+                display_name: currentProfile?.display_name
+            }
+        );
+
+    } catch (error) {
+
+        console.error(error);
+        showToast("Could not start the call.");
+        await hangUpCall();
+
+    }
+
+}
+
+async function answerIncomingCall() {
+
+    if (!incomingCall) return;
+
+    const signal = incomingCall;
+    incomingCall = null;
+
+    const stream = await getMicrophone();
+
+    if (!stream) {
+        await hangUpCall();
+        return;
+    }
+
+    pendingIceCandidates = [];
+
+    callPrimaryBtn.textContent = "Hang Up";
+    callPrimaryBtn.className = "callActionBtn danger";
+    callPrimaryBtn.onclick = () => hangUpCall();
+
+    callSecondaryBtn.classList.add("hidden");
+
+    callStatus.textContent = "Connecting...";
+
+    try {
+
+        await createPeerConnection(signal.caller_id);
+
+        await peerConnection.setRemoteDescription(
+            new RTCSessionDescription(signal.payload)
+        );
+
+        await flushPendingIceCandidates();
+
+        const answer =
+            await peerConnection.createAnswer();
+
+        await peerConnection.setLocalDescription(
+            answer
+        );
+
+        await sendCallSignal(
+            "answer",
+            signal.caller_id,
+            {
+                type: answer.type,
+                sdp: answer.sdp
+            }
+        );
+
+    } catch (error) {
+
+        console.error(error);
+        showToast("Could not answer the call.");
+        await hangUpCall();
+
+    }
+
+}
+
+async function flushPendingIceCandidates() {
+
+    if (!peerConnection?.remoteDescription) return;
+
+    const candidates = pendingIceCandidates;
+    pendingIceCandidates = [];
+
+    for (const candidate of candidates) {
+
+        try {
+            await peerConnection.addIceCandidate(candidate);
+        } catch (error) {
+            console.error("ICE flush error:", error);
+        }
+
+    }
+
+}
+
+async function declineIncomingCall() {
+
+    if (incomingCall?.caller_id) {
+        await sendCallSignal(
+            "hangup",
+            incomingCall.caller_id
+        );
+    }
+
+    incomingCall = null;
+    currentCallPeer = null;
+    hideCallOverlay();
+
+    callSecondaryBtn.classList.remove("hidden");
+
+}
+
+async function hangUpCall(sendSignal = true) {
+
+    const peerId = currentCallPeer;
+
+    if (sendSignal && peerId) {
+        await sendCallSignal("hangup", peerId);
+    }
+
+    clearInterval(callTimer);
+    callTimer = null;
+    callSeconds = 0;
+
+    if (peerConnection) {
+        peerConnection.ontrack = null;
+        peerConnection.onicecandidate = null;
+        peerConnection.close();
+        peerConnection = null;
+    }
+
+    if (localStream) {
+        localStream
+            .getTracks()
+            .forEach(track => track.stop());
+        localStream = null;
+    }
+
+    remoteAudio.srcObject = null;
+
+    incomingCall = null;
+    currentCallPeer = null;
+    pendingIceCandidates = [];
+
+    callSecondaryBtn.classList.remove("hidden");
+    hideCallOverlay();
+
+}
 
 /* =========================
    REALTIME DIRECT
@@ -3273,29 +4448,19 @@ async function createGroup() {
         ).values()
     ];
 
-    // Get the real Supabase session right before creating the group.
-    // This prevents an old/stale currentUser value from being used.
-    const {
-        data: { session },
-        error: sessionError
-    } = await supabaseClient.auth.getSession();
-
-    if (sessionError || !session?.user) {
-        showToast("You are not logged in. Please log in again.");
-        return;
-    }
-
-    currentUser = session.user;
-
-    // Use the secure database function so group creation works even when
-    // the groups table itself has strict RLS policies.
     const {
         data: group,
         error: groupError
-    } = await supabaseClient.rpc("create_group", {
-        p_name: name,
-        p_member_ids: uniqueMembers.map(user => user.id)
-    });
+    } =
+        await supabaseClient
+            .from("groups")
+            .insert({
+                name,
+                created_by:
+                    currentUser.id
+            })
+            .select()
+            .single();
 
     if (groupError) {
 
@@ -3310,7 +4475,51 @@ async function createGroup() {
     }
 
 
-    // The create_group RPC already adds the creator and selected members.
+    const members = [
+
+        {
+            group_id:
+                group.id,
+
+            user_id:
+                currentUser.id
+        },
+
+        ...uniqueMembers.map(
+            user => ({
+                group_id:
+                    group.id,
+
+                user_id:
+                    user.id
+            })
+        )
+
+    ];
+
+
+    const {
+        error: memberError
+    } =
+        await supabaseClient
+            .from("group_members")
+            .insert(
+                members
+            );
+
+    if (memberError) {
+
+        console.error(
+            memberError
+        );
+
+        showToast(
+            "Group members could not be added."
+        );
+
+        return;
+
+    }
 
 
     closeCreateGroup();
@@ -3393,7 +4602,7 @@ async function testNotification() {
             await navigator.serviceWorker.ready;
 
         await registration.showNotification(
-            "Meetup",
+            "AstroChat",
             {
                 body:
                     "Desktop notifications are working!",
