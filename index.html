@@ -627,6 +627,73 @@ button {
 
 
 /* =========================
+   MEETTALK GROUP CARD
+========================= */
+
+.meetTalkCard {
+    margin: 14px 18px 0;
+    padding: 14px 16px;
+    border: 1px solid var(--border);
+    background: var(--panel);
+    border-radius: 16px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    box-shadow: 0 8px 30px rgba(0,0,0,.16);
+}
+
+.meetTalkIcon {
+    width: 40px;
+    height: 40px;
+    border-radius: 12px;
+    background: linear-gradient(135deg, var(--accent), var(--accent2));
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 800;
+    font-size: 17px;
+    flex-shrink: 0;
+}
+
+.meetTalkInfo {
+    min-width: 0;
+    flex: 1;
+}
+
+.meetTalkTitle {
+    font-weight: 800;
+    font-size: 14px;
+}
+
+.meetTalkStatus {
+    color: var(--muted);
+    font-size: 11px;
+    margin-top: 3px;
+}
+
+.meetTalkJoin {
+    border: 0;
+    border-radius: 10px;
+    padding: 9px 15px;
+    background: var(--accent);
+    color: white;
+    font-weight: 700;
+    cursor: pointer;
+    transition: transform .15s ease, opacity .15s ease;
+}
+
+.meetTalkJoin:hover {
+    transform: translateY(-1px);
+}
+
+.meetTalkJoin:disabled {
+    opacity: .5;
+    cursor: not-allowed;
+    transform: none;
+}
+
+/* =========================
    CALLING
 ========================= */
 
@@ -1287,6 +1354,17 @@ button {
         </div>
 
 
+        <div id="meetTalkCard" class="meetTalkCard hidden">
+            <div class="meetTalkIcon">M</div>
+            <div class="meetTalkInfo">
+                <div class="meetTalkTitle">MeetTalk</div>
+                <div id="meetTalkStatus" class="meetTalkStatus">Voice chat for this group</div>
+            </div>
+            <button id="meetTalkJoinBtn" class="meetTalkJoin" onclick="joinMeetTalk()">
+                Join
+            </button>
+        </div>
+
         <div
             id="messages"
             class="messages"
@@ -1712,6 +1790,15 @@ const chatTitleHandle =
 
 const chatAvatar =
     document.getElementById("chatAvatar");
+
+const meetTalkCard =
+    document.getElementById("meetTalkCard");
+
+const meetTalkStatus =
+    document.getElementById("meetTalkStatus");
+
+const meetTalkJoinBtn =
+    document.getElementById("meetTalkJoinBtn");
 
 
 /* =========================
@@ -2570,6 +2657,8 @@ async function openChat(user) {
     callBtn.disabled = false;
     callBtn.title = "Voice call";
 
+    meetTalkCard.classList.add("hidden");
+
     await loadMessages();
 
     messageInput.focus();
@@ -2615,6 +2704,9 @@ async function openGroup(group) {
 
     callBtn.disabled = false;
     callBtn.title = "Start group voice call";
+
+    meetTalkCard.classList.remove("hidden");
+    updateMeetTalkCard();
 
     await loadGroupMessages();
 
@@ -3236,6 +3328,56 @@ async function loadGroupCallMembers(groupId) {
     return profiles || [];
 }
 
+function updateMeetTalkCard() {
+    if (!meetTalkCard || !currentGroup) return;
+
+    meetTalkCard.classList.remove("hidden");
+
+    if (groupCallIsActive && groupCallId) {
+        const count = Math.max(groupCallMembers.length, 1);
+        meetTalkStatus.textContent =
+            count === 1
+                ? "1 person is in the voice chat"
+                : `${count} people are in the voice chat`;
+        meetTalkJoinBtn.textContent = "Open";
+        meetTalkJoinBtn.disabled = false;
+        return;
+    }
+
+    if (groupCallIncoming) {
+        meetTalkStatus.textContent = "A MeetTalk call is waiting for you";
+        meetTalkJoinBtn.textContent = "Join";
+        meetTalkJoinBtn.disabled = false;
+        return;
+    }
+
+    meetTalkStatus.textContent = "Voice chat for this group";
+    meetTalkJoinBtn.textContent = "Join";
+    meetTalkJoinBtn.disabled = false;
+}
+
+async function joinMeetTalk() {
+    if (!currentGroup) return;
+
+    if (groupCallIncoming) {
+        await acceptGroupCall();
+        return;
+    }
+
+    if (groupCallIsActive) {
+        showGroupCallOverlay(
+            `${Math.max(groupCallMembers.length, 1)} participants`
+        );
+        callPrimaryBtn.textContent = "Leave Call";
+        callPrimaryBtn.className = "callActionBtn danger";
+        callPrimaryBtn.onclick = () => hangUpGroupCall();
+        callSecondaryBtn.classList.add("hidden");
+        return;
+    }
+
+    await startGroupCall();
+}
+
 async function startGroupCall() {
 
     if (!currentUser || !currentGroup || groupCallIsActive || groupCallIncoming) return;
@@ -3260,6 +3402,7 @@ async function startGroupCall() {
     groupCallIncoming = null;
 
     showGroupCallOverlay("Starting group call...");
+    updateMeetTalkCard();
 
     callPrimaryBtn.textContent = "End Call";
     callPrimaryBtn.className = "callActionBtn danger";
@@ -3301,15 +3444,23 @@ async function acceptGroupCall() {
     groupCallInvitedMembers = (signal.payload.memberIds || [])
         .filter(id => id && id !== currentUser.id)
         .map(id => ({ id }));
-    groupCallMembers = [{
-        id: currentUser.id,
-        username: currentProfile?.username,
-        display_name: currentProfile?.display_name
-    }];
+    // The caller is already in the call. Add both the caller and
+    // ourselves immediately so the participant count is accurate
+    // even before the roster signal arrives.
+    groupCallMembers = [
+        { id: signal.caller_id },
+        {
+            id: currentUser.id,
+            username: currentProfile?.username,
+            display_name: currentProfile?.display_name
+        }
+    ];
     groupCallIsActive = true;
     groupCallIsInitiator = false;
+    updateMeetTalkCard();
 
     currentGroup = currentGroup || { id: signal.payload.groupId, name: signal.payload.groupName || "Group call" };
+    updateMeetTalkCard();
 
     showGroupCallOverlay("Connecting to group call...");
     callPrimaryBtn.textContent = "End Call";
@@ -3321,8 +3472,17 @@ async function acceptGroupCall() {
         callId: groupCallId,
         groupId: signal.payload.groupId,
         username: currentProfile?.username,
-        display_name: currentProfile?.display_name
+        display_name: currentProfile?.display_name,
+        memberIds: [signal.caller_id, currentUser.id]
     });
+
+    // Start the peer connection with the caller immediately. This also
+    // makes the participant count reflect the two people actually in
+    // the call instead of waiting for the roster broadcast.
+    await createGroupPeerConnection(
+        signal.caller_id,
+        shouldInitiateGroupPeer(signal.caller_id)
+    );
 }
 
 async function declineGroupCall() {
@@ -3478,6 +3638,7 @@ async function handleGroupRoster(signal) {
     });
 
     groupCallParticipants.textContent = `${groupCallMembers.length} participants`;
+    updateMeetTalkCard();
 
     for (const peerId of ids) {
         await createGroupPeerConnection(
@@ -3520,6 +3681,7 @@ async function handleGroupCallSignal(signal) {
         callSecondaryBtn.className = "callActionBtn secondary";
         callSecondaryBtn.classList.remove("hidden");
         callSecondaryBtn.onclick = declineGroupCall;
+        updateMeetTalkCard();
         return;
     }
 
@@ -3535,7 +3697,13 @@ async function handleGroupCallSignal(signal) {
             });
         }
 
+        // Keep the roster unique and make the count update immediately.
+        groupCallMembers = [
+            ...new Map(groupCallMembers.map(member => [member.id, member])).values()
+        ];
         groupCallParticipants.textContent = `${groupCallMembers.length} participants`;
+        updateMeetTalkCard();
+
         await broadcastGroupRoster();
         await createGroupPeerConnection(id, shouldInitiateGroupPeer(id));
         return;
@@ -3650,8 +3818,10 @@ function resetGroupCallState() {
     groupCallInvitedMembers = [];
     groupCallIncoming = null;
     groupCallIsActive = false;
-    groupCallIsInitiator = false;
+    groupCallIsInitiator = false;    updateMeetTalkCard();
+
 }
+
 
 async function createPeerConnection(peerId) {
 
