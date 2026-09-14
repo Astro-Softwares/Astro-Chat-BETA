@@ -7,6 +7,9 @@
 
 <title>Meetup</title>
 
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
 <link rel="icon" type="image/png" href="./icon.png?v=2">
 <link rel="shortcut icon" type="image/png" href="./icon.png?v=2">
 
@@ -14,10 +17,11 @@
 
 <style>
 
-@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap');
+
 
 * {
     box-sizing: border-box;
+    font-family: "Montserrat", sans-serif;
 }
 
 :root {
@@ -116,9 +120,12 @@ button {
     font-weight: 700;
 }
 
-.logo span {
-    color: #ffd84d;
-    color: var(--accent);
+.brandMeet {
+    color: #ffd84d !important;
+}
+
+.brandUp {
+    color: #55e878 !important;
 }
 
 .authSubtitle {
@@ -229,9 +236,8 @@ button {
     font-weight: 700;
 }
 
-.appName span {
+.appName, .appName span {
     color: #ffd84d;
-    color: var(--accent);
 }
 
 .usernameLabel {
@@ -976,7 +982,7 @@ button {
     <div class="authBox">
 
         <div class="logo">
-            Meet<span class="yellow">up</span>
+             <span class="brandMeet">Meet</span><span class="brandUp">up</span>
         </div>
 
         <div class="authSubtitle">
@@ -1086,7 +1092,7 @@ button {
                 <div>
 
                     <div class="appName">
-                        Meet<span class="yellow">up</span>
+                         <span class="brandMeet">Meet</span><span class="brandUp">up</span>
                     </div>
 
                     <div
